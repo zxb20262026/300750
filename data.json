@@ -1,6 +1,6 @@
 {
   "date": "2026-05-25",
-  "datetime": "2026-05-25 22:51:14",
+  "datetime": "2026-05-25 23:10:54",
   "mode": "晚报 🌙",
   "catl_a": {
     "name": "宁德时代",
@@ -20,7 +20,7 @@
     "change_pct": -1.54
   },
   "catl_pe": {
-    "pe_ttm": 72.5184
+    "pe_ttm": 23.6
   },
   "catl_fund": null,
   "catl_kline": [
@@ -623,7 +623,7 @@
     }
   },
   "sectors": {
-    "新能源车": {
+    "电池(新能源车)": {
       "price": 4116.871,
       "change_pct": -0.92
     },
@@ -643,6 +643,12 @@
         "date": "2026-05-25",
         "source": "证券时报网",
         "url": "http://finance.eastmoney.com/a/202605253748398718.html"
+      },
+      {
+        "title": "赛力斯子公司获66.7亿元增资！宁德时代等参与战投",
+        "date": "2026-05-25",
+        "source": "大河财立方",
+        "url": "http://finance.eastmoney.com/a/202605253748537890.html"
       },
       {
         "title": "电力设备行业资金流出榜：宁德时代等39股净流出资金超亿元",
@@ -691,12 +697,6 @@
         "date": "2026-05-19",
         "source": "证券时报网",
         "url": "http://finance.eastmoney.com/a/202605193741883321.html"
-      },
-      {
-        "title": "纳百川：公司是宁德时代的战略合作供应商",
-        "date": "2026-05-19",
-        "source": "证券日报",
-        "url": "http://finance.eastmoney.com/a/202605193742276361.html"
       }
     ],
     "固态电池": [
@@ -953,11 +953,11 @@
     "total_stocks": 213
   },
   "ah_premium": -34.98,
-  "peg": 1.81,
+  "peg": 0.59,
   "peg_signal": {
-    "text": "偏高区间 ⚠️",
-    "color": "#f85149",
-    "level": "sell"
+    "text": "低估区间 ✅",
+    "color": "#3fb950",
+    "level": "buy"
   },
   "upstream_avg_change": -3.64,
   "competitor_avg_change": -0.52,
@@ -996,21 +996,22 @@
       "text": "A股折价港股35% 再创新低"
     },
     "peg": {
-      "value": 1.81,
-      "target_price": 222.22,
-      "distance_pct": -44.84,
-      "signal": "sell",
-      "text": "PEG=1.81 偏高 距买点差-44.8%"
+      "value": 0.59,
+      "target_price": 682.85,
+      "distance_pct": 69.49,
+      "signal": "buy",
+      "text": "PEG=0.59 < 1.0 买入区间"
     },
     "target_prices": {
-      "low": 222.0,
-      "mid": 186.0,
-      "high": 150.0
+      "buy": 683.0,
+      "low": 427.0,
+      "mid": 444.0,
+      "high": 461.0
     },
     "pe": {
-      "value": 72.5184,
-      "level": "高",
-      "text": "PE=72.5x 高"
+      "value": 23.6,
+      "level": "偏低",
+      "text": "PE=23.6x 偏低"
     },
     "fund": {
       "text": "数据暂缺",
@@ -1042,9 +1043,9 @@
       "text": "成交额155亿 放量明显"
     },
     "industry": {
-      "name": "新能源车",
+      "name": "电池(新能源车)",
       "change_pct": -0.92,
-      "text": "新能源车 -0.9%"
+      "text": "电池(新能源车) -0.9%"
     },
     "cost": {
       "cost_price": 350,
@@ -1052,7 +1053,7 @@
       "change_pct": 15.11,
       "text": "成本¥350 浮盈15.1%"
     },
-    "core_summary": "PEG 1.81 偏高 · 碳酸锂18.79万/吨 成本压力 · AH溢价-35.0% 折价 · 逆势下跌 分化延续",
+    "core_summary": "PEG 0.59 买入区间 · 碳酸锂18.79万/吨 成本压力 · AH溢价-35.0% 折价 · 逆势下跌 分化延续",
     "vs_industry": "弱于行业1.1%"
   }
 }
