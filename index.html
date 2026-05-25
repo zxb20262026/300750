@@ -90,6 +90,23 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .footer{text-align:center;padding:20px 0 40px;color:#484f58;font-size:0.72em;line-height:1.8}
 .footer a{color:#58a6ff;text-decoration:none}
 
+/* ── 估值模块 ── */
+.val-section{margin-bottom:16px}
+.val-section h3{font-size:0.82em;color:#58a6ff;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1e2d45}
+.val-table{width:100%;border-collapse:collapse;font-size:0.78em;margin-bottom:12px}
+.val-table th,.val-table td{padding:5px 8px;text-align:center;border-bottom:1px solid #1e2d45}
+.val-table th{color:#8b949e;font-weight:500}
+.val-table td:first-child{text-align:left;font-weight:500}
+.band-bar{height:8px;border-radius:4px;background:#1e2d45;margin:10px 0;position:relative;overflow:visible}
+.band-seg{height:100%;position:absolute;top:0}
+.band-marker{position:absolute;top:-4px;width:12px;height:16px;border-radius:3px;transform:translateX(-50%);z-index:2}
+.band-labels{display:flex;justify-content:space-between;font-size:0.65em;color:#484f58;margin-top:4px}
+.inst-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.inst-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px;text-align:center}
+.inst-card .val{font-size:1.4em;font-weight:700}
+.inst-card .lbl{font-size:0.7em;color:#8b949e;margin-top:2px}
+.inst-card .note{font-size:0.68em;color:#6e7681;margin-top:4px}
+
 @media(max-width:600px){
   body{padding:10px}
   .header{padding:20px 14px}
@@ -134,6 +151,50 @@ tr:hover{background:rgba(88,166,255,0.03)}
   <div class="trade-section"><h3>🎯 目标价</h3><p>买入价(PEG=1): ¥683 · 目标区间: ¥427-461 (基于PE 25-27x)</p><p>止损位: ¥375 (有效跌破视为逻辑破坏)</p><p>风险收益比: 约 1.5:1 (潜在涨幅+10.2% vs 潜在跌幅-6.9%)</p></div>
 </div>
   <div class="module">
+  <div class="module-hdr"><span class="icon">📊</span><h2>估值判断</h2></div>
+
+  <!-- 子板块1: 估值水位 -->
+  <div class="val-section">
+    <h3>📏 估值水位</h3>
+    <table class="val-table">
+      <tr><th>指标</th><th>当前值</th><th>近5年分位</th><th>判断</th></tr>
+      <tr><td>PE(TTM)</td><td style="color:#3fb950;font-weight:600">23.6</td><td>~20%</td><td style="color:#3fb950">偏低估</td></tr><tr><td>PB</td><td style="color:#3fb950;font-weight:600">5.7</td><td>~15%</td><td style="color:#3fb950">偏低估</td></tr><tr><td>PS(TTM)</td><td style="color:#8b949e;font-weight:600">4.7</td><td>—</td><td style="color:#8b949e">中性</td></tr><tr><td>PEG(40%增速)</td><td style="color:#3fb950;font-weight:600">0.6</td><td>—</td><td style="color:#3fb950">显著低估</td></tr><tr><td>PEG(25%保守)</td><td style="color:#3fb950;font-weight:600">0.9</td><td>—</td><td style="color:#3fb950">低估</td></tr>
+    </table>
+  </div>
+
+  <!-- 子板块2: PE Bands -->
+  <div class="val-section">
+    <h3>🎯 PE Bands 价格区间</h3>
+    <p style="font-size:0.78em;color:#c9d1d9;margin-bottom:8px">当前¥403 处于<span class="hl-yellow">合理区</span>，PE=23.6x</p>
+    <div class="band-bar"><div class="band-seg" style="left:0.0%;width:16.666666666666668%;background:#3fb950;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:16.666666666666668%;width:16.666666666666668%;background:#58a6ff;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:33.333333333333336%;width:16.666666666666668%;background:#8b949e;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:50.0%;width:16.666666666666668%;background:#d29922;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:66.66666666666667%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:83.33333333333334%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-marker" style="left:58.333333333333336%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.5)"></div></div>
+    <div class="band-labels"><span>清仓</span><span>止损</span><span>保守</span><span>合理</span><span>偏高</span><span>泡沫</span></div>
+    <table class="val-table" style="margin-top:8px">
+      <tr><th>情景</th><th>PE</th><th>基准EPS</th><th>目标价</th></tr>
+      <tr><td style="color:#3fb950">清仓区</td><td>15x</td><td>17.07</td><td style="color:#3fb950;font-weight:600">¥256</td></tr><tr><td style="color:#58a6ff">止损区</td><td>18x</td><td>17.07</td><td style="color:#58a6ff;font-weight:600">¥307</td></tr><tr><td style="color:#8b949e">保守区</td><td>21x</td><td>17.07</td><td style="color:#8b949e;font-weight:600">¥358</td></tr><tr><td style="color:#d29922">合理区</td><td>25x</td><td>17.07</td><td style="color:#d29922;font-weight:600">¥427</td></tr><tr><td style="color:#f85149">偏高区</td><td>30x</td><td>17.07</td><td style="color:#f85149;font-weight:600">¥512</td></tr><tr><td style="color:#f85149">泡沫区</td><td>35x</td><td>17.07</td><td style="color:#f85149;font-weight:600">¥597</td></tr>
+    </table>
+  </div>
+
+  <!-- 子板块3: 同行估值对比 -->
+  <div class="val-section">
+    <h3>⚖️ 同行估值对比</h3>
+    <table class="val-table">
+      <tr><th>公司</th><th>PE(TTM)</th><th>ROE</th><th>PEG</th><th>估值性价比</th></tr>
+      <tr style="font-weight:700;color:#58a6ff"><td>宁德时代</td><td style="color:#3fb950">23.6x</td><td>22.1%</td><td>0.94</td><td style="color:#d29922">合理</td></tr><tr ><td>比亚迪</td><td style="color:#e6edf3">31.8x</td><td>11.0%</td><td>1.27</td><td style="color:#f85149">偏高</td></tr><tr ><td>亿纬锂能</td><td style="color:#e6edf3">30.7x</td><td>10.2%</td><td>1.23</td><td style="color:#f85149">偏高</td></tr><tr ><td>国轩高科</td><td style="color:#e6edf3">27.2x</td><td>8.0%</td><td>1.09</td><td style="color:#d29922">合理</td></tr><tr ><td>欣旺达</td><td style="color:#f85149">56.4x</td><td>3.2%</td><td>2.26</td><td style="color:#f85149">高估</td></tr><tr ><td>孚能科技</td><td style="color:#3fb950">-23.5x</td><td>-8.0%</td><td>—</td><td style="color:#f85149">—</td></tr>
+    </table>
+  </div>
+
+  <!-- 子板块4: 分红与机构定价 -->
+  <div class="val-section">
+    <h3>🏦 分红与机构定价</h3>
+    <div class="inst-cards">
+      <div class="inst-card"><div class="lbl">2025分红率</div><div class="val" style="color:#58a6ff">1.2%</div><div class="note">占净利润</div></div>
+      <div class="inst-card"><div class="lbl">股息率</div><div class="val" style="color:#3fb950">0.38%</div><div class="note">当前价位</div></div>
+      <div class="inst-card"><div class="lbl">机构评级</div><div class="val" style="color:#3fb950">9买入+2增持</div><div class="note">0中性/卖出</div></div>
+      <div class="inst-card"><div class="lbl">机构目标均价</div><div class="val" style="color:#d29922">¥520</div><div class="note">距当前+29.1%上行空间</div></div>
+    </div>
+  </div>
+</div>
+  <div class="module">
   <div class="module-hdr"><span class="icon">⛏️</span><h2>上游原材料雷达</h2><span class="status" style="background:rgba(88,166,255,0.1);color:#58a6ff">平均 -3.6%</span></div>
   <div class="mat-grid"><div class="mat-card"><div class="name">碳酸锂</div><div class="price">75000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P22% · 偏低</div></div><div class="mat-card"><div class="name">氢氧化锂</div><div class="price">78000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P20% · 偏低</div></div><div class="mat-card"><div class="name">磷酸铁锂</div><div class="price">38000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P19% · 偏低</div></div><div class="mat-card"><div class="name">电解钴</div><div class="price">195000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P15% · 偏低</div></div><div class="mat-card"><div class="name">六氟磷酸锂</div><div class="price">62000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P18% · 偏低</div></div></div>
   <table style="margin-top:12px">
@@ -153,11 +214,11 @@ tr:hover{background:rgba(88,166,255,0.03)}
   <div class="module">
   <div class="module-hdr"><span class="icon">📰</span><h2>资讯中心</h2></div>
   <div style="margin-bottom:12px"><span style="color:#f85149;font-size:0.8em;font-weight:600">🔥 CATL 头条</span>
-  <ul class="news-list" style="margin-top:4px"><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748398718.html" target="_blank">赛力斯“蓝电”品牌增资66.7亿元 宁德时代等入股</a><span class="src">证券时报网</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748537890.html" target="_blank">赛力斯子公司获66.7亿元增资！宁德时代等参与战投</a><span class="src">大河财立方</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748273982.html" target="_blank">电力设备行业资金流出榜：宁德时代等39股净流出资金超亿元</a><span class="src">证券时报网</span></span></li></ul></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">固态电池</span><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748343840.html" target="_blank">德尔股份：公司目前在稳步推进固态电池研发和中试线等相关工作</a><span class="src">证券日报</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748391689.html" target="_blank">海科新源：公司在固态电池电解质等多条技术路线上已做好充分储备</a><span class="src">证券日报</span></span></li></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">储能</span><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748268338.html" target="_blank">国电南瑞：储能领域，公司拥有成熟的储能系统集成、构网型储能设备等技术与产品，已在国内外多个项目中应用</a><span class="src">每日经济新闻</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748237197.html" target="_blank">晶澳储能频换帅能否解忧</a><span class="src">国际金融报</span></span></li></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">钠离子电池</span><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253747588946.html" target="_blank">银河证券：钠离子电池行业2026年有望迎来产业奇点</a><span class="src">界面新闻</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253747582989.html" target="_blank">银河证券：钠离子电池行业2026年有望迎来产业奇点</a><span class="src">人民财讯</span></span></li></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">换电</span><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748437975.html" target="_blank">5.98万起！极狐贝塔S3携换电模式杀入10万级市场</a><span class="src">国际金融报</span></span></li><li class="news-item"><span class="news-date">2026-05-21</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605213743927854.html" target="_blank">换电产业构筑新能源补能新生态</a><span class="src">证券日报</span></span></li></div>
+  <ul class="news-list" style="margin-top:4px"><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748548162.html" target="_blank">宁德时代 拟“上车”蓝电</a><span class="src">中国基金报</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748398718.html" target="_blank">赛力斯“蓝电”品牌增资66.7亿元 宁德时代等入股</a><span class="src">证券时报网</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748537890.html" target="_blank">赛力斯子公司获66.7亿元增资！宁德时代等参与战投</a><span class="src">大河财立方</span></span></li></ul></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">固态电池</span><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748343840.html" target="_blank">德尔股份：公司目前在稳步推进固态电池研发和中试线等相关工作</a><span class="src">证券日报</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748391689.html" target="_blank">海科新源：公司在固态电池电解质等多条技术路线上已做好充分储备</a><span class="src">证券日报</span></span></li></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">储能</span><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748268338.html" target="_blank">国电南瑞：储能领域，公司拥有成熟的储能系统集成、构网型储能设备等技术与产品，已在国内外多个项目中应用</a><span class="src">每日经济新闻</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748237197.html" target="_blank">晶澳储能频换帅能否解忧</a><span class="src">国际金融报</span></span></li></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">钠离子电池</span><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253747588946.html" target="_blank">银河证券：钠离子电池行业2026年有望迎来产业奇点</a><span class="src">界面新闻</span></span></li><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253747582989.html" target="_blank">银河证券：钠离子电池行业2026年有望迎来产业奇点</a><span class="src">人民财讯</span></span></li></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">换电</span><li class="news-item"><span class="news-date">2026-05-25</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605253748437975.html" target="_blank">5.98万起！极狐贝塔S3携换电模式杀入10万级市场</a><span class="src">国际金融报</span></span></li><li class="news-item"><span class="news-date">2026-05-21</span><span class="news-info"><a href="http://finance.eastmoney.com/a/202605213743927854.html" target="_blank">换电产业构筑新能源补能新生态</a><span class="src">证券日报</span></span></li></div>
 </div>
   <div class="footer">
   🤖 Hermes · CATL Ecosystem Monitor v1.2<br>
-  2026-05-26 00:00:29 · 数据: 新浪/腾讯/东方财富/生意社<br>
+  2026-05-26 00:12:21 · 数据: 新浪/腾讯/东方财富/生意社<br>
   📊 <a href="https://zxb20262026.github.io/catl-ecosystem-monitor/" target="_blank">完整报告</a> ·
   <a href="https://github.com/zxb20262026/catl-ecosystem-monitor" target="_blank">GitHub</a><br>
   ⚠️ 仅供参考 不构成投资建议
