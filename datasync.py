@@ -300,14 +300,27 @@ def fetch_news(keyword, count=5):
         m = re.search(r'jQ\((.*)\)\s*$', raw.strip())
         if not m: return []
         return [{"title": a.get("title", "").replace("<em>", "").replace("</em>", ""),
-                 "date": (a.get("date", "") or "")[:10], "source": a.get("mediaName", ""),
-                 "url": a.get("url", "")}
+                 "date": (a.get("date", "") or "")[:10],
+                 "source": a.get("mediaName", ""),
+                 "url": a.get("url", ""),
+                 "content": (a.get("content", "") or "")[:120]}  # 正文摘要前120字
                 for a in json.loads(m.group(1)).get("result", {}).get("cmsArticleWebOld", [])]
     except: return []
 
 
 def fetch_all_news():
-    return {kw: fetch_news(kw) for kw in NEWS_KEYWORDS}
+    """批量获取所有维度新闻（含正文摘要）"""
+    results = {}
+    for category, keywords in NEWS_KEYWORDS.items():
+        all_articles = []
+        for kw in keywords:
+            articles = fetch_news(kw, count=3)
+            for a in articles:
+                # 去重
+                if a["url"] not in {x["url"] for x in all_articles}:
+                    all_articles.append(a)
+        results[category] = all_articles[:5]  # 每类最多5条
+    return results
 
 
 def fetch_north_flow():
