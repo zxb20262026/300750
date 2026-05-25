@@ -493,17 +493,12 @@ def build_upstream(data):
     upstream = data.get("upstream", {})
     avg = data.get("upstream_avg_change", 0)
     mat_cards = ""
-    mat_order = ["碳酸锂(电池级)", "碳酸锂", "氢氧化锂", "电解钴", "硫酸镍", "磷酸铁锂", "六氟磷酸锂"]
-    shown = set()
-    for name in mat_order:
-        if name in mats and name not in shown:
-            m = mats[name]; shown.add(name)
-            dn = name.replace("碳酸锂(电池级)", "碳酸锂")
-            mat_cards += f'<div class="mat-card"><div class="name">{dn}</div><div class="price">{m.get("price","—")}{m.get("unit","")}</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">{m.get("trend",m.get("source",""))}</div></div>'
-    for name, m in mats.items():
-        if name not in shown:
-            shown.add(name)
-            mat_cards += f'<div class="mat-card"><div class="name">{name}</div><div class="price">{m.get("price","—")}{m.get("unit","")}</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">{m.get("trend",m.get("source",""))}</div></div>'
+    for name in MATERIAL_DISPLAY_ORDER:
+        m = mats.get(name)
+        if not m: continue
+        dn = name.replace("碳酸锂(电池级)", "碳酸锂")
+        pos = m.get("pos_text", m.get("source", ""))
+        mat_cards += f'<div class="mat-card"><div class="name">{dn}</div><div class="price">{m.get("price","—")}{m.get("unit","")}</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">{pos}</div></div>'
 
     # 上游龙头表格 — 多周期版本
     up_rows = ""
