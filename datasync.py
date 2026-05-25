@@ -57,17 +57,18 @@ def fetch_catl_h():
                 "change_pct": round((price - prev) / prev * 100, 2) if prev else 0}
     except: return None
 
-
 def fetch_catl_pe():
+    """CATL PE(TTM) — 腾讯 qt[39] (已验证: 23.60, 非 qt[58]的72.5)"""
     try:
         raw = get("https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300750,day,,,1,qfq", headers=H_EM)
         d = json.loads(raw)
         qt = d.get("data", {}).get("sz300750", {}).get("qt", {}).get("sz300750", [])
-        if len(qt) > 58 and qt[58]:
-            return {"pe_ttm": float(qt[58])}
-    except: pass
+        # qt[39]=PE(TTM), qt[58]=非PE字段(已弃用)
+        if len(qt) > 39 and qt[39]:
+            return {"pe_ttm": float(qt[39])}
+    except:
+        pass
     return None
-
 
 def fetch_catl_kline(days=60):
     """CATL K线 (腾讯复权) → 用于均线/连涨连跌"""
@@ -412,16 +413,19 @@ def compute_derived(data):
             data["peg_signal"] = {"text": "合理区间 📊", "color": "#d29922", "level": "hold"}
 
         # 目标价（基于PE合理区间）
-        target_low = round(s["peg"]["target_price"], 0)
+        # 买入价: PEG=1 → PE=增速
+        # 目标区间: PE 25-27x
+        buy_price = round(target_pe_peg1 * eps, 0)
+        target_low = round(TRADING["target_pe_range"][0] * eps, 0)
         target_high = round(TRADING["target_pe_range"][1] * eps, 0)
-        target_mid = round(statistics.mean([target_low, target_high]), 0)
-        s["target_prices"] = {"low": target_low, "mid": target_mid, "high": target_high}
+        target_mid = round((target_low + target_high) / 2, 0)
+        s["target_prices"] = {"buy": buy_price, "low": target_low, "mid": target_mid, "high": target_high}
     else:
         data["peg"] = None
         data["peg_signal"] = {"text": "--", "color": "#8b949e", "level": "unknown"}
         s["peg"] = {"value": None, "target_price": None, "distance_pct": None,
                     "signal": "unknown", "text": "—"}
-        s["target_prices"] = {"low": 0, "mid": 0, "high": 0}
+        s["target_prices"] = {"buy": 0, "low": 0, "mid": 0, "high": 0}
 
     # ── 6. PE ──
     if pe_ttm:
