@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""CATL 生态链日监控 — 全局配置"""
+"""CATL 生态链日监控 — 全局配置 v1.2"""
 
-import os
+import os, re
 from datetime import datetime
 
 # ── GitHub ──
@@ -11,51 +11,54 @@ REPO_NAME = "catl-ecosystem-monitor"
 PAGES_URL = f"https://{REPO_OWNER}.github.io/{REPO_NAME}/"
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# 如果环境变量未设置，尝试从旧repo的脚本读取（开发环境）
 if not GITHUB_TOKEN and os.path.exists(os.path.expanduser("~/catl-hermes-auto/catl_auto.py")):
-    import re
     with open(os.path.expanduser("~/catl-hermes-auto/catl_auto.py")) as f:
         m = re.search(r'GITHUB_TOKEN\s*=\s*"([^"]+)"', f.read())
-        if m:
-            GITHUB_TOKEN = m.group(1)
+        if m: GITHUB_TOKEN = m.group(1)
 
 # ── 持仓 ──
-HOLDING_SHARES = 200  # CATL持股
-GROWTH_ASSUMPTION = 40  # PEG计算默认增速%
+HOLDING_SHARES = 200
+GROWTH_ASSUMPTION = 40
+COST_PRICE = 350  # 用户持仓成本（需手动更新）
 
-# ── PEG 信号 ──
+# ── PEG ──
 PEG_UNDERVALUE = 1.0
 PEG_OVERVALUE = 1.5
 
-# ── 上游股票代码 ──
+# ── 均线窗口 ──
+MA_WINDOWS = [5, 20, 60]
+
+# ── 大盘指数 ──
+MARKET_INDICES = {
+    "上证指数": "sh000001",
+    "沪深300": "sh000300",
+}
+
+# ── 上游股票 ──
 UPSTREAM_STOCKS = {
-    "赣锋锂业": "sz002460",
-    "天齐锂业": "sz002466",
-    "华友钴业": "sh603799",
-    "恩捷股份": "sz002812",
-    "天赐材料": "sz002709",
-    "当升科技": "sz300073",
+    "赣锋锂业": "sz002460", "天齐锂业": "sz002466",
+    "华友钴业": "sh603799", "恩捷股份": "sz002812",
+    "天赐材料": "sz002709", "当升科技": "sz300073",
 }
 
 # ── 竞争对手 ──
 COMPETITORS = {
-    "比亚迪": "sz002594",
-    "亿纬锂能": "sz300014",
-    "国轩高科": "sz002074",
+    "比亚迪": "sz002594", "亿纬锂能": "sz300014", "国轩高科": "sz002074",
 }
 
 # ── 板块指数 ──
 SECTOR_INDICES = {
-    "新能源车": "sz399417",
-    "储能": "sh000688",
-    "光伏产业": "sh000941",
-    "锂电池": "sh000861",
+    "新能源车": "sz399417", "储能": "sh000688",
+    "光伏产业": "sh000941", "锂电池": "sh000861",
 }
+
+# CATL归属行业索引（用于KPI卡片显示）
+CATL_INDUSTRY_INDEX = "新能源车"  # 优先显示的行业指数
 
 # ── 新闻关键词 ──
 NEWS_KEYWORDS = ["宁德时代", "固态电池", "储能", "钠离子电池", "换电"]
 
-# ── 上游原材料参考价格（元/吨，定期手动更新） ──
+# ── 上游原材料参考价格 ──
 MATERIAL_REFERENCE = {
     "碳酸锂(电池级)": {"price": 75000, "unit": "元/吨", "trend": "低位震荡"},
     "氢氧化锂": {"price": 78000, "unit": "元/吨", "trend": "跟随碳酸锂"},
@@ -65,11 +68,17 @@ MATERIAL_REFERENCE = {
     "六氟磷酸锂": {"price": 62000, "unit": "元/吨", "trend": "低位"},
 }
 
-# ── 时间模式 ──
+# ── 操作建议参数 ──
+TRADING = {
+    "target_pe_range": (25, 27),      # 目标PE区间
+    "stop_loss_price": 375,            # 止损位
+    "ma60_tolerance": 2,               # MA60附近容差(元)
+    "volume_threshold": 100,           # 放量阈值(亿)
+}
+
+# ── 时间 ──
 def get_mode():
-    """早报/晚报判断"""
-    h = datetime.now().hour
-    return "早报 ☀️" if h < 14 else "晚报 🌙"
+    return "早报 ☀️" if datetime.now().hour < 14 else "晚报 🌙"
 
 def get_date_str():
     return datetime.now().strftime("%Y-%m-%d")
