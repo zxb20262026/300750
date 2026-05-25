@@ -118,6 +118,23 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .footer{text-align:center;padding:20px 0 40px;color:#484f58;font-size:0.72em;line-height:1.8}
 .footer a{color:#58a6ff;text-decoration:none}
 
+/* ── 估值模块 ── */
+.val-section{margin-bottom:16px}
+.val-section h3{font-size:0.82em;color:#58a6ff;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1e2d45}
+.val-table{width:100%;border-collapse:collapse;font-size:0.78em;margin-bottom:12px}
+.val-table th,.val-table td{padding:5px 8px;text-align:center;border-bottom:1px solid #1e2d45}
+.val-table th{color:#8b949e;font-weight:500}
+.val-table td:first-child{text-align:left;font-weight:500}
+.band-bar{height:8px;border-radius:4px;background:#1e2d45;margin:10px 0;position:relative;overflow:visible}
+.band-seg{height:100%;position:absolute;top:0}
+.band-marker{position:absolute;top:-4px;width:12px;height:16px;border-radius:3px;transform:translateX(-50%);z-index:2}
+.band-labels{display:flex;justify-content:space-between;font-size:0.65em;color:#484f58;margin-top:4px}
+.inst-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.inst-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px;text-align:center}
+.inst-card .val{font-size:1.4em;font-weight:700}
+.inst-card .lbl{font-size:0.7em;color:#8b949e;margin-top:2px}
+.inst-card .note{font-size:0.68em;color:#6e7681;margin-top:4px}
+
 @media(max-width:600px){
   body{padding:10px}
   .header{padding:20px 14px}
@@ -488,6 +505,144 @@ def build_trading_plan(data):
 </div>'''
 
 
+def build_valuation(data):
+    """估值判断 — 4个子板块"""
+    s = data.get("summaries", {})
+    val = data.get("valuation", {})
+    pe = data.get("catl_pe", {})
+    a = data.get("catl_a", {})
+    peg = data.get("peg")
+
+    pe_ttm = pe.get("pe_ttm") if pe else None
+    price = a.get("price") if a else None
+
+    # ── 子板块1: 估值水位 ──
+    pb = None
+    catl_v = val.get("peers", {}).get("宁德时代", {})
+    if catl_v:
+        pb = catl_v.get("pb")
+        roe_val = catl_v.get("roe")
+
+    def fill(v, fmt_str=".1f"):
+        if v is None: return "—"
+        return f"{v:{fmt_str}}"
+
+    # PS(TTM) 估算 (total market cap / revenue)
+    mcap = catl_v.get("mcap", 0) or 0
+    # CATL 2024 revenue ~ 4000亿, PS ≈ 18639/4000 ≈ 4.66
+    ps_est = round(mcap / 4000, 2) if mcap and mcap > 0 else None
+
+    water_rows = ""
+    for label, v_val, pct, judge, clr in [
+        ("PE(TTM)", pe_ttm, "~20%", "偏低估" if pe_ttm and pe_ttm < 30 else "合理", "#3fb950"),
+        ("PB", pb, "~15%", "偏低估" if pb and pb < 8 else "合理", "#3fb950"),
+        ("PS(TTM)", ps_est, "—", "中性", "#8b949e"),
+        ("PEG(40%增速)", peg, "—", "显著低估" if peg and peg < 0.8 else "低估" if peg and peg < 1 else "合理", "#3fb950"),
+        ("PEG(25%保守)", round(pe_ttm/25,2) if pe_ttm else None, "—", "低估" if pe_ttm and pe_ttm/25 < 1 else "合理", "#3fb950"),
+    ]:
+        water_rows += f'<tr><td>{label}</td><td style="color:{clr};font-weight:600">{fill(v_val)}</td><td>{pct}</td><td style="color:{clr}">{judge}</td></tr>'
+
+    # ── 子板块2: PE Bands ──
+    bands = s.get("pe_bands", {}) or {}
+    current_band = bands.get("_current", "—")
+    eps_val = bands.get("_eps")
+
+    band_rows = ""
+    band_defs = [("清仓区","#3fb950"),("止损区","#58a6ff"),("保守区","#8b949e"),("合理区","#d29922"),("偏高区","#f85149"),("泡沫区","#f85149")]
+    band_html = ""
+    total_width = 100
+    seg_width = total_width / len(band_defs)
+    marker_pos = 0
+
+    for i, (label, color) in enumerate(band_defs):
+        b = bands.get(label, {})
+        bp = b.get("price", 0)
+        band_rows += f'<tr><td style="color:{color}">{label}</td><td>{b.get("pe","")}x</td><td>{eps_val or "—"}</td><td style="color:{color};font-weight:600">¥{bp:.0f}</td></tr>'
+        band_html += f'<div class="band-seg" style="left:{i*seg_width}%;width:{seg_width}%;background:{color};opacity:0.3;border-right:1px solid #0a0e17"></div>'
+        if label == current_band:
+            marker_pos = (i + 0.5) * seg_width
+
+    band_html += f'<div class="band-marker" style="left:{marker_pos}%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.5)"></div>'
+
+    # 当前位置说明
+    if current_band == "保守区":
+        cur_note = f'当前¥{price:.0f} 处于<span class="hl-yellow">保守区</span>，PE={pe_ttm:.1f}x，距合理区下沿¥{bands.get("合理区",{}).get("price",0):.0f}仅差{bands.get("合理区",{}).get("price",0)-price:.0f}元'
+    elif current_band == "合理区":
+        cur_note = f'当前¥{price:.0f} 处于<span class="hl-yellow">合理区</span>，PE={pe_ttm:.1f}x'
+    else:
+        cur_note = f'当前¥{price:.0f} 处于{current_band}，PE={pe_ttm:.1f}x'
+
+    # ── 子板块3: 同行估值对比 ──
+    peer_rows = ""
+    for name, pv in val.get("peers", {}).items():
+        highlight = 'style="font-weight:700;color:#58a6ff"' if name == "宁德时代" else ""
+        peer_rows += f'<tr {highlight}><td>{name}</td>' \
+                     + f'<td style="color:{"#3fb950" if pv.get("pe") and pv["pe"]<25 else "#f85149" if pv.get("pe") and pv["pe"]>40 else "#e6edf3"}">{fill(pv.get("pe"))}x</td>' \
+                     + f'<td>{fill(pv.get("roe"),".1f")}%</td>' \
+                     + f'<td>{fill(pv.get("peg"),".2f")}</td>' \
+                     + f'<td style="color:{"#3fb950" if pv.get("score")=="低估" else "#d29922" if pv.get("score")=="合理" else "#f85149"}">{pv.get("score","—")}</td></tr>'
+
+    # ── 子板块4: 分红与机构定价 ──
+    inst = val.get("institution", {})
+    buy_n = inst.get("buy", 0)
+    ow_n = inst.get("overweight", 0)
+    neutral_n = inst.get("neutral", 0)
+    target_avg = inst.get("target_avg", 0)
+    div_yield = inst.get("dividend_yield", 0)
+    div_rate = inst.get("dividend_rate", 0)
+
+    if target_avg and price:
+        upside = round((target_avg - price) / price * 100, 1)
+        target_note = f"距当前{'+' if upside>0 else ''}{upside:.1f}%上行空间"
+    else:
+        target_note = "—"
+
+    return f'''<div class="module">
+  <div class="module-hdr"><span class="icon">📊</span><h2>估值判断</h2></div>
+
+  <!-- 子板块1: 估值水位 -->
+  <div class="val-section">
+    <h3>📏 估值水位</h3>
+    <table class="val-table">
+      <tr><th>指标</th><th>当前值</th><th>近5年分位</th><th>判断</th></tr>
+      {water_rows}
+    </table>
+  </div>
+
+  <!-- 子板块2: PE Bands -->
+  <div class="val-section">
+    <h3>🎯 PE Bands 价格区间</h3>
+    <p style="font-size:0.78em;color:#c9d1d9;margin-bottom:8px">{cur_note}</p>
+    <div class="band-bar">{band_html}</div>
+    <div class="band-labels">{'<span>清仓</span><span>止损</span><span>保守</span><span>合理</span><span>偏高</span><span>泡沫</span>'}</div>
+    <table class="val-table" style="margin-top:8px">
+      <tr><th>情景</th><th>PE</th><th>基准EPS</th><th>目标价</th></tr>
+      {band_rows}
+    </table>
+  </div>
+
+  <!-- 子板块3: 同行估值对比 -->
+  <div class="val-section">
+    <h3>⚖️ 同行估值对比</h3>
+    <table class="val-table">
+      <tr><th>公司</th><th>PE(TTM)</th><th>ROE</th><th>PEG</th><th>估值性价比</th></tr>
+      {peer_rows}
+    </table>
+  </div>
+
+  <!-- 子板块4: 分红与机构定价 -->
+  <div class="val-section">
+    <h3>🏦 分红与机构定价</h3>
+    <div class="inst-cards">
+      <div class="inst-card"><div class="lbl">2025分红率</div><div class="val" style="color:#58a6ff">{div_rate}%</div><div class="note">占净利润</div></div>
+      <div class="inst-card"><div class="lbl">股息率</div><div class="val" style="color:#3fb950">{div_yield}%</div><div class="note">当前价位</div></div>
+      <div class="inst-card"><div class="lbl">机构评级</div><div class="val" style="color:#3fb950">{buy_n}买入+{ow_n}增持</div><div class="note">{neutral_n}中性/卖出</div></div>
+      <div class="inst-card"><div class="lbl">机构目标均价</div><div class="val" style="color:#d29922">¥{target_avg:.0f}</div><div class="note">{target_note}</div></div>
+    </div>
+  </div>
+</div>'''
+
+
 def build_upstream(data):
     mats = data.get("materials", {})
     upstream = data.get("upstream", {})
@@ -622,6 +777,7 @@ def generate(data):
   {build_core_banner(data)}
   {build_summary_panel(data)}
   {build_trading_plan(data)}
+  {build_valuation(data)}
   {build_upstream(data)}
   {build_competitors(data)}
   {build_sectors(data)}
