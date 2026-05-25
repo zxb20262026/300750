@@ -479,11 +479,12 @@ def compute_derived(data):
         s["amount"] = {"text": "—"}
 
     # ── 11. 行业涨跌 ──
-    ind_name = CATL_INDUSTRY_INDEX
-    ind_data = sectors.get(ind_name)
+    ind_key = CATL_INDUSTRY_SOURCE  # "新能源车" — 与电池板块高度相关
+    ind_data = sectors.get(ind_key)
     if ind_data:
-        s["industry"] = {"name": ind_name, "change_pct": ind_data["change_pct"],
-                         "text": f"{ind_name} {ind_data['change_pct']:+.1f}%"}
+        s["industry"] = {"name": CATL_INDUSTRY, "source": ind_key,
+                         "change_pct": ind_data["change_pct"],
+                         "text": f"{CATL_INDUSTRY}({ind_key}) {ind_data['change_pct']:+.1f}%"}
     else:
         # fallback to first available sector
         for sn, sd in sectors.items():
