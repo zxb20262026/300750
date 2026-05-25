@@ -505,6 +505,49 @@ def build_trading_plan(data):
 </div>'''
 
 
+def build_week_review(data):
+    """本周走势回顾 — 5日循环表 + 合计 + 总结"""
+    wr = data.get("week_review")
+    if not wr:
+        return ""
+
+    days = wr.get("days", [])
+    total = wr.get("total", {})
+    summary = wr.get("summary", "")
+
+    rows = ""
+    for d in days:
+        clr = "#f85149" if d["change_pct"] >= 0 else "#3fb950"
+        fn = d.get("fund_net")
+        fn_note = d.get("fund_note", "")
+        fn_str = f"{'+' if fn and fn>0 else ''}{fn:.2f}亿{fn_note}" if fn is not None else "—"
+        fn_clr = "#f85149" if fn and fn > 0 else "#3fb950" if fn and fn < 0 else "#8b949e"
+        rows += f'<tr><td>{d["date"][-5:]}</td><td>¥{d["close"]:.2f}</td><td style="color:{clr}">{d["change_pct"]:+.1f}%</td><td style="color:{fn_clr}">{fn_str}</td><td style="font-size:0.72em;color:#8b949e">{d["events"]}</td></tr>'
+
+    week_chg = total.get("week_chg", 0)
+    week_chg_clr = "#f85149" if week_chg >= 0 else "#3fb950"
+    week_fund = total.get("week_fund", 0)
+    wf_clr = "#f85149" if week_fund > 0 else "#3fb950"
+
+    return f'''<div class="module">
+  <div class="module-hdr"><span class="icon">📅</span><h2>本周走势回顾</h2></div>
+  <table class="val-table">
+    <tr><th>日期</th><th>收盘价</th><th>涨跌幅</th><th>主力净流向</th><th>关键事件</th></tr>
+    {rows}
+    <tr style="font-weight:700;border-top:2px solid #d29922">
+      <td>本周合计</td>
+      <td>¥{total.get("close",0):.2f}</td>
+      <td style="color:{week_chg_clr}">{week_chg:+.1f}%</td>
+      <td style="color:{wf_clr}">{'+' if week_fund>0 else ''}{week_fund:.2f}亿</td>
+      <td style="font-size:0.72em;color:#d29922">大盘涨宁德跌，极端分化</td>
+    </tr>
+  </table>
+  <div style="margin-top:10px;padding:10px;background:rgba(210,153,34,0.06);border-left:3px solid #d29922;border-radius:4px;font-size:0.8em;color:#c9d1d9;line-height:1.6">
+    📝 {summary}
+  </div>
+</div>'''
+
+
 def build_valuation(data):
     """估值判断 — 4个子板块"""
     s = data.get("summaries", {})
@@ -777,9 +820,9 @@ def generate(data):
   {build_core_banner(data)}
   {build_summary_panel(data)}
   {build_trading_plan(data)}
+  {build_week_review(data)}
   {build_valuation(data)}
   {build_upstream(data)}
-  {build_competitors(data)}
   {build_sectors(data)}
   {build_fund_flow(data)}
   {build_news_module(data)}
