@@ -184,6 +184,86 @@ def fetch_stock_batch(stock_map):
     return results
 
 
+def enrich_stocks_period_changes(stocks, days=35):
+    """为上游/竞争股票补充多周期涨跌幅 (5/15/30日) + 走势小结"""
+    if not stocks: return stocks
+
+    for name, s in stocks.items():
+        code = s.get("code", "")
+        if not code: continue
+        try:
+            raw = get(f"https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param={code},day,,,{days},qfq", headers=H_EM)
+            d = json.loads(raw)
+            klines = d.get("data", {}).get(code, {}).get("qfqday", []) or \
+                     d.get("data", {}).get(code, {}).get("day", [])
+            if not klines or len(klines) < 5: continue
+
+            closes = []
+            for k in klines:
+                if isinstance(k, str):
+                    closes.append(float(k.split(",")[2]))
+                elif isinstance(k, list):
+                    closes.append(float(k[2]))
+                elif isinstance(k, dict):
+                    closes.append(float(k.get("close", 0)))
+            current = s["price"]
+
+            periods = {}
+            for pname, pdays in [("5日", 5), ("15日", 15), ("30日", 30)]:
+                if len(closes) >= pdays:
+                    start = closes[-pdays]
+                    if start and start > 0:
+                        periods[pname] = round((current - start) / start * 100, 2)
+                    else:
+                        periods[pname] = None
+                else:
+                    periods[pname] = None
+            s["periods"] = periods
+
+            # 走势小结
+            chg_5 = periods.get("5日")
+            chg_15 = periods.get("15日")
+            chg_30 = periods.get("30日")
+
+            summary = ""
+            if chg_30 is not None and chg_15 is not None and chg_5 is not None:
+                if chg_30 < -10:
+                    summary = "深度回调"
+                elif chg_30 < -5:
+                    summary = "持续走弱"
+                elif chg_30 > 10:
+                    summary = "强势上涨"
+                elif chg_30 > 5:
+                    summary = "稳步上行"
+                else:
+                    summary = "横盘震荡"
+
+                # 短期方向补充
+                if chg_5 < -5 and chg_15 < 0:
+                    summary += "，加速下跌"
+                elif chg_5 > 5 and chg_15 > 0:
+                    summary += "，加速上涨"
+                elif chg_5 * chg_15 < 0:
+                    summary += "，短期反转"
+            elif chg_5 is not None:
+                if chg_5 < -3:
+                    summary = "短期走弱"
+                elif chg_5 > 3:
+                    summary = "短期走强"
+                else:
+                    summary = "横盘"
+            else:
+                summary = "数据不足"
+
+            s["trend_summary"] = summary
+
+        except Exception as e:
+            s["periods"] = {}
+            s["trend_summary"] = "—"
+
+    return stocks
+
+
 def fetch_sector_indices():
     results = {}
     for name, code in SECTOR_INDICES.items():
@@ -273,7 +353,9 @@ def collect_all(verbose=True):
     data["lithium_futures"] = fetch_lithium_futures()
 
     if verbose: print("🏭 上游..."); data["upstream"] = fetch_stock_batch(UPSTREAM_STOCKS)
+    data["upstream"] = enrich_stocks_period_changes(data["upstream"])
     if verbose: print("⚔️ 竞争..."); data["competitors"] = fetch_stock_batch(COMPETITORS)
+    data["competitors"] = enrich_stocks_period_changes(data["competitors"])
     if verbose: print("📊 板块..."); data["sectors"] = fetch_sector_indices()
     if verbose: print("📰 新闻..."); data["news"] = fetch_all_news()
     if verbose: print(f"  {sum(len(v) for v in data['news'].values())} 条")
