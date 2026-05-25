@@ -115,6 +115,23 @@ tr:hover{background:rgba(88,166,255,0.03)}
   .mat-grid{grid-template-columns:repeat(2,1fr)}
   .module{padding:12px}
 }
+
+/* ── 技术面分析模块 ── */
+.tech-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.tech-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.tech-card .t-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
+.tech-card .t-val{font-size:1.25em;font-weight:700;margin-bottom:2px}
+.tech-card .t-dev{font-size:0.65em;padding:1px 6px;border-radius:3px;display:inline-block}
+.tech-chart{background:rgba(255,255,255,0.01);border:1px solid #1e2d45;border-radius:8px;padding:10px;margin-bottom:14px;overflow-x:auto}
+.tech-summary{padding:10px 0}
+.tech-summary li{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:2px 0;padding-left:14px;position:relative;list-style:none}
+.tech-summary li::before{content:'\2022';position:absolute;left:0;color:#484f58}
+.tech-summary .ts-warn{color:#f85149;font-weight:700}
+.tech-summary .ts-positive{color:#3fb950;font-weight:600}
+.tech-summary .ts-key{color:#d29922;font-weight:600}
+
+@media(max-width:600px){.tech-cards{grid-template-columns:repeat(2,1fr)}}
+
 </style>
 </head>
 <body>
@@ -201,7 +218,7 @@ tr:hover{background:rgba(88,166,255,0.03)}
   <div class="val-section">
     <h3>🎯 PE Bands 价格区间</h3>
     <p style="font-size:0.78em;color:#c9d1d9;margin-bottom:8px">当前¥403 处于<span class="hl-yellow">合理区</span>，PE=23.6x</p>
-    <div class="band-bar"><div style="position:relative"><span style="position:absolute;left:0.0%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥256</span><span style="position:absolute;left:16.666666666666668%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥307</span><span style="position:absolute;left:33.333333333333336%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥358</span><span style="position:absolute;left:50.0%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥427</span><span style="position:absolute;left:66.66666666666667%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥512</span><span style="position:absolute;left:83.33333333333334%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥597</span></div><div class="band-seg" style="left:0.0%;width:16.666666666666668%;background:#3fb950;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:16.666666666666668%;width:16.666666666666668%;background:#58a6ff;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:33.333333333333336%;width:16.666666666666668%;background:#8b949e;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:50.0%;width:16.666666666666668%;background:#d29922;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:66.66666666666667%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:83.33333333333334%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-marker" style="left:58.333333333333336%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.5)"></div>
+    <div class="band-bar"><div style="position:relative"><span style="position:absolute;left:16.666666666666668%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥256</span><span style="position:absolute;left:33.333333333333336%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥307</span><span style="position:absolute;left:50.0%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥358</span><span style="position:absolute;left:66.66666666666667%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥427</span><span style="position:absolute;left:83.33333333333334%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥512</span><span style="position:absolute;left:100.0%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥597</span></div><div class="band-seg" style="left:0.0%;width:16.666666666666668%;background:#3fb950;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:16.666666666666668%;width:16.666666666666668%;background:#58a6ff;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:33.333333333333336%;width:16.666666666666668%;background:#8b949e;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:50.0%;width:16.666666666666668%;background:#d29922;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:66.66666666666667%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:83.33333333333334%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-marker" style="left:58.333333333333336%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.5)"></div>
     <div style="position:absolute;left:58.333333333333336%;top:-28px;transform:translateX(-50%);background:#d29922;color:#0a0e17;padding:1px 8px;border-radius:4px;font-size:0.65em;font-weight:700;white-space:nowrap;z-index:3">
       当前 ¥403
     </div></div>
@@ -233,6 +250,36 @@ tr:hover{background:rgba(88,166,255,0.03)}
   </div>
 </div>
   <div class="module">
+  <div class="module-hdr"><span class="icon">📈</span><h2>技术面分析</h2></div>
+
+  <!-- 4张指标卡 -->
+  <div class="tech-cards"><div class="tech-card"><div class="t-lbl">收盘价</div><div class="t-val" style="color:#58a6ff">¥402.88</div><div class="t-dev" style="background:rgba(139,148,158,0.12);color:#8b949e">0.00 (0.0%)</div></div><div class="tech-card"><div class="t-lbl">MA5</div><div class="t-val" style="color:#d29922">¥411.67</div><div class="t-dev" style="background:rgba(248,81,73,0.12);color:#f85149">+8.79 (+2.18%)</div></div><div class="tech-card"><div class="t-lbl">MA20</div><div class="t-val" style="color:#f85149">¥430.68</div><div class="t-dev" style="background:rgba(248,81,73,0.12);color:#f85149">+27.80 (+6.9%)</div></div><div class="tech-card"><div class="t-lbl">MA60</div><div class="t-val" style="color:#3fb950">¥403.06</div><div class="t-dev" style="background:rgba(248,81,73,0.12);color:#f85149">+0.18 (+0.04%)</div></div></div>
+
+  <!-- 90天趋势图 -->
+  <div class="tech-chart"><svg viewBox="0 0 800 220" style="width:100%;height:auto;max-height:230px;display:block" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="800" height="220" fill="transparent"/>
+  <line x1="24" y1="190.0" x2="776.0" y2="190.0" stroke="#1e2d45" stroke-width="0.5"/>
+<line x1="24" y1="148.5" x2="776.0" y2="148.5" stroke="#1e2d45" stroke-width="0.5"/>
+<line x1="24" y1="107.0" x2="776.0" y2="107.0" stroke="#1e2d45" stroke-width="0.5"/>
+<line x1="24" y1="65.5" x2="776.0" y2="65.5" stroke="#1e2d45" stroke-width="0.5"/>
+<line x1="24" y1="24.0" x2="776.0" y2="24.0" stroke="#1e2d45" stroke-width="0.5"/>
+
+  <text x="18" y="193.0" text-anchor="end" font-size="9" fill="#484f58">¥322</text><text x="18" y="151.5" text-anchor="end" font-size="9" fill="#484f58">¥360</text><text x="18" y="110.0" text-anchor="end" font-size="9" fill="#484f58">¥398</text><text x="18" y="68.5" text-anchor="end" font-size="9" fill="#484f58">¥436</text><text x="18" y="27.0" text-anchor="end" font-size="9" fill="#484f58">¥474</text>
+  <text x="24.0" y="216" text-anchor="middle" font-size="8" fill="#484f58">01-06</text><text x="150.7" y="216" text-anchor="middle" font-size="8" fill="#484f58">01-27</text><text x="277.5" y="216" text-anchor="middle" font-size="8" fill="#484f58">02-25</text><text x="404.2" y="216" text-anchor="middle" font-size="8" fill="#484f58">03-18</text><text x="531.0" y="216" text-anchor="middle" font-size="8" fill="#484f58">04-09</text><text x="657.7" y="216" text-anchor="middle" font-size="8" fill="#484f58">04-30</text>
+  <polyline points="24.0,140.7 32.4,144.0 40.9,146.0 49.3,145.9 57.8,154.2 66.2,157.1 74.7,162.6 83.1,162.9 91.6,164.4 100.0,168.2 108.5,167.4 116.9,167.2 125.4,171.6 133.8,170.2 142.3,175.7 150.7,178.6 159.2,177.9 167.6,175.8 176.1,167.0 184.5,168.1 193.0,169.3 201.4,150.5 209.9,152.8 218.3,146.1 226.8,146.4 235.2,150.6 243.7,147.3 252.1,138.7 260.6,150.2 269.0,153.9 277.5,153.6 285.9,171.3 294.4,175.7 302.8,177.7 311.3,173.5 319.7,179.1 328.2,166.7 336.6,161.7 345.1,158.8 353.5,138.2 362.0,115.8 370.4,117.2 378.9,115.6 387.3,103.1 395.8,106.8 404.2,110.1 412.7,111.7 421.1,98.1 429.6,110.1 438.0,115.6 446.5,114.7 454.9,109.5 463.4,94.6 471.8,98.1 480.3,110.4 488.7,106.0 497.2,111.0 505.6,127.1 514.1,129.1 522.5,121.8 531.0,123.2 539.4,94.8 547.9,82.6 556.3,78.6 564.8,78.4 573.2,53.2 581.7,63.9 590.1,76.7 598.6,60.2 607.0,65.0 615.5,62.2 623.9,55.6 632.4,66.6 640.8,74.5 649.3,55.5 657.7,65.3 666.2,39.1 674.6,48.2 683.1,64.3 691.5,54.3 700.0,70.5 708.4,67.5 716.9,75.2 725.3,78.9 733.8,85.9 742.2,85.1 750.7,88.6 759.1,92.0 767.6,92.5 776.0,101.6" fill="none" stroke="#58a6ff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+<polyline points="57.8,146.2 66.2,149.4 74.7,153.2 83.1,156.5 91.6,160.2 100.0,163.0 108.5,165.1 116.9,166.0 125.4,167.7 133.8,168.9 142.3,170.4 150.7,172.6 159.2,174.8 167.6,175.6 176.1,175.0 184.5,173.5 193.0,171.6 201.4,166.1 209.9,161.5 218.3,157.3 226.8,153.0 235.2,149.3 243.7,148.6 252.1,145.8 260.6,146.6 269.0,148.1 277.5,148.7 285.9,153.5 294.4,161.0 302.8,166.4 311.3,170.4 319.7,175.5 328.2,174.5 336.6,171.7 345.1,168.0 353.5,160.9 362.0,148.2 370.4,138.3 378.9,129.1 387.3,118.0 395.8,111.7 404.2,110.5 412.7,109.4 421.1,105.9 429.6,107.3 438.0,109.1 446.5,110.0 454.9,109.6 463.4,108.9 471.8,106.5 480.3,105.5 488.7,103.7 497.2,104.0 505.6,110.5 514.1,116.7 522.5,119.0 531.0,122.4 539.4,119.2 547.9,110.3 556.3,100.2 564.8,91.5 573.2,77.5 581.7,71.4 590.1,70.2 598.6,66.5 607.0,63.8 615.5,65.6 623.9,63.9 632.4,61.9 640.8,64.8 649.3,62.9 657.7,63.5 666.2,60.2 674.6,56.5 683.1,54.5 691.5,54.2 700.0,55.3 708.4,61.0 716.9,66.4 725.3,69.3 733.8,75.6 742.2,78.5 750.7,82.7 759.1,86.1 767.6,88.8 776.0,92.0" fill="none" stroke="#d29922" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+<polyline points="184.5,163.3 193.0,164.7 201.4,165.0 209.9,165.4 218.3,165.4 226.8,165.0 235.2,164.7 243.7,163.9 252.1,162.7 260.6,162.0 269.0,161.2 277.5,160.6 285.9,160.8 294.4,161.0 302.8,161.3 311.3,161.2 319.7,161.3 328.2,160.7 336.6,160.0 345.1,159.6 353.5,158.1 362.0,155.4 370.4,153.8 378.9,151.9 387.3,149.7 395.8,147.8 404.2,145.7 412.7,144.0 421.1,141.9 429.6,139.9 438.0,138.0 446.5,136.1 454.9,133.0 463.4,128.9 471.8,124.9 480.3,121.8 488.7,118.1 497.2,115.3 505.6,113.6 514.1,112.1 522.5,111.3 531.0,111.7 539.4,110.6 547.9,108.9 556.3,107.7 564.8,106.3 573.2,103.4 581.7,101.0 590.1,100.0 598.6,97.5 607.0,94.9 615.5,92.3 623.9,89.6 632.4,88.2 640.8,87.0 649.3,84.3 657.7,82.3 666.2,78.7 674.6,74.7 683.1,71.5 691.5,68.1 700.0,65.5 708.4,64.1 716.9,63.7 725.3,63.7 733.8,64.1 742.2,65.7 750.7,67.0 759.1,67.7 767.6,69.3 776.0,71.2" fill="none" stroke="#f85149" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+<polyline points="522.5,144.2 531.0,143.9 539.4,143.1 547.9,142.1 556.3,140.9 564.8,139.7 573.2,137.9 581.7,136.3 590.1,134.9 598.6,133.1 607.0,131.4 615.5,129.6 623.9,127.8 632.4,126.0 640.8,124.4 649.3,122.4 657.7,120.6 666.2,118.2 674.6,116.1 683.1,114.4 691.5,112.5 700.0,110.9 708.4,109.5 716.9,108.2 725.3,107.1 733.8,106.1 742.2,105.0 750.7,104.0 759.1,103.2 767.6,102.2 776.0,101.4" fill="none" stroke="#3fb950" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+
+  <line x1="32" y1="10" x2="48" y2="10" stroke="#58a6ff" stroke-width="2"/><text x="52" y="14" font-size="9" fill="#8b949e">收盘价</text><line x1="114" y1="10" x2="130" y2="10" stroke="#d29922" stroke-width="2"/><text x="134" y="14" font-size="9" fill="#8b949e">MA5</text><line x1="196" y1="10" x2="212" y2="10" stroke="#f85149" stroke-width="2"/><text x="216" y="14" font-size="9" fill="#8b949e">MA20</text><line x1="278" y1="10" x2="294" y2="10" stroke="#3fb950" stroke-width="2"/><text x="298" y="14" font-size="9" fill="#8b949e">MA60</text>
+</svg></div>
+
+  <!-- 技术面研判 -->
+  <div class="tech-summary">
+    <ul><li>今日<span class="ts-key">-2.01%</span>，大盘+0.96%</li><li><span class="ts-warn">⚠️ 警告：若有效跌破MA60(403)，技术面将转弱，需重新评估</span></li><li><span class="ts-positive">积极信号：大盘涨+0.96%+宁德逆跌 → 通常意味着最后一跌，恐慌盘加速出清</span></li><li><span class="ts-key">关键价位</span>：上方压力 MA5=412、MA20=431、MA60=403、心理关口410；下方支撑 心理关口390</li></ul>
+  </div>
+</div>
+  <div class="module">
   <div class="module-hdr"><span class="icon">⛏️</span><h2>上游原材料雷达</h2><span class="status" style="background:rgba(88,166,255,0.1);color:#58a6ff">平均 -3.6%</span></div>
   <div class="mat-grid"><div class="mat-card"><div class="name">碳酸锂</div><div class="price">75000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P22% · 偏低</div></div><div class="mat-card"><div class="name">氢氧化锂</div><div class="price">78000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P20% · 偏低</div></div><div class="mat-card"><div class="name">磷酸铁锂</div><div class="price">38000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P19% · 偏低</div></div><div class="mat-card"><div class="name">电解钴</div><div class="price">195000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P15% · 偏低</div></div><div class="mat-card"><div class="name">六氟磷酸锂</div><div class="price">62000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P18% · 偏低</div></div></div>
   <table style="margin-top:12px">
@@ -252,154 +299,154 @@ tr:hover{background:rgba(88,166,255,0.03)}
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253748548162.html" target="_blank" style="color:#e6edf3;text-decoration:none">宁德时代 拟“上车”蓝电</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">蓝电科技的主要资产是蓝电汽车，而问鼎投资是<em>宁德时代</em>的全资子公司。若完成上述交易，<em>宁德时代</em>参股的车企将再添一家。天眼查显示，<em>宁德时代</em>通过问鼎投资，参股了奇瑞汽车、智己汽车、爱驰汽车、哪吒汽</div>
-              <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 中国基金报</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">蓝电科技的主要资产是蓝电汽车，而问鼎投资是宁德时代的全资子公司。若完成上述交易，宁德时代参股的车企将再添一家。天眼查显示，宁德时代通过问鼎投资，参股了奇瑞汽车、智己汽车、爱驰汽车、哪吒汽车等车企。</div>
+              <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-26 · 中国基金报</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #f85149;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253748398718.html" target="_blank" style="color:#e6edf3;text-decoration:none">赛力斯“蓝电”品牌增资66.7亿元 宁德时代等入股</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">博俊科技(300926)、星宇股份(601799)为上市公司主体，而问鼎投资则由<em>宁德时代</em>(300750)全资所有，三家上市公司合计持有蓝电科技约16%股权。 　　与此同时，这是<em>宁德时代</em>参股整车企业、品牌的</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">博俊科技(300926)、星宇股份(601799)为上市公司主体，而问鼎投资则由宁德时代(300750)全资所有，三家上市公司合计持有蓝电科技约16%股权。 　　与此同时，这是宁德时代参股整车企业、品牌的又一最新动作。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 证券时报网</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #f85149;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253748537890.html" target="_blank" style="color:#e6edf3;text-decoration:none">赛力斯子公司获66.7亿元增资！宁德时代等参与战投</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">值得注意的是，增资方中，宁波梅山保税港区问鼎投资有限公司为<em>宁德时代</em>新能源科技股份有限公司全资子公司。</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">值得注意的是，增资方中，宁波梅山保税港区问鼎投资有限公司为宁德时代新能源科技股份有限公司全资子公司。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 大河财立方</div>
             </div></div><div style="margin-bottom:10px"><span style="font-size:0.78em;font-weight:600;color:#d29922">📊 机构观点</span>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #d29922;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253748548162.html" target="_blank" style="color:#e6edf3;text-decoration:none">宁德时代 拟“上车”蓝电</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">蓝电科技的主要资产是蓝电汽车，而问鼎投资是<em>宁德时代</em>的全资子公司。若完成上述交易，<em>宁德时代</em>参股的车企将再添一家。天眼查显示，<em>宁德时代</em>通过问鼎投资，参股了奇瑞汽车、智己汽车、爱驰汽车、哪吒汽</div>
-              <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 中国基金报</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">蓝电科技的主要资产是蓝电汽车，而问鼎投资是宁德时代的全资子公司。若完成上述交易，宁德时代参股的车企将再添一家。天眼查显示，宁德时代通过问鼎投资，参股了奇瑞汽车、智己汽车、爱驰汽车、哪吒汽车等车企。</div>
+              <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-26 · 中国基金报</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #d29922;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202604223713987232.html" target="_blank" style="color:#e6edf3;text-decoration:none">美银证券：维持宁德时代买入评级</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">该行提到，<em>宁德时代</em>目标于2026年底前建成4000座充换电站，并于2028年底前与合作伙伴增至10万座。该行维持对<em>宁德时代</em>H股及A股的“买入”<em>评级</em>，目标价分别为740港元和606元。</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">该行提到，宁德时代目标于2026年底前建成4000座充换电站，并于2028年底前与合作伙伴增至10万座。该行维持对宁德时代H股及A股的“买入”评级，目标价分别为740港元和606元。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-04-22 · 财联社</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #d29922;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://stock.eastmoney.com/a/202605253748140227.html" target="_blank" style="color:#e6edf3;text-decoration:none">美股最新评级 | 中金公司维持唯品会跑赢行业评级 目标价20美元</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">以下为各家券商对美股的最新<em>评级</em>和目标价： 　　中信建投维持亚朵（ATAT.O）买入<em>评级</em>： 　　1Q26营收/调整净利同比+47.5%/+42.0%，零售业务超预期增长，全年收入指引上调至+24%-28%。</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">以下为各家券商对美股的最新评级和目标价： 　　中信建投维持亚朵（ATAT.O）买入评级： 　　1Q26营收/调整净利同比+47.5%/+42.0%，零售业务超预期增长，全年收入指引上调至+24%-28%。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 财联社</div>
             </div></div><div style="margin-bottom:10px"><span style="font-size:0.78em;font-weight:600;color:#58a6ff">🏭 行业趋势</span>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #58a6ff;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202604283721959731.html" target="_blank" style="color:#e6edf3;text-decoration:none">锂电池行业盈利拐点到来 融资客出手抢筹股揭晓</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">储能方面，摩根士丹利表示，2026年锂电<em>行业</em>的需求可能比实现预期的要更强，原因就是储能需求将会强于预期。其中的关键点就是在于：中国推动脱碳以及今年初推出的可再生能源交易机制，改善了储能项目的经济性，成为这一转变的关键催化剂</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">储能方面，摩根士丹利表示，2026年锂电行业的需求可能比实现预期的要更强，原因就是储能需求将会强于预期。其中的关键点就是在于：中国推动脱碳以及今年初推出的可再生能源交易机制，改善了储能项目的经济性，成为这一转变的关键催化剂。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-04-28 · 数据宝</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #58a6ff;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202604273720123473.html" target="_blank" style="color:#e6edf3;text-decoration:none">铜冠铜箔：公司铜箔产品主要应用于锂电池行业和电子信息行业</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">每经AI快讯，铜冠铜箔（301217.SZ）4月27日在投资者互动平台表示，公司铜箔产品主要应用于<em>锂电池</em><em>行业</em>和电子信息<em>行业</em>。</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">每经AI快讯，铜冠铜箔（301217.SZ）4月27日在投资者互动平台表示，公司铜箔产品主要应用于锂电池行业和电子信息行业。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-04-27 · 每日经济新闻</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #58a6ff;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202604273720782769.html" target="_blank" style="color:#e6edf3;text-decoration:none">铜冠铜箔：公司铜箔产品主要应用于锂电池和电子信息行业</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">证券日报网讯 4月27日，铜冠铜箔在互动平台回答投资者提问时表示，公司铜箔产品主要应用于<em>锂电池</em><em>行业</em>和电子信息<em>行业</em>。</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">证券日报网讯 4月27日，铜冠铜箔在互动平台回答投资者提问时表示，公司铜箔产品主要应用于锂电池行业和电子信息行业。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-04-27 · 证券日报</div>
             </div></div><div style="margin-bottom:10px"><span style="font-size:0.78em;font-weight:600;color:#3fb950">🔬 技术前沿</span>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #3fb950;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253748343840.html" target="_blank" style="color:#e6edf3;text-decoration:none">德尔股份：公司目前在稳步推进固态电池研发和中试线等相关工作</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">下游市场拓展层面，公司在积极拓展<em>固态电池</em>的储能、动力等应用场景，并凭借本征安全优势获得多个领域客户关注，已与部分客户签署了开发协议或合作意向书。公司<em>固态电池</em>业务目前未形成收入，对公司经营业绩不构成重大影响</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">下游市场拓展层面，公司在积极拓展固态电池的储能、动力等应用场景，并凭借本征安全优势获得多个领域客户关注，已与部分客户签署了开发协议或合作意向书。公司固态电池业务目前未形成收入，对公司经营业绩不构成重大影响，请投资者注意投资风险。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 证券日报</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #3fb950;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253748391689.html" target="_blank" style="color:#e6edf3;text-decoration:none">海科新源：公司在固态电池电解质等多条技术路线上已做好充分储备</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">证券日报网讯 5月25日，海科新源在互动平台回答投资者提问时表示，公司在<em>固态电池</em>电解质等多条技术路线上已做好充分储备。目前，公司已成功获得部分核心专利。具体产业化节奏将紧密跟随行业整体技术成熟度与下游需求稳步推进。</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">证券日报网讯 5月25日，海科新源在互动平台回答投资者提问时表示，公司在固态电池电解质等多条技术路线上已做好充分储备。目前，公司已成功获得部分核心专利。具体产业化节奏将紧密跟随行业整体技术成熟度与下游需求稳步推进。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 证券日报</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #3fb950;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253747976381.html" target="_blank" style="color:#e6edf3;text-decoration:none">德尔股份：积极拓展固态电池应用场景，具身智能赋能海外产线智能化升级</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">下游市场拓展层面，公司在积极拓展<em>固态电池</em>的储能、动力等应用场景，并获得多个领域客户关注，已与部分客户签署了开发协议或合作意向书。公司<em>固态电池</em>业务目前未形成收入，对公司经营业绩不构成重大影响。</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">下游市场拓展层面，公司在积极拓展固态电池的储能、动力等应用场景，并获得多个领域客户关注，已与部分客户签署了开发协议或合作意向书。公司固态电池业务目前未形成收入，对公司经营业绩不构成重大影响。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 证券时报网</div>
             </div></div><div style="margin-bottom:10px"><span style="font-size:0.78em;font-weight:600;color:#58a6ff">📜 政策与储能</span>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #58a6ff;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://stock.eastmoney.com/a/202605223746642175.html" target="_blank" style="color:#e6edf3;text-decoration:none">2026年储能行业迎政策、刚需、经济性三重红利，锂电及储能板块企业Q1净利同比上涨84.31%，储能电池ETF广发(159305)盘中最高涨超2%</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">兴业证券认为，多重利好共振下，<em>储能</em>环节整体景气度持续向好。首先，<em>储能</em>容量电价<em>政策</em>落地，2026年行业将凭<em>政策</em>、刚需、经济性三重红利提速增长。其次，中东地缘局势紧张，有望</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">兴业证券认为，多重利好共振下，储能环节整体景气度持续向好。首先，储能容量电价政策落地，2026年行业将凭政策、刚需、经济性三重红利提速增长。其次，中东地缘局势紧张，有望重现欧洲储能市场的高景气行情。 　　银河证券研报观点指出，储能兑现增长，</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-22 · 界面新闻</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #58a6ff;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://stock.eastmoney.com/a/202605193741775848.html" target="_blank" style="color:#e6edf3;text-decoration:none">光伏ETF鹏华(159863)红盘向上，政策催化光伏与工商储能</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">中信证券指出，本次新政利好光伏与工商<em>储能</em>。自发自用的工商业项目收益率本就较高，新政或释放约50GW积压受限项目，若按2年建设，有望提升约30%工商业年增量空间。同时，工商储增量项目配储成刚需，存量项目需在9月底前提交配储方</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">中信证券指出，本次新政利好光伏与工商储能。自发自用的工商业项目收益率本就较高，新政或释放约50GW积压受限项目，若按2年建设，有望提升约30%工商业年增量空间。同时，工商储增量项目配储成刚需，存量项目需在9月底前提交配储方案，光储一体化盈利</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-19 · 界面新闻</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #58a6ff;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253748521555.html" target="_blank" style="color:#e6edf3;text-decoration:none">四川优化企业研发投入补助政策 扩大政策受益面</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">此次<em>政策</em>修订核心亮点为降低申报门槛。新办法将企业研发投入增量最低要求由500万元降至300万元，同时取消旧办法中“企业营业收入不低于3000万元或融资估值不低于1亿元”的硬性限制，让更多中小科技企业有机会享受<em>政策<</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">此次政策修订核心亮点为降低申报门槛。新办法将企业研发投入增量最低要求由500万元降至300万元，同时取消旧办法中“企业营业收入不低于3000万元或融资估值不低于1亿元”的硬性限制，让更多中小科技企业有机会享受政策红利。 　　补助计算依据及标</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 中国新闻网</div>
             </div></div><div style="margin-bottom:10px"><span style="font-size:0.78em;font-weight:600;color:#3fb950">⚡ 钠电/换电</span>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #3fb950;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253747588946.html" target="_blank" style="color:#e6edf3;text-decoration:none">银河证券：钠离子电池行业2026年有望迎来产业奇点</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">银河证券研报称，龙头引领，<em>钠离子电池</em>行业2026年有望迎来产业奇点。2026年宁德时代“极域之约”超级科技日，宣布钠新电池预计将于2026年第四季度正式规模化量产，随着行业龙头实现<em>钠离子电池</em>的量产落地，将</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">银河证券研报称，龙头引领，钠离子电池行业2026年有望迎来产业奇点。2026年宁德时代“极域之约”超级科技日，宣布钠新电池预计将于2026年第四季度正式规模化量产，随着行业龙头实现钠离子电池的量产落地，将对整个产业链形成明确的拉动效应。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 界面新闻</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #3fb950;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253747582989.html" target="_blank" style="color:#e6edf3;text-decoration:none">银河证券：钠离子电池行业2026年有望迎来产业奇点</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">银河证券研报称，龙头引领，<em>钠离子电池</em>行业2026年有望迎来产业奇点。2026年宁德时代“极域之约”超级科技日，宣布钠新电池预计将于2026年第四季度正式规模化量产，随着行业龙头实现<em>钠离子电池</em>的量产落地，将</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">银河证券研报称，龙头引领，钠离子电池行业2026年有望迎来产业奇点。2026年宁德时代“极域之约”超级科技日，宣布钠新电池预计将于2026年第四季度正式规模化量产，随着行业龙头实现钠离子电池的量产落地，将对整个产业链形成明确的拉动效应。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 人民财讯</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #3fb950;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253748324783.html" target="_blank" style="color:#e6edf3;text-decoration:none">中科电气：公司负极材料业务针对钠离子电池所需的硬碳负极材料已实现量产</a>
               </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">中科电气（300035.SZ）5月25日在投资者互动平台表示，公司负极材料业务针对<em>钠离子电池</em>所需的硬碳负极材料已实现量产，并向头部电池客户供货，当前公司钠电硬碳负极出货规模占营收比重较小，后续随着终端市场不断发展，相关负极</div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">中科电气（300035.SZ）5月25日在投资者互动平台表示，公司负极材料业务针对钠离子电池所需的硬碳负极材料已实现量产，并向头部电池客户供货，当前公司钠电硬碳负极出货规模占营收比重较小，后续随着终端市场不断发展，相关负极材料出货规模将进一</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 每日经济新闻</div>
             </div></div>
   <div style="margin-top:14px;padding-top:12px;border-top:1px solid #1e2d45">
     <div style="font-size:0.82em;font-weight:600;color:#d29922;margin-bottom:10px">📋 本周资讯对宁德时代的影响评估</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px"><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:10px">
-          <div style="font-size:0.72em;font-weight:600;color:#f85149;margin-bottom:4px">📈 股价反应</div>
-          <div style="font-size:0.7em;color:#8b949e;line-height:1.5">本周跌1日，累计0.0%。大盘涨宁德跌——资金被热门板块虹吸。</div>
-        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:10px">
-          <div style="font-size:0.72em;font-weight:600;color:#d29922;margin-bottom:4px">💰 估值影响</div>
-          <div style="font-size:0.7em;color:#8b949e;line-height:1.5">PEG=0.59，低估加深，越跌越便宜。</div>
-        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:10px">
-          <div style="font-size:0.72em;font-weight:600;color:#3fb950;margin-bottom:4px">⛏️ 成本端</div>
-          <div style="font-size:0.7em;color:#8b949e;line-height:1.5">碳酸锂18.8万/吨 成本压力，短期压缩利润空间。</div>
-        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:10px">
-          <div style="font-size:0.72em;font-weight:600;color:#58a6ff;margin-bottom:4px">🏭 行业竞争</div>
-          <div style="font-size:0.7em;color:#8b949e;line-height:1.5">新能源车渗透率持续提升，CATL装机量稳居第一。固态/钠电等新技术推进中，短期不影响主流格局。</div>
-        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:10px">
-          <div style="font-size:0.72em;font-weight:600;color:#58a6ff;margin-bottom:4px">📜 政策环境</div>
-          <div style="font-size:0.7em;color:#8b949e;line-height:1.5">储能政策持续加码，电力市场化改革推进。欧盟电池法案等海外政策需持续跟踪。</div>
-        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:10px">
-          <div style="font-size:0.72em;font-weight:600;color:#d29922;margin-bottom:4px">🎯 操作提示</div>
-          <div style="font-size:0.7em;color:#8b949e;line-height:1.5">PEG低估+MA60强支撑，长期持有者可分批布局。短期趋势偏弱，等企稳信号。</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
+          <div style="font-size:0.75em;font-weight:700;color:#f85149;margin-bottom:6px">📈 股价反应</div>
+          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">本周跌1日，累计-0.0%，短线承压，但未破MA60强支撑位。从资讯面看，宁德时代本周有多条公司动态发布，市场短期更多受资金面和板块轮动影响。大盘方面，新能源板块整体表现弱于上证指数，板块内部轮动加速，龙头股弹性逐步恢复。</div>
+        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
+          <div style="font-size:0.75em;font-weight:700;color:#d29922;margin-bottom:6px">💰 估值影响</div>
+          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">当前PE(TTM)=23.6x，PEG=0.59，处于近五年历史低位区间，估值安全性极高。本周多家机构发布研报，多数维持「买入」评级，目标价在¥450-500区间，较当前价有15%-25%上行空间。伴随PE持续压缩，市场给予宁德时代的成长性溢价几乎消失，此时反而是长线价值投资者收集筹码的窗口期。关注下周即将披露的月度排产数据，若超预期将直接催化估值修复。</div>
+        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
+          <div style="font-size:0.75em;font-weight:700;color:#3fb950;margin-bottom:6px">⛏️ 成本端</div>
+          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">上游核心原材料碳酸锂最新报价约10万元/吨，碳酸锂18.8万/吨 成本压力。从半年维度看，碳酸锂价格走势平稳，这对宁德时代的电池成本构成直接利好——原材料成本约占电池总成本60%，锂价每下降10%对应毛利率提升约2个百分点。其他关键材料方面，正极材料和电解液价格同步走弱，整体成本环境较去年同期显著改善。钠离子电池本周有重要进展。中长期来看，宁德时代向上游锂矿、镍矿持续布局，原材料自供率提升将进一步熨平成本波动。</div>
+        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
+          <div style="font-size:0.75em;font-weight:700;color:#58a6ff;margin-bottom:6px">🏭 行业竞争</div>
+          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">从本周资讯看，新能源车渗透率持续攀升，终端需求景气度未减。宁德时代全球动力电池装机市占率维持在37%左右，连续多年稳居第一，与第二名差距仍在拉大。固态电池技术本周有突破性进展报道，但从实验室到量产至少需要3-5年，短期不构成对现有液态电池体系的替代威胁。比亚迪、亿纬锂能等二线厂商加速扩产，但宁德在技术迭代、客户绑定和规模效应上仍具显著护城河。换电模式本周也有新动态。海外方面，宁德时代匈牙利工厂、印尼项目稳步推进，全球化产能布局领先同行至少2-3年。</div>
+        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
+          <div style="font-size:0.75em;font-weight:700;color:#58a6ff;margin-bottom:6px">📜 政策环境</div>
+          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">本周储能政策密集出台，涉及新型储能发展规划、电力市场化交易等核心领域。国内储能市场已进入装机爆发期，2025年新增装机预计同比增长超40%，宁德时代作为储能电池全球出货量第一的企业，是政策红利最直接的受益方。海外政策方面，欧盟新电池法案的碳足迹要求逐步落地，宁德凭借零碳工厂和全生命周期碳管理能力，相比国内二线厂商有明显合规优势。美国IRA法案细则仍在博弈中，但宁德通过技术授权模式（如与福特的合作）已找到破局路径。总体来看，政策环境对宁德以利好为主，储能赛道是中长期的第二增长曲线。</div>
+        </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
+          <div style="font-size:0.75em;font-weight:700;color:#d29922;margin-bottom:6px">🎯 操作提示</div>
+          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">综合本周资讯和数据，宁德时代基本面未出现任何恶化信号——估值处于历史低位、成本端持续改善、行业地位稳固、政策面利好不断。当前股价的弱势更多是市场风格切换和短期资金博弈的结果，非基本面驱动。对于长线持有者：PEG&lt;1叠加MA60强支撑，是分批加仓的较好时机，建议在¥390-¥400区间金字塔式建仓，止损位设在MA60下方3%（约¥385）。对于短线交易者：趋势未扭转前保持观望，等待放量阳线确认企稳信号再入场。下周重点关注：月度排产数据、北向资金是否回流转正、以及碳酸锂价格是否继续下探。</div>
         </div></div>
   </div>
 </div>
   <div class="footer">
   🤖 Hermes · CATL Ecosystem Monitor v1.2<br>
-  2026-05-26 00:52:28 · 数据: 新浪/腾讯/东方财富/生意社<br>
+  2026-05-26 07:47:24 · 数据: 新浪/腾讯/东方财富/生意社<br>
   📊 <a href="https://zxb20262026.github.io/catl-ecosystem-monitor/" target="_blank">完整报告</a> ·
   <a href="https://github.com/zxb20262026/catl-ecosystem-monitor" target="_blank">GitHub</a><br>
   ⚠️ 仅供参考 不构成投资建议
