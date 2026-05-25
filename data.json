@@ -1,6 +1,6 @@
 {
   "date": "2026-05-25",
-  "datetime": "2026-05-25 23:52:57",
+  "datetime": "2026-05-25 23:57:38",
   "mode": "晚报 🌙",
   "catl_a": {
     "name": "宁德时代",
@@ -527,44 +527,47 @@
     "碳酸锂(电池级)": {
       "price": 75000,
       "unit": "元/吨",
-      "trend": "低位震荡",
-      "source": "参考"
-    },
-    "碳酸锂": {
-      "price": 75000,
-      "unit": "元/吨",
-      "trend": "低位震荡",
-      "source": "参考"
+      "source": "参考",
+      "pos_text": "半年P22% · 偏低",
+      "position": 22.4,
+      "low_6m": 62000,
+      "high_6m": 120000
     },
     "氢氧化锂": {
       "price": 78000,
       "unit": "元/吨",
-      "trend": "跟随碳酸锂",
-      "source": "参考"
-    },
-    "电解钴": {
-      "price": 195000,
-      "unit": "元/吨",
-      "trend": "偏弱",
-      "source": "参考"
-    },
-    "硫酸镍": {
-      "price": 28500,
-      "unit": "元/吨",
-      "trend": "稳定",
-      "source": "参考"
+      "source": "参考",
+      "pos_text": "半年P20% · 偏低",
+      "position": 20.0,
+      "low_6m": 65000,
+      "high_6m": 130000
     },
     "磷酸铁锂": {
       "price": 38000,
       "unit": "元/吨",
-      "trend": "低位",
-      "source": "参考"
+      "source": "参考",
+      "pos_text": "半年P19% · 偏低",
+      "position": 19.0,
+      "low_6m": 34000,
+      "high_6m": 55000
+    },
+    "电解钴": {
+      "price": 195000,
+      "unit": "元/吨",
+      "source": "参考",
+      "pos_text": "半年P15% · 偏低",
+      "position": 15.0,
+      "low_6m": 180000,
+      "high_6m": 280000
     },
     "六氟磷酸锂": {
       "price": 62000,
       "unit": "元/吨",
-      "trend": "低位",
-      "source": "参考"
+      "source": "参考",
+      "pos_text": "半年P18% · 偏低",
+      "position": 17.5,
+      "low_6m": 55000,
+      "high_6m": 95000
     }
   },
   "lithium_futures": {
