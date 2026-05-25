@@ -97,9 +97,9 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .val-table th,.val-table td{padding:5px 8px;text-align:center;border-bottom:1px solid #1e2d45}
 .val-table th{color:#8b949e;font-weight:500}
 .val-table td:first-child{text-align:left;font-weight:500}
-.band-bar{height:8px;border-radius:4px;background:#1e2d45;margin:10px 0;position:relative;overflow:visible}
+.band-bar{height:8px;border-radius:4px;background:#1e2d45;margin:28px 0 10px;position:relative;overflow:visible}
 .band-seg{height:100%;position:absolute;top:0}
-.band-marker{position:absolute;top:-4px;width:12px;height:16px;border-radius:3px;transform:translateX(-50%);z-index:2}
+.band-marker{position:absolute;top:-6px;width:14px;height:20px;border-radius:3px;transform:translateX(-50%);z-index:2}
 .band-labels{display:flex;justify-content:space-between;font-size:0.65em;color:#484f58;margin-top:4px}
 .inst-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
 .inst-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px;text-align:center}
@@ -201,7 +201,10 @@ tr:hover{background:rgba(88,166,255,0.03)}
   <div class="val-section">
     <h3>🎯 PE Bands 价格区间</h3>
     <p style="font-size:0.78em;color:#c9d1d9;margin-bottom:8px">当前¥403 处于<span class="hl-yellow">合理区</span>，PE=23.6x</p>
-    <div class="band-bar"><div class="band-seg" style="left:0.0%;width:16.666666666666668%;background:#3fb950;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:16.666666666666668%;width:16.666666666666668%;background:#58a6ff;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:33.333333333333336%;width:16.666666666666668%;background:#8b949e;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:50.0%;width:16.666666666666668%;background:#d29922;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:66.66666666666667%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:83.33333333333334%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-marker" style="left:58.333333333333336%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.5)"></div></div>
+    <div class="band-bar"><div style="position:relative"><span style="position:absolute;left:0.0%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥256</span><span style="position:absolute;left:16.666666666666668%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥307</span><span style="position:absolute;left:33.333333333333336%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥358</span><span style="position:absolute;left:50.0%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥427</span><span style="position:absolute;left:66.66666666666667%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥512</span><span style="position:absolute;left:83.33333333333334%;width:16.666666666666668%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥597</span></div><div class="band-seg" style="left:0.0%;width:16.666666666666668%;background:#3fb950;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:16.666666666666668%;width:16.666666666666668%;background:#58a6ff;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:33.333333333333336%;width:16.666666666666668%;background:#8b949e;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:50.0%;width:16.666666666666668%;background:#d29922;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:66.66666666666667%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:83.33333333333334%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-marker" style="left:58.333333333333336%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.5)"></div>
+    <div style="position:absolute;left:58.333333333333336%;top:-28px;transform:translateX(-50%);background:#d29922;color:#0a0e17;padding:1px 8px;border-radius:4px;font-size:0.65em;font-weight:700;white-space:nowrap;z-index:3">
+      当前 ¥403
+    </div></div>
     <div class="band-labels"><span>清仓</span><span>止损</span><span>保守</span><span>合理</span><span>偏高</span><span>泡沫</span></div>
     <table class="val-table" style="margin-top:8px">
       <tr><th>情景</th><th>PE</th><th>基准EPS</th><th>目标价</th></tr>
@@ -249,7 +252,7 @@ tr:hover{background:rgba(88,166,255,0.03)}
 </div>
   <div class="footer">
   🤖 Hermes · CATL Ecosystem Monitor v1.2<br>
-  2026-05-26 00:31:16 · 数据: 新浪/腾讯/东方财富/生意社<br>
+  2026-05-26 00:39:28 · 数据: 新浪/腾讯/东方财富/生意社<br>
   📊 <a href="https://zxb20262026.github.io/catl-ecosystem-monitor/" target="_blank">完整报告</a> ·
   <a href="https://github.com/zxb20262026/catl-ecosystem-monitor" target="_blank">GitHub</a><br>
   ⚠️ 仅供参考 不构成投资建议
