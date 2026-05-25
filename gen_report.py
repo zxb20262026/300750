@@ -125,9 +125,9 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .val-table th,.val-table td{padding:5px 8px;text-align:center;border-bottom:1px solid #1e2d45}
 .val-table th{color:#8b949e;font-weight:500}
 .val-table td:first-child{text-align:left;font-weight:500}
-.band-bar{height:8px;border-radius:4px;background:#1e2d45;margin:10px 0;position:relative;overflow:visible}
+.band-bar{height:8px;border-radius:4px;background:#1e2d45;margin:28px 0 10px;position:relative;overflow:visible}
 .band-seg{height:100%;position:absolute;top:0}
-.band-marker{position:absolute;top:-4px;width:12px;height:16px;border-radius:3px;transform:translateX(-50%);z-index:2}
+.band-marker{position:absolute;top:-6px;width:14px;height:20px;border-radius:3px;transform:translateX(-50%);z-index:2}
 .band-labels{display:flex;justify-content:space-between;font-size:0.65em;color:#484f58;margin-top:4px}
 .inst-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
 .inst-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px;text-align:center}
@@ -596,16 +596,25 @@ def build_valuation(data):
     total_width = 100
     seg_width = total_width / len(band_defs)
     marker_pos = 0
+    price_labels = ""  # 价格标签行
 
     for i, (label, color) in enumerate(band_defs):
         b = bands.get(label, {})
         bp = b.get("price", 0)
         band_rows += f'<tr><td style="color:{color}">{label}</td><td>{b.get("pe","")}x</td><td>{eps_val or "—"}</td><td style="color:{color};font-weight:600">¥{bp:.0f}</td></tr>'
         band_html += f'<div class="band-seg" style="left:{i*seg_width}%;width:{seg_width}%;background:{color};opacity:0.3;border-right:1px solid #0a0e17"></div>'
+        # 价格标签
+        price_labels += f'<span style="position:absolute;left:{i*seg_width}%;width:{seg_width}%;text-align:center;font-size:0.58em;color:#8b949e;top:-16px">¥{bp:.0f}</span>'
         if label == current_band:
             marker_pos = (i + 0.5) * seg_width
 
-    band_html += f'<div class="band-marker" style="left:{marker_pos}%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.5)"></div>'
+    # 当前位置标记 + 价格
+    band_html += f'''<div class="band-marker" style="left:{marker_pos}%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.5)"></div>
+    <div style="position:absolute;left:{marker_pos}%;top:-28px;transform:translateX(-50%);background:#d29922;color:#0a0e17;padding:1px 8px;border-radius:4px;font-size:0.65em;font-weight:700;white-space:nowrap;z-index:3">
+      当前 ¥{price:.0f}
+    </div>'''
+    # 价格标签加到band-bar内
+    band_html = f'<div style="position:relative">{price_labels}</div>' + band_html
 
     # 当前位置说明
     if current_band == "保守区":
