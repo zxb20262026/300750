@@ -504,14 +504,33 @@ def build_upstream(data):
         if name not in shown:
             shown.add(name)
             mat_cards += f'<div class="mat-card"><div class="name">{name}</div><div class="price">{m.get("price","—")}{m.get("unit","")}</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">{m.get("trend",m.get("source",""))}</div></div>'
+
+    # 上游龙头表格 — 多周期版本
     up_rows = ""
     for name, s in upstream.items():
         clr = color_pct(s["change_pct"])
-        up_rows += f'<tr><td>{name}</td><td style="color:{clr}">¥{s["price"]}</td><td style="color:{clr}">{sign(s["change_pct"])}{s["change_pct"]:.1f}%</td></tr>'
+        periods = s.get("periods", {})
+        summary = s.get("trend_summary", "")
+
+        def pcell(val):
+            if val is None: return '<td style="color:#484f58">—</td>'
+            c = "#f85149" if val >= 0 else "#3fb950"
+            return f'<td style="color:{c}">{sign(val)}{val:.1f}%</td>'
+
+        up_rows += f'<tr><td>{name}</td><td style="color:{clr};font-weight:600">¥{s["price"]:.2f}</td>' \
+                   + pcell(s["change_pct"]) \
+                   + pcell(periods.get("5日")) \
+                   + pcell(periods.get("15日")) \
+                   + pcell(periods.get("30日")) \
+                   + f'<td style="font-size:0.72em;color:#8b949e">{summary}</td></tr>'
+
     return f'''<div class="module">
   <div class="module-hdr"><span class="icon">⛏️</span><h2>上游原材料雷达</h2><span class="status" style="background:rgba(88,166,255,0.1);color:#58a6ff">平均 {sign(avg)}{avg:.1f}%</span></div>
   <div class="mat-grid">{mat_cards}</div>
-  <table style="margin-top:12px"><tr><th>上游龙头</th><th>价格</th><th>涨跌幅</th></tr>{up_rows}</table>
+  <table style="margin-top:12px">
+    <tr><th>上游龙头</th><th>价格</th><th>今日</th><th>5日</th><th>15日</th><th>30日</th><th>走势小结</th></tr>
+    {up_rows}
+  </table>
 </div>'''
 
 
