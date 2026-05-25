@@ -192,12 +192,15 @@ def build_kpi_dashboard(data):
     pe_clr = "#d29922" if pe_val and pe_val > 40 else "#58a6ff"
     cards.append(make_card("PE(TTM)", f"{pe_val:.1f}x" if pe_val else "—", "", pe_note, pe_clr))
 
-    # 4. PEG
+    # ── 4. PEG ──
     peg_note = s.get("peg", {}).get("text", "")
     tp = s.get("peg", {}).get("target_price")
     dist = s.get("peg", {}).get("distance_pct")
-    if tp and dist:
-        peg_note += f"\n买入线 ¥{tp:.0f} (差{abs(dist):.1f}%)"
+    if tp and dist is not None:
+        if dist < 0:
+            peg_note += f"\n买入线 ¥{tp:.0f} (差{abs(dist):.1f}%)"
+        else:
+            peg_note += f"\n已低于买入线 ¥{tp:.0f} ({dist:.0f}%)"
     cards.append(make_card("PEG", f"{peg:.2f}" if peg else "—",
                            sig.get("text", ""), peg_note, sig.get("color", "#8b949e")))
 
@@ -231,8 +234,10 @@ def build_kpi_dashboard(data):
     ind = s.get("industry", {})
     ind_chg = ind.get("change_pct")
     ind_name = ind.get("name", "—")
+    # 显示简称 "电池"
+    ind_label = "电池" if "电池" in ind_name else ind_name
     vs_ind = s.get("vs_industry", "")
-    cards.append(make_card(f"行业({ind_name})",
+    cards.append(make_card(f"行业({ind_label})",
                            f"{sign(ind_chg)}{ind_chg:.1f}%" if ind_chg is not None else "—",
                            "", vs_ind or "", color_pct(ind_chg)))
 
@@ -290,7 +295,8 @@ def build_summary_panel(data):
         tp_display = f"¥{tp:.0f}" if tp else "—"
         peg_items.append(f'<span class="hl-red">PEG={peg_v:.2f} 偏高</span>，距买入区间还需跌{abs(peg_dist):.1f}%至 {tp_display}')
     elif peg_v and peg_v < PEG_UNDERVALUE:
-        peg_items.append(f'<span class="hl-green">PEG={peg_v:.2f} 低估</span>，已进入买入区间')
+        tp_display = f"¥{tp:.0f}" if tp else "—"
+        peg_items.append(f'<span class="hl-green">PEG={peg_v:.2f} 低估</span>，已进入买入区间 (买入线 {tp_display})')
     else:
         peg_items.append(f'PEG={peg_v:.2f} 合理区间')
 
@@ -456,15 +462,15 @@ def build_trading_plan(data):
         plan_html = '<p>待采集均线数据后自动计算</p>'
 
     # ── 目标价/止损 ──
-    if eps and tp_data.get("mid"):
-        target_html = f'<p>目标价: ¥{tp_data["low"]:.0f}-{tp_data["high"]:.0f} (基于PE {TRADING["target_pe_range"][0]}-{TRADING["target_pe_range"][1]}x合理区间)</p>'
+    if eps and tp_data.get("mid") and tp_data["mid"] > 0:
+        target_html = f'<p>买入价(PEG=1): ¥{tp_data["buy"]:.0f} · 目标区间: ¥{tp_data["low"]:.0f}-{tp_data["high"]:.0f} (基于PE {TRADING["target_pe_range"][0]}-{TRADING["target_pe_range"][1]}x)</p>'
     else:
         target_html = '<p>待采集PE数据后自动计算</p>'
 
     stop_html = f'<p>止损位: ¥{TRADING["stop_loss_price"]} (有效跌破视为逻辑破坏)</p>'
 
     # ── 风险收益比 ──
-    if price and eps and tp_data.get("mid"):
+    if price and eps and tp_data.get("mid") and tp_data["mid"] > 0:
         potential_up = round((tp_data["mid"] - price) / price * 100, 1)
         potential_down = round((price - TRADING["stop_loss_price"]) / price * 100, 1)
         rr = round(abs(potential_up / potential_down), 1) if potential_down else 0
