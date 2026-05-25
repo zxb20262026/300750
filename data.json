@@ -1,6 +1,6 @@
 {
   "date": "2026-05-25",
-  "datetime": "2026-05-25 23:26:39",
+  "datetime": "2026-05-25 23:52:57",
   "mode": "晚报 🌙",
   "catl_a": {
     "name": "宁德时代",
@@ -577,49 +577,103 @@
     "赣锋锂业": {
       "code": "sz002460",
       "price": 75.1,
-      "change_pct": -1.05
+      "change_pct": -1.05,
+      "periods": {
+        "5日": -1.28,
+        "15日": -15.31,
+        "30日": -7.3
+      },
+      "trend_summary": "持续走弱"
     },
     "天齐锂业": {
       "code": "sz002466",
       "price": 66.67,
-      "change_pct": 0.23
+      "change_pct": 0.23,
+      "periods": {
+        "5日": 0.14,
+        "15日": -16.69,
+        "30日": 15.65
+      },
+      "trend_summary": "强势上涨，短期反转"
     },
     "华友钴业": {
       "code": "sh603799",
       "price": 57.09,
-      "change_pct": -3.04
+      "change_pct": -3.04,
+      "periods": {
+        "5日": -0.89,
+        "15日": -13.62,
+        "30日": -3.24
+      },
+      "trend_summary": "横盘震荡"
     },
     "恩捷股份": {
       "code": "sz002812",
       "price": 69.4,
-      "change_pct": -5.28
+      "change_pct": -5.28,
+      "periods": {
+        "5日": -11.56,
+        "15日": -16.34,
+        "30日": 5.44
+      },
+      "trend_summary": "稳步上行，加速下跌"
     },
     "天赐材料": {
       "code": "sz002709",
       "price": 53.07,
-      "change_pct": -8.63
+      "change_pct": -8.63,
+      "periods": {
+        "5日": -2.52,
+        "15日": -12.3,
+        "30日": 21.75
+      },
+      "trend_summary": "强势上涨"
     },
     "当升科技": {
       "code": "sz300073",
       "price": 57.6,
-      "change_pct": -4.05
+      "change_pct": -4.05,
+      "periods": {
+        "5日": -0.17,
+        "15日": -9.21,
+        "30日": 4.86
+      },
+      "trend_summary": "横盘震荡"
     }
   },
   "competitors": {
     "比亚迪": {
       "code": "sz002594",
       "price": 95.96,
-      "change_pct": 2.36
+      "change_pct": 2.36,
+      "periods": {
+        "5日": -0.04,
+        "15日": -6.82,
+        "30日": -3.1
+      },
+      "trend_summary": "横盘震荡"
     },
     "亿纬锂能": {
       "code": "sz300014",
       "price": 63.21,
-      "change_pct": -1.82
+      "change_pct": -1.82,
+      "periods": {
+        "5日": -3.5,
+        "15日": -12.64,
+        "30日": -2.57
+      },
+      "trend_summary": "横盘震荡"
     },
     "国轩高科": {
       "code": "sz002074",
       "price": 34.56,
-      "change_pct": -2.1
+      "change_pct": -2.1,
+      "periods": {
+        "5日": -3.14,
+        "15日": -5.93,
+        "30日": -2.04
+      },
+      "trend_summary": "横盘震荡"
     }
   },
   "sectors": {
