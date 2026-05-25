@@ -363,6 +363,7 @@ def collect_all(verbose=True):
     if verbose: print(f"  {sum(len(v) for v in data['news'].values())} 条")
     if verbose: print("💰 北向..."); data["north_flow"] = fetch_north_flow()
     if verbose: print("🚗 新能源车..."); data["nev_sector"] = fetch_nev_sector()
+    if verbose: print("📊 估值..."); data["valuation"] = fetch_valuation_data()
 
     compute_derived(data)
     if verbose: print("=" * 50 + "\n✅ 采集完成")
@@ -484,6 +485,31 @@ def compute_derived(data):
         target_high = round(TRADING["target_pe_range"][1] * eps, 0)
         target_mid = round((target_low + target_high) / 2, 0)
         s["target_prices"] = {"buy": buy_price, "low": target_low, "mid": target_mid, "high": target_high}
+
+        # ── PE Bands ──
+        if eps and eps > 0:
+            bands = {}
+            band_defs = [
+                ("清仓区", 15, "#3fb950"),
+                ("止损区", 18, "#58a6ff"),
+                ("保守区", 21, "#8b949e"),
+                ("合理区", 25, "#d29922"),
+                ("偏高区", 30, "#f85149"),
+                ("泡沫区", 35, "#f85149"),
+            ]
+            current_band = None
+            for label, pe_band, color in band_defs:
+                price_band = round(pe_band * eps, 0)
+                bands[label] = {"pe": pe_band, "price": price_band, "color": color}
+                if price and price_band and not current_band:
+                    if price <= price_band:
+                        current_band = label
+            if not current_band:
+                current_band = "泡沫区"
+            bands["_current"] = current_band
+            bands["_eps"] = round(eps, 2)
+            data["valuation"]["pe_bands"] = bands
+            s["pe_bands"] = bands
     else:
         data["peg"] = None
         data["peg_signal"] = {"text": "--", "color": "#8b949e", "level": "unknown"}
@@ -591,8 +617,59 @@ def compute_derived(data):
 
 
 # ═══════════════════════════════════════════
-# 辅助函数
+# 估值数据采集
 # ═══════════════════════════════════════════
+
+def fetch_valuation_data():
+    """采集估值对比数据 + PE Bands + 机构评级"""
+    result = {}
+
+    # ── 1. 同行估值 ──
+    peers_val = {}
+    for name, code in VALUATION_PEERS.items():
+        try:
+            raw = get(f"https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param={code},day,,,1,qfq", headers=H_EM)
+            d = json.loads(raw)
+            qt = d.get("data", {}).get(code, {}).get("qt", {}).get(code, [])
+            if qt and len(qt) > 65:
+                pe = float(qt[39]) if len(qt) > 39 and qt[39] else None
+                pb = float(qt[46]) if len(qt) > 46 and qt[46] else None
+                roe = float(qt[65]) if len(qt) > 65 and qt[65] else None
+                price = float(qt[3]) if len(qt) > 3 and qt[3] else None
+                mcap = float(qt[45]) if len(qt) > 45 and qt[45] else None
+
+                # PEG = PE / 增速 (粗略用行业平均增速25%)
+                peg = round(pe / 25, 2) if pe and pe > 0 else None
+
+                # 估值性价比: (1/PE) vs (1/行业PE) 简单比值
+                score = "—"
+                if pe and pe > 0:
+                    if pe < 20: score = "低估"
+                    elif pe < 30: score = "合理"
+                    elif pe < 50: score = "偏高"
+                    else: score = "高估"
+
+                peers_val[name] = {
+                    "code": code, "price": price, "pe": pe, "pb": pb,
+                    "roe": roe, "peg": peg, "mcap": mcap, "score": score
+                }
+        except:
+            pass
+    result["peers"] = peers_val
+
+    # ── 2. PE Bands (基于当前EPS) ──
+    # 从已采集的PE和价格计算EPS，然后构建Bands
+    result["pe_bands"] = None  # 后续在compute_derived中填充
+
+    # ── 3. 机构评级 (静态参考，定期手动更新) ──
+    result["institution"] = {
+        "buy": 9, "overweight": 2, "neutral": 0, "sell": 0,
+        "target_avg": 520.0,  # 机构目标均价
+        "dividend_rate": 1.2,  # 2025分红率(% 占净利润)
+        "dividend_yield": 0.38,  # 股息率(%)
+    }
+
+    return result
 
 def calc_streak(kline, current_price):
     if len(kline) < 2: return 0, 0, "—"
