@@ -303,7 +303,7 @@ def fetch_news(keyword, count=5):
                  "date": (a.get("date", "") or "")[:10],
                  "source": a.get("mediaName", ""),
                  "url": a.get("url", ""),
-                 "content": (a.get("content", "") or "")[:120]}  # 正文摘要前120字
+                 "content": (a.get("content", "") or "").replace("<em>", "").replace("</em>", "")[:120]}  # 正文摘要前120字，剥离东方财富高亮标签
                 for a in json.loads(m.group(1)).get("result", {}).get("cmsArticleWebOld", [])]
     except: return []
 
@@ -387,7 +387,7 @@ def collect_all(verbose=True):
     data["catl_h"] = fetch_catl_h()
     data["catl_pe"] = fetch_catl_pe()
     data["catl_fund"] = fetch_catl_fund_flow()
-    data["catl_kline"] = fetch_catl_kline(60)
+    data["catl_kline"] = fetch_catl_kline(90)  # 90天用于技术面分析
     data["market"] = fetch_market_indices()
     if verbose:
         a = data["catl_a"]
