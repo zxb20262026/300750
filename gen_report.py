@@ -230,16 +230,16 @@ def build_kpi_dashboard(data):
     li_chg = lf.get("change_pct") and f"{sign(lf['change_pct'])}{lf['change_pct']:.1f}%" or ""
     cards.append(make_card("碳酸锂期货", li_price_str, li_chg, li_note, li_clr))
 
-    # 9. NEW: 行业涨跌
+    # 9. NEW: 行业涨跌 — 电池(数据源:新能车指数)
     ind = s.get("industry", {})
     ind_chg = ind.get("change_pct")
-    ind_name = ind.get("name", "—")
-    # 显示简称 "电池"
-    ind_label = "电池" if "电池" in ind_name else ind_name
+    ind_name = ind.get("name", "电池")
+    ind_src = ind.get("source", "")
     vs_ind = s.get("vs_industry", "")
-    cards.append(make_card(f"行业({ind_label})",
+    ind_note = f"数据源: {ind_src}指数\n{vs_ind}" if vs_ind else f"数据源: {ind_src}指数"
+    cards.append(make_card(f"行业({ind_name})",
                            f"{sign(ind_chg)}{ind_chg:.1f}%" if ind_chg is not None else "—",
-                           "", vs_ind or "", color_pct(ind_chg)))
+                           "", ind_note, color_pct(ind_chg)))
 
     # 10. NEW: MA60 距离
     ma60 = s.get("ma60_dist", {})
