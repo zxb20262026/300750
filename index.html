@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CATL 生态链日监控 · 2026-05-25 · 晚报 🌙</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei","PingFang SC",sans-serif;
+  background:#0a0e17; color:#e6edf3; line-height:1.5;
+  padding:16px; min-height:100vh;
+}
+.wrap{max-width:900px;margin:0 auto}
+
+/* ── 头部动画 ── */
+.header{
+  background:linear-gradient(135deg,#0a1628 0%,#0f3460 40%,#16213e 70%,#0a0e17 100%);
+  border:1px solid #1e3a5f; border-radius:16px; padding:28px 20px 20px;
+  margin-bottom:16px; text-align:center; position:relative; overflow:hidden;
+}
+.header::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle at 30% 30%,rgba(63,185,80,0.08) 0%,transparent 50%),
+             radial-gradient(circle at 70% 70%,rgba(88,166,255,0.06) 0%,transparent 50%);
+  animation:pulse 4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:0.6}50%{opacity:1}}
+.header h1{font-size:1.6em;font-weight:700;position:relative;z-index:1;letter-spacing:1px}
+.header .sub{color:#8b949e;font-size:0.85em;margin-top:6px;position:relative;z-index:1}
+.header .badge{display:inline-block;padding:3px 12px;border-radius:12px;font-size:0.75em;font-weight:600;margin-top:8px;position:relative;z-index:1}
+.badge-morning{background:rgba(88,166,255,0.15);color:#58a6ff}
+.badge-evening{background:rgba(210,153,34,0.15);color:#d29922}
+
+/* ── PEG 信号灯 ── */
+.signal-box{
+  background:#131a26; border:1px solid #1e2d45; border-radius:12px;
+  padding:16px; margin-bottom:16px; text-align:center;
+}
+.signal-box .peg-v{font-size:1.4em;font-weight:700}
+.signal-box .peg-label{font-size:0.82em;color:#8b949e;margin-top:4px}
+.signal-box .peg-action{display:inline-block;padding:4px 16px;border-radius:8px;font-size:0.78em;font-weight:600;margin-top:6px}
+
+/* ── KPI 网格 ── */
+.kpi-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:8px; margin-bottom:16px;
+}
+.kpi-card{
+  background:#131a26; border:1px solid #1e2d45; border-radius:10px;
+  padding:12px; text-align:center;
+}
+.kpi-card .label{color:#8b949e;font-size:0.7em;text-transform:uppercase;letter-spacing:1px}
+.kpi-card .value{font-size:1.3em;font-weight:700;margin:4px 0 2px}
+.kpi-card .sub{font-size:0.75em;color:#484f58}
+
+/* ── 模块卡片 ── */
+.module{
+  background:#131a26; border:1px solid #1e2d45; border-radius:12px;
+  padding:16px; margin-bottom:14px;
+}
+.module-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #1e2d45}
+.module-hdr .icon{font-size:1.2em}
+.module-hdr h2{font-size:0.95em;font-weight:600;color:#58a6ff;flex:1}
+.module-hdr .status{font-size:0.72em;padding:2px 8px;border-radius:6px}
+
+/* ── 表格 ── */
+table{width:100%;border-collapse:collapse;font-size:0.8em}
+th,td{padding:6px 8px;text-align:left;border-bottom:1px solid #1e2d45}
+th{color:#8b949e;font-weight:500;font-size:0.85em}
+tr:hover{background:rgba(88,166,255,0.03)}
+
+/* ── 新闻列表 ── */
+.news-list{margin:0;padding:0;list-style:none}
+.news-item{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #1e2d45;align-items:flex-start}
+.news-item:last-child{border-bottom:none}
+.news-date{color:#484f58;font-size:0.7em;white-space:nowrap;min-width:42px;padding-top:1px}
+.news-info{flex:1;min-width:0}
+.news-info a{color:#e6edf3;text-decoration:none;font-size:0.82em;display:block;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.news-info a:hover{color:#58a6ff}
+.news-info .src{color:#484f58;font-size:0.7em;margin-top:2px}
+
+/* ── 原材料网格 ── */
+.mat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.mat-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:10px;text-align:center}
+.mat-card .name{font-size:0.72em;color:#8b949e}
+.mat-card .price{font-size:1.1em;font-weight:700;margin:3px 0}
+.mat-card .trend{font-size:0.7em;padding:1px 6px;border-radius:4px}
+
+/* ── 预警栏 ── */
+.alert{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;margin-bottom:14px;font-size:0.82em}
+.alert-green{background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.3);color:#3fb950}
+.alert-yellow{background:rgba(210,153,34,0.1);border:1px solid rgba(210,153,34,0.3);color:#d29922}
+.alert-red{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);color:#f85149}
+
+/* ── Footer ── */
+.footer{text-align:center;padding:20px 0 40px;color:#484f58;font-size:0.72em;line-height:1.8}
+.footer a{color:#58a6ff;text-decoration:none}
+
+/* ── 响应式 ── */
+@media(max-width:600px){
+  body{padding:10px}
+  .header{padding:20px 14px}
+  .header h1{font-size:1.3em}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .mat-grid{grid-template-columns:repeat(2,1fr)}
+  .module{padding:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  
+<div class="header">
+  <h1>🔋 宁德时代 · 生态链日监控</h1>
+  <div class="sub">CATL Ecosystem Radar · 2026-05-25 · 持仓200股</div>
+  <div class="sub" style="margin-top:2px">
+    A股 <span style="color:#3fb950;font-weight:600">¥402.88 -2.01%</span>
+  </div>
+  <span class="badge badge-evening">晚报 🌙</span>
+</div>
+  
+<div class="signal-box" style="border-color:#f85149">
+  <div class="peg-v" style="color:#f85149">偏高区间 ⚠️</div>
+  <div class="peg-label">
+    PEG 1.81 = PE 72.5 / 增速 40% ·
+    碳酸锂期货 ¥187900/吨
+  </div>
+  <span class="peg-action" style="background:rgba(f85149,0.12);color:#f85149">
+    SELL
+  </span>
+</div>
+  <div class="kpi-grid"><div class="kpi-card"><div class="label">CATL A股</div><div class="value" style="color:#3fb950">¥402.88</div><div class="sub" style="color:#3fb950">🟢 -2.0%</div></div><div class="kpi-card"><div class="label">H股</div><div class="value" style="color:#3fb950">HK$673.5</div><div class="sub" style="color:#3fb950">-1.5%</div></div><div class="kpi-card"><div class="label">AH溢价</div><div class="value" style="color:#3fb950">-35.0%</div><div class="sub" style="color:#3fb950"></div></div><div class="kpi-card"><div class="label">PEG</div><div class="value" style="color:#f85149">1.81</div><div class="sub" style="color:#f85149"></div></div><div class="kpi-card"><div class="label">成交额</div><div class="value" style="color:#8b949e">154.8亿</div><div class="sub" style="color:#8b949e"></div></div><div class="kpi-card"><div class="label">主力净流入</div><div class="value" style="color:#8b949e">—</div><div class="sub" style="color:#8b949e"></div></div></div>
+  <div class="alert alert-red">PEG=1.81 > 1.5，偏高区间，注意风险控制</div><div class="alert alert-green">AH溢价=-35.0% < 0%，A股折价，可关注</div><div class="alert alert-yellow">恩捷股份 -5.3%，上游异动</div><div class="alert alert-yellow">天赐材料 -8.6%，上游异动</div><div class="alert alert-yellow">CATL成交额155亿，放量明显</div>
+  
+<div class="module">
+  <div class="module-hdr"><span class="icon">⛏️</span><h2>上游原材料雷达</h2><span class="status" style="background:rgba(88,166,255,0.1);color:#58a6ff">平均 -3.6%</span></div>
+  <div class="mat-grid">
+            <div class="mat-card">
+              <div class="name">碳酸锂</div>
+              <div class="price">75000元/吨</div>
+              <div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">低位震荡</div>
+            </div>
+            <div class="mat-card">
+              <div class="name">碳酸锂</div>
+              <div class="price">75000元/吨</div>
+              <div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">低位震荡</div>
+            </div>
+            <div class="mat-card">
+              <div class="name">氢氧化锂</div>
+              <div class="price">78000元/吨</div>
+              <div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">跟随碳酸锂</div>
+            </div>
+            <div class="mat-card">
+              <div class="name">电解钴</div>
+              <div class="price">195000元/吨</div>
+              <div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">偏弱</div>
+            </div>
+            <div class="mat-card">
+              <div class="name">硫酸镍</div>
+              <div class="price">28500元/吨</div>
+              <div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">稳定</div>
+            </div>
+            <div class="mat-card">
+              <div class="name">磷酸铁锂</div>
+              <div class="price">38000元/吨</div>
+              <div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">低位</div>
+            </div>
+            <div class="mat-card">
+              <div class="name">六氟磷酸锂</div>
+              <div class="price">62000元/吨</div>
+              <div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">低位</div>
+            </div></div>
+  <table style="margin-top:12px">
+    <tr><th>上游龙头</th><th>价格</th><th>涨跌幅</th></tr>
+    <tr><td>赣锋锂业</td><td style="color:#3fb950">¥75.1</td><td style="color:#3fb950">-1.1%</td></tr><tr><td>天齐锂业</td><td style="color:#f85149">¥66.67</td><td style="color:#f85149">+0.2%</td></tr><tr><td>华友钴业</td><td style="color:#3fb950">¥57.09</td><td style="color:#3fb950">-3.0%</td></tr><tr><td>恩捷股份</td><td style="color:#3fb950">¥69.4</td><td style="color:#3fb950">-5.3%</td></tr><tr><td>天赐材料</td><td style="color:#3fb950">¥53.07</td><td style="color:#3fb950">-8.6%</td></tr><tr><td>当升科技</td><td style="color:#3fb950">¥57.6</td><td style="color:#3fb950">-4.0%</td></tr>
+  </table>
+</div>
+  
+<div class="module">
+  <div class="module-hdr"><span class="icon">⚔️</span><h2>竞争格局</h2><span class="status" style="background:rgba(210,153,34,0.1);color:#d29922">CATL vs 同行</span></div>
+  <table>
+    <tr><th>公司</th><th>价格</th><th>涨跌幅</th></tr>
+    <tr style="font-weight:600"><td>宁德时代 (CATL)</td><td style="color:#3fb950">¥402.88</td><td style="color:#3fb950">-2.0%</td></tr><tr><td>比亚迪</td><td style="color:#f85149">¥95.96</td><td style="color:#f85149">+2.4%</td></tr><tr><td>亿纬锂能</td><td style="color:#3fb950">¥63.21</td><td style="color:#3fb950">-1.8%</td></tr><tr><td>国轩高科</td><td style="color:#3fb950">¥34.56</td><td style="color:#3fb950">-2.1%</td></tr>
+  </table>
+</div>
+  
+<div class="module">
+  <div class="module-hdr"><span class="icon">📊</span><h2>板块指数联动</h2></div>
+  <table>
+    <tr><th>板块</th><th>点位</th><th>涨跌幅</th></tr>
+    <tr><td>新能源车</td><td style="color:#3fb950">4116.87</td><td style="color:#3fb950">-0.9%</td></tr><tr><td>储能</td><td style="color:#f85149">1896.04</td><td style="color:#f85149">+5.9%</td></tr><tr><td>光伏产业</td><td style="color:#f85149">0.00</td><td style="color:#f85149">0.0%</td></tr>
+  </table>
+</div>
+  
+  
+<div class="module">
+  <div class="module-hdr"><span class="icon">📰</span><h2>资讯中心</h2></div>
+  <div style="margin-bottom:12px">
+    <span style="color:#f85149;font-size:0.8em;font-weight:600">🔥 CATL 头条</span>
+    <ul class="news-list" style="margin-top:4px">
+        <li class="news-item">
+          <span class="news-date">2026-05-25</span>
+          <span class="news-info">
+            <a href="http://finance.eastmoney.com/a/202605253748398718.html" target="_blank">赛力斯“蓝电”品牌增资66.7亿元 宁德时代等入股</a>
+            <span class="src">证券时报网</span>
+          </span>
+        </li>
+        <li class="news-item">
+          <span class="news-date">2026-05-25</span>
+          <span class="news-info">
+            <a href="http://finance.eastmoney.com/a/202605253748273982.html" target="_blank">电力设备行业资金流出榜：宁德时代等39股净流出资金超亿元</a>
+            <span class="src">证券时报网</span>
+          </span>
+        </li>
+        <li class="news-item">
+          <span class="news-date">2026-05-21</span>
+          <span class="news-info">
+            <a href="http://finance.eastmoney.com/a/202605213745579318.html" target="_blank">一汽解放与宁德时代开展技术交流</a>
+            <span class="src">证券时报网</span>
+          </span>
+        </li></ul>
+  </div>
+  <div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">固态电池</span>
+                <li class="news-item">
+                  <span class="news-date">2026-05-25</span>
+                  <span class="news-info">
+                    <a href="http://finance.eastmoney.com/a/202605253748343840.html" target="_blank">德尔股份：公司目前在稳步推进固态电池研发和中试线等相关工作</a>
+                    <span class="src">证券日报</span>
+                  </span>
+                </li>
+                <li class="news-item">
+                  <span class="news-date">2026-05-25</span>
+                  <span class="news-info">
+                    <a href="http://finance.eastmoney.com/a/202605253748391689.html" target="_blank">海科新源：公司在固态电池电解质等多条技术路线上已做好充分储备</a>
+                    <span class="src">证券日报</span>
+                  </span>
+                </li></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">储能</span>
+                <li class="news-item">
+                  <span class="news-date">2026-05-25</span>
+                  <span class="news-info">
+                    <a href="http://finance.eastmoney.com/a/202605253748268338.html" target="_blank">国电南瑞：储能领域，公司拥有成熟的储能系统集成、构网型储能设备等技术与产品，已在国内外多个项目中应用</a>
+                    <span class="src">每日经济新闻</span>
+                  </span>
+                </li>
+                <li class="news-item">
+                  <span class="news-date">2026-05-25</span>
+                  <span class="news-info">
+                    <a href="http://finance.eastmoney.com/a/202605253748237197.html" target="_blank">晶澳储能频换帅能否解忧</a>
+                    <span class="src">国际金融报</span>
+                  </span>
+                </li></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">钠离子电池</span>
+                <li class="news-item">
+                  <span class="news-date">2026-05-25</span>
+                  <span class="news-info">
+                    <a href="http://finance.eastmoney.com/a/202605253747588946.html" target="_blank">银河证券：钠离子电池行业2026年有望迎来产业奇点</a>
+                    <span class="src">界面新闻</span>
+                  </span>
+                </li>
+                <li class="news-item">
+                  <span class="news-date">2026-05-25</span>
+                  <span class="news-info">
+                    <a href="http://finance.eastmoney.com/a/202605253747582989.html" target="_blank">银河证券：钠离子电池行业2026年有望迎来产业奇点</a>
+                    <span class="src">人民财讯</span>
+                  </span>
+                </li></div><div style="margin-bottom:10px"><span style="color:#58a6ff;font-size:0.78em;font-weight:600">换电</span>
+                <li class="news-item">
+                  <span class="news-date">2026-05-25</span>
+                  <span class="news-info">
+                    <a href="http://finance.eastmoney.com/a/202605253748437975.html" target="_blank">5.98万起！极狐贝塔S3携换电模式杀入10万级市场</a>
+                    <span class="src">国际金融报</span>
+                  </span>
+                </li>
+                <li class="news-item">
+                  <span class="news-date">2026-05-21</span>
+                  <span class="news-info">
+                    <a href="http://finance.eastmoney.com/a/202605213743927854.html" target="_blank">换电产业构筑新能源补能新生态</a>
+                    <span class="src">证券日报</span>
+                  </span>
+                </li></div>
+</div>
+  
+<div class="footer">
+  🤖 Hermes · CATL Ecosystem Monitor v1.0<br>
+  2026-05-25 21:49:03 · 数据来源: 新浪财经 / 腾讯 / 东方财富 / 生意社<br>
+  📊 <a href="https://zxb20262026.github.io/catl-ecosystem-monitor/" target="_blank">完整报告</a> ·
+  <a href="https://github.com/zxb20262026/catl-ecosystem-monitor" target="_blank">GitHub</a><br>
+  ⚠️ 仅供参考，不构成投资建议
+</div>
+</div>
+</body>
+</html>
