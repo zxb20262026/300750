@@ -764,7 +764,8 @@ def compute_week_review(data):
         elif vs_m.get("type") == "underperform":
             market_context = "跑输大盘，新能源板块整体承压"
 
-        week_summary = f"结构性极端分化 — {market_context if market_context else '市场分化'}。{trend_desc}。{fund_desc}。"
+        # 周总结 — 详细版，小白可读
+        week_summary = _gen_week_summary(days, week_chg, week_fund, s, data)
 
         data["week_review"] = {
             "days": days,
@@ -833,6 +834,112 @@ def fetch_valuation_data():
     }
 
     return result
+
+def _gen_week_summary(days, week_chg, week_fund, s, data):
+    """生成本周详细总结 — 小白可读"""
+    if not days:
+        return "数据不足"
+
+    a = data.get("catl_a", {})
+    market = data.get("market", {})
+    peg = data.get("peg")
+    pe = data.get("catl_pe", {})
+    pe_ttm = pe.get("pe_ttm") if pe else None
+    mas = s.get("mas", {})
+    ma60 = s.get("ma60_dist", {})
+    streak = s.get("streak", {})
+    vs_m = s.get("vs_market", {})
+    ah = data.get("ah_premium")
+    li = s.get("lithium", {})
+    peg_sig = s.get("peg", {})
+
+    lines = []
+
+    # ── 第一段: 整体概况 ──
+    trend = "下跌" if week_chg < 0 else "上涨"
+    chg_vals = [d["change_pct"] for d in days]
+    neg_days = sum(1 for c in chg_vals if c < 0)
+
+    lines.append(f"本周CATL累计{trend}{abs(week_chg):.1f}%，{neg_days}天下跌。")
+
+    # 每日细节
+    daily_detail = " → ".join([f"{d['change_pct']:+.1f}%" for d in days])
+    lines.append(f"每日涨跌: {daily_detail}")
+
+    # 收窄/扩大判断
+    if len(chg_vals) >= 3:
+        first_half = chg_vals[:len(chg_vals)//2]
+        second_half = chg_vals[len(chg_vals)//2:]
+        avg1 = sum(first_half) / len(first_half)
+        avg2 = sum(second_half) / len(second_half)
+        if avg2 > avg1 and avg1 < 0:
+            lines.append(f"📉 好消息是跌幅在收窄（前半周均值{avg1:+.1f}% → 后半周{avg2:+.1f}%），抛压可能接近尾声。")
+        elif avg2 < avg1 and avg1 < 0:
+            lines.append(f"⚠️ 跌幅仍在扩大（前半周{avg1:+.1f}% → 后半周{avg2:+.1f}%），抛压尚未释放完毕。")
+
+    # ── 第二段: 市场环境 ──
+    ss = market.get("上证指数", {})
+    if ss:
+        ss_chg = ss.get("change_pct")
+        if ss_chg is not None:
+            diff = round(week_chg - ss_chg, 2) if ss_chg else 0
+            if week_chg < 0 and ss_chg > 0:
+                lines.append(f"📊 大盘（上证）上涨{ss_chg:+.1f}%，但宁德逆势下跌{diff:.1f}个百分点——资金被半导体、AI算力等热门板块虹吸，新能源/锂电暂时失血。")
+            elif week_chg < ss_chg:
+                lines.append(f"📊 宁德跑输大盘（周跌{abs(week_chg):.1f}% vs 上证{ss_chg:+.1f}%），板块整体偏弱。")
+            else:
+                lines.append(f"📊 宁德跑赢大盘（周{'+' if week_chg>0 else ''}{week_chg:.1f}% vs 上证{ss_chg:+.1f}%），独立走强。")
+
+    # ── 第三段: 资金面 ──
+    if week_fund < -5:
+        lines.append(f"💰 主力资金本周持续净流出，合计{abs(week_fund):.1f}亿元，机构在减仓。")
+    elif week_fund < 0:
+        lines.append(f"💰 主力资金小幅净流出{abs(week_fund):.1f}亿元，抛压有限。")
+    elif week_fund > 0:
+        lines.append(f"💰 主力资金净流入{week_fund:.1f}亿元，机构在吸筹。")
+    else:
+        lines.append("💰 主力资金本周基本平衡（东财数据暂缺，待恢复后更新）。")
+
+    # ── 第四段: 估值与技术面 ──
+    if pe_ttm:
+        lines.append(f"📏 当前PE={pe_ttm:.1f}x，PEG={peg:.2f}，" +
+                    ("处于低估区间（PEG<1），越跌越便宜。" if peg and peg < 1 else
+                     "估值合理。" if peg and peg < 1.5 else "估值偏高，需注意风险。"))
+
+    if ma60.get("value"):
+        dist = ma60.get("dist_pct", 0)
+        near = ma60.get("near", False)
+        lines.append(f"📐 MA60=¥{ma60['value']:.0f}，" +
+                    (f"当前价距MA60仅{abs(dist):.1f}%，已逼近核心支撑位——这是技术面的关键防线。" if near else
+                     f"距MA60还有{abs(dist):.1f}%距离，下方有支撑。"))
+
+    if streak and streak.get("days", 0) >= 3:
+        lines.append(f"📉 连续{streak['direction']}{streak['days']}日，累计{abs(streak['pct']):.1f}%。" +
+                    ("恐慌盘在加速出清，通常这是底部信号之一。" if streak.get("direction") == "跌" else "短线过热，注意回调风险。"))
+
+    # ── 第五段: AH溢价 ──
+    if ah is not None and ah < 0:
+        lines.append(f"💱 AH溢价{ah:.1f}%（A股折价港股），意味着A股比港股便宜{abs(ah):.0f}%，对A股持有者是成本端利好。")
+
+    # ── 第六段: 碳酸锂 ──
+    li_text = li.get("text", "")
+    if li_text and "暂缺" not in li_text:
+        impact = li.get("impact", "")
+        if "利好" in impact:
+            lines.append(f"⛏️ {li_text}——原材料成本下行，对CATL毛利率是正面贡献。")
+        elif "压力" in impact:
+            lines.append(f"⛏️ {li_text}——原材料成本上行，短期压缩利润空间。")
+        else:
+            lines.append(f"⛏️ {li_text}，成本端稳定。")
+
+    # ── 结尾: 操作提示 ──
+    if peg and peg < 1 and ma60.get("near"):
+        lines.append("💡 综合来看：估值已进入低估区间，技术面逼近强支撑。如果你是长期持有者，当前价位可能是分批加仓的窗口期。但短期趋势偏弱，建议等企稳信号出现后再动手。")
+    elif peg and peg >= 1.5:
+        lines.append("💡 估值偏高+趋势偏弱，建议观望为主，耐心等待PEG回到1.0以下的买入区间。")
+
+    return "\n\n".join(lines)
+
 
 def calc_streak(kline, current_price):
     if len(kline) < 2: return 0, 0, "—"
