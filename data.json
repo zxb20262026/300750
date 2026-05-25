@@ -1,6 +1,6 @@
 {
   "date": "2026-05-26",
-  "datetime": "2026-05-26 00:12:21",
+  "datetime": "2026-05-26 00:24:04",
   "mode": "早报 ☀️",
   "catl_a": {
     "name": "宁德时代",
@@ -1108,6 +1108,7 @@
       "dividend_yield": 0.38
     }
   },
+  "week_flow": [],
   "ah_premium": -34.98,
   "peg": 0.59,
   "peg_signal": {
@@ -1246,5 +1247,52 @@
     },
     "core_summary": "PEG 0.59 买入区间 · 碳酸锂18.79万/吨 成本压力 · AH溢价-35.0% 折价 · 逆势下跌 分化延续",
     "vs_industry": "弱于行业1.1%"
+  },
+  "week_review": {
+    "days": [
+      {
+        "date": "2026-05-19",
+        "close": 417.92,
+        "change_pct": 0.17,
+        "fund_net": null,
+        "events": "窄幅横盘"
+      },
+      {
+        "date": "2026-05-20",
+        "close": 414.75,
+        "change_pct": -0.76,
+        "fund_net": null,
+        "events": "—"
+      },
+      {
+        "date": "2026-05-21",
+        "close": 411.63,
+        "change_pct": -0.75,
+        "fund_net": null,
+        "events": "—"
+      },
+      {
+        "date": "2026-05-22",
+        "close": 411.16,
+        "change_pct": -0.11,
+        "fund_net": null,
+        "events": "窄幅横盘"
+      },
+      {
+        "date": "2026-05-25",
+        "close": 402.88,
+        "change_pct": -2.01,
+        "fund_net": null,
+        "events": "放量下跌，盘中触及关键位"
+      }
+    ],
+    "total": {
+      "close": 402.88,
+      "week_chg": -3.6,
+      "week_fund": 0
+    },
+    "summary": "结构性极端分化 — 大盘上涨但宁德逆跌，极端分化延续（半导体/AI算力虹吸资金）。连续阴跌，弱势不改。主力资金基本平衡。",
+    "trend_desc": "连续阴跌，弱势不改",
+    "fund_desc": "主力资金基本平衡"
   }
 }
