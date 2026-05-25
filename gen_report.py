@@ -719,8 +719,6 @@ def build_technical_analysis(data):
     s = data.get("summaries", {})
     mas = s.get("mas", {})
     streak = s.get("streak", {})
-    vs_market = s.get("vs_market", {})
-    market = data.get("market", {})
 
     price = a.get("price") if a else None
     chg_pct = a.get("change_pct") if a else 0
@@ -760,7 +758,7 @@ def build_technical_analysis(data):
     chart_svg = _build_tech_chart(kline, mas)
 
     # ── 技术面研判 ──
-    summary_html = _build_tech_summary(data, mas, price, chg_pct, chg_str, streak, vs_market)
+    summary_html = _build_tech_summary(data, mas, price, chg_pct, chg_str, streak)
 
     return f'''<div class="module">
   <div class="module-hdr"><span class="icon">📈</span><h2>技术面分析</h2></div>
@@ -872,7 +870,7 @@ def _build_tech_chart(kline, mas):
 </svg>'''
 
 
-def _build_tech_summary(data, mas, price, chg_pct, chg_str, streak, vs_market):
+def _build_tech_summary(data, mas, price, chg_pct, chg_str, streak):
     """生成技术面研判文字"""
     a = data.get("catl_a", {})
     ma5 = mas.get("MA5")
