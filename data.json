@@ -1,0 +1,464 @@
+{
+  "date": "2026-05-25",
+  "datetime": "2026-05-25 21:49:03",
+  "mode": "晚报 🌙",
+  "catl_a": {
+    "name": "宁德时代",
+    "price": 402.88,
+    "prev_close": 411.16,
+    "open": 411.28,
+    "high": 414.5,
+    "low": 400.0,
+    "volume": 38197710,
+    "amount": 15479408961.51,
+    "change": -8.28,
+    "change_pct": -2.01
+  },
+  "catl_h": {
+    "price": 673.5,
+    "prev_close": 684.0,
+    "change_pct": -1.54
+  },
+  "catl_pe": {
+    "pe_ttm": 72.5184
+  },
+  "catl_fund": null,
+  "materials": {
+    "碳酸锂(电池级)": {
+      "price": 75000,
+      "unit": "元/吨",
+      "trend": "低位震荡",
+      "source": "参考"
+    },
+    "碳酸锂": {
+      "price": 75000,
+      "unit": "元/吨",
+      "trend": "低位震荡",
+      "source": "参考"
+    },
+    "氢氧化锂": {
+      "price": 78000,
+      "unit": "元/吨",
+      "trend": "跟随碳酸锂",
+      "source": "参考"
+    },
+    "电解钴": {
+      "price": 195000,
+      "unit": "元/吨",
+      "trend": "偏弱",
+      "source": "参考"
+    },
+    "硫酸镍": {
+      "price": 28500,
+      "unit": "元/吨",
+      "trend": "稳定",
+      "source": "参考"
+    },
+    "磷酸铁锂": {
+      "price": 38000,
+      "unit": "元/吨",
+      "trend": "低位",
+      "source": "参考"
+    },
+    "六氟磷酸锂": {
+      "price": 62000,
+      "unit": "元/吨",
+      "trend": "低位",
+      "source": "参考"
+    }
+  },
+  "lithium_futures": {
+    "price": 187900.0,
+    "prev_settle": 179300.0,
+    "change_pct": 4.8,
+    "name": "碳酸锂连续"
+  },
+  "upstream": {
+    "赣锋锂业": {
+      "code": "sz002460",
+      "price": 75.1,
+      "change_pct": -1.05
+    },
+    "天齐锂业": {
+      "code": "sz002466",
+      "price": 66.67,
+      "change_pct": 0.23
+    },
+    "华友钴业": {
+      "code": "sh603799",
+      "price": 57.09,
+      "change_pct": -3.04
+    },
+    "恩捷股份": {
+      "code": "sz002812",
+      "price": 69.4,
+      "change_pct": -5.28
+    },
+    "天赐材料": {
+      "code": "sz002709",
+      "price": 53.07,
+      "change_pct": -8.63
+    },
+    "当升科技": {
+      "code": "sz300073",
+      "price": 57.6,
+      "change_pct": -4.05
+    }
+  },
+  "competitors": {
+    "比亚迪": {
+      "code": "sz002594",
+      "price": 95.96,
+      "change_pct": 2.36
+    },
+    "亿纬锂能": {
+      "code": "sz300014",
+      "price": 63.21,
+      "change_pct": -1.82
+    },
+    "国轩高科": {
+      "code": "sz002074",
+      "price": 34.56,
+      "change_pct": -2.1
+    }
+  },
+  "sectors": {
+    "新能源车": {
+      "price": 4116.871,
+      "change_pct": -0.92
+    },
+    "储能": {
+      "price": 1896.0369,
+      "change_pct": 5.88
+    },
+    "光伏产业": {
+      "price": 0.0,
+      "change_pct": 0
+    }
+  },
+  "news": {
+    "宁德时代": [
+      {
+        "title": "赛力斯“蓝电”品牌增资66.7亿元 宁德时代等入股",
+        "date": "2026-05-25",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605253748398718.html"
+      },
+      {
+        "title": "电力设备行业资金流出榜：宁德时代等39股净流出资金超亿元",
+        "date": "2026-05-25",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605253748273982.html"
+      },
+      {
+        "title": "一汽解放与宁德时代开展技术交流",
+        "date": "2026-05-21",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605213745579318.html"
+      },
+      {
+        "title": "天海电子：公司主要向宁德时代供应高压/储能连接器、高压线束、电池结构件等相关配套产品",
+        "date": "2026-05-25",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605253748432750.html"
+      },
+      {
+        "title": "宁德时代成交额超上一日全天",
+        "date": "2026-05-21",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605213745001121.html"
+      },
+      {
+        "title": "“铝-锂”双轮驱动 宁德时代打造新能源全产业链集群",
+        "date": "2026-05-22",
+        "source": "上海证券报·中国证券网",
+        "url": "http://finance.eastmoney.com/a/202605223746972439.html"
+      },
+      {
+        "title": "宁德时代成立时代大成能源科技公司",
+        "date": "2026-05-21",
+        "source": "财联社",
+        "url": "http://finance.eastmoney.com/a/202605213745078494.html"
+      },
+      {
+        "title": "宁德时代与四川港投集团签署战略合作协议",
+        "date": "2026-05-21",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605213745512062.html"
+      },
+      {
+        "title": "宁德时代成交额超100亿元",
+        "date": "2026-05-19",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605193741883321.html"
+      },
+      {
+        "title": "纳百川：公司是宁德时代的战略合作供应商",
+        "date": "2026-05-19",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605193742276361.html"
+      }
+    ],
+    "固态电池": [
+      {
+        "title": "德尔股份：公司目前在稳步推进固态电池研发和中试线等相关工作",
+        "date": "2026-05-25",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605253748343840.html"
+      },
+      {
+        "title": "海科新源：公司在固态电池电解质等多条技术路线上已做好充分储备",
+        "date": "2026-05-25",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605253748391689.html"
+      },
+      {
+        "title": "德尔股份：积极拓展固态电池应用场景，具身智能赋能海外产线智能化升级",
+        "date": "2026-05-25",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605253747976381.html"
+      },
+      {
+        "title": "瑞德智能：目前公司仅围绕主业开展常规车载控制器、储能控制配套业务，未涉足固态电池电芯等核心领域",
+        "date": "2026-05-25",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605253748383583.html"
+      },
+      {
+        "title": "当升科技：已构建起“固态正极材料+固态电解质+专用界面层”完整的固态电池材料体系",
+        "date": "2026-05-25",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605253748145415.html"
+      },
+      {
+        "title": "海科新源：公司在固态电池电解质等多条技术路线上已做好充分储备，已成功获得部分核心专利",
+        "date": "2026-05-25",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605253748142170.html"
+      },
+      {
+        "title": "龙蟠科技：全资子公司三金锂电推出的固态电池前驱体D392产品，已与客户展开验证及送样测试",
+        "date": "2026-05-25",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605253748241834.html"
+      },
+      {
+        "title": "雅化集团：高度重视固态电池行业发展",
+        "date": "2026-05-21",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605213745500735.html"
+      },
+      {
+        "title": "当升科技：公司为适配全固态电池技术，2025年就率先开发出氯碘复合硫化物固态电解质",
+        "date": "2026-05-25",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605253748145973.html"
+      },
+      {
+        "title": "固态电池产业化持续推进 新材料技术迭代有望打开增量空间",
+        "date": "2026-05-22",
+        "source": "财联社",
+        "url": "http://finance.eastmoney.com/a/202605223745910521.html"
+      }
+    ],
+    "储能": [
+      {
+        "title": "国电南瑞：储能领域，公司拥有成熟的储能系统集成、构网型储能设备等技术与产品，已在国内外多个项目中应用",
+        "date": "2026-05-25",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605253748268338.html"
+      },
+      {
+        "title": "晶澳储能频换帅能否解忧",
+        "date": "2026-05-25",
+        "source": "国际金融报",
+        "url": "http://finance.eastmoney.com/a/202605253748237197.html"
+      },
+      {
+        "title": "科力远：公司当前订单储备充裕（各类型储能项目储备超15GWh），上半年推进建设的储能项目约4GWh",
+        "date": "2026-05-25",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605253748210078.html"
+      },
+      {
+        "title": "天赐材料：目前公司有为核心客户供应储能电池电解液",
+        "date": "2026-05-25",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605253748396026.html"
+      },
+      {
+        "title": "国安达：公司坚定看好储能消防业务的未来前景",
+        "date": "2026-05-25",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605253748326260.html"
+      },
+      {
+        "title": "美能能源募投项目“生变”！欲关联并购切入储能赛道",
+        "date": "2026-05-25",
+        "source": "北京商报",
+        "url": "http://finance.eastmoney.com/a/202605253748315536.html"
+      },
+      {
+        "title": "首航新能称储能领域迎来结构性机遇 提前锁定电芯订单",
+        "date": "2026-05-25",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605253747599174.html"
+      },
+      {
+        "title": "安克创新：公司已在美国市场推出多款储能产品",
+        "date": "2026-05-25",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605253747571598.html"
+      },
+      {
+        "title": "首航新能：公司储能系统业务目前主要市场位于欧洲",
+        "date": "2026-05-24",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605243747505280.html"
+      },
+      {
+        "title": "IPO周报｜本周2只新股申购 储能细分领域龙头公司来了",
+        "date": "2026-05-25",
+        "source": "澎湃新闻",
+        "url": "http://finance.eastmoney.com/a/202605253747570621.html"
+      }
+    ],
+    "钠离子电池": [
+      {
+        "title": "银河证券：钠离子电池行业2026年有望迎来产业奇点",
+        "date": "2026-05-25",
+        "source": "界面新闻",
+        "url": "http://finance.eastmoney.com/a/202605253747588946.html"
+      },
+      {
+        "title": "银河证券：钠离子电池行业2026年有望迎来产业奇点",
+        "date": "2026-05-25",
+        "source": "人民财讯",
+        "url": "http://finance.eastmoney.com/a/202605253747582989.html"
+      },
+      {
+        "title": "中科电气：公司负极材料业务针对钠离子电池所需的硬碳负极材料已实现量产",
+        "date": "2026-05-25",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605253748324783.html"
+      },
+      {
+        "title": "企业密集布局 钠离子电池产业化提速",
+        "date": "2026-05-21",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605213744744872.html"
+      },
+      {
+        "title": "华自科技：公司锂电后段设备可兼容钠离子电池产线",
+        "date": "2026-05-20",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605203743489220.html"
+      },
+      {
+        "title": "孚能科技：公司钠离子电池研发与产业化取得阶梯式突破",
+        "date": "2026-05-20",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605203743670720.html"
+      },
+      {
+        "title": "先导智能：公司在固态电池、钠离子电池设备领域均具备显著先发优势",
+        "date": "2026-05-20",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605203743599877.html"
+      },
+      {
+        "title": "龙净环保：钠离子电池已取得小批量样品订单",
+        "date": "2026-05-19",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605193742126424.html"
+      },
+      {
+        "title": "福斯特：公司的铝塑膜可以用于钠离子电池的外包装，目前钠离子电池和锂离子电池都是液态的，软包占比较小",
+        "date": "2026-05-19",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605193741989657.html"
+      },
+      {
+        "title": "苏盐井神：公司具备年产2万吨钠离子电池级纯碱产能",
+        "date": "2026-05-19",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605193742232033.html"
+      }
+    ],
+    "换电": [
+      {
+        "title": "5.98万起！极狐贝塔S3携换电模式杀入10万级市场",
+        "date": "2026-05-25",
+        "source": "国际金融报",
+        "url": "http://finance.eastmoney.com/a/202605253748437975.html"
+      },
+      {
+        "title": "换电产业构筑新能源补能新生态",
+        "date": "2026-05-21",
+        "source": "证券日报",
+        "url": "http://finance.eastmoney.com/a/202605213743927854.html"
+      },
+      {
+        "title": "蔚来李斌：随着换电网络扩展，三四五线城市用户开始接受纯电产品",
+        "date": "2026-05-21",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605213745477041.html"
+      },
+      {
+        "title": "极狐贝塔S3 5.98万元起售 北汽蓝谷刘观桥：76%的预售订单是换电版",
+        "date": "2026-05-22",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605223747062556.html"
+      },
+      {
+        "title": "蔚来李斌：换电不是失血点，今年换电量会接近40亿度",
+        "date": "2026-05-17",
+        "source": "21世纪经济报道",
+        "url": "http://finance.eastmoney.com/a/202605173739762089.html"
+      },
+      {
+        "title": "海螺水泥成立新公司，含新能源汽车换电业务",
+        "date": "2026-05-19",
+        "source": "证券时报网",
+        "url": "http://finance.eastmoney.com/a/202605193741806612.html"
+      },
+      {
+        "title": "龙昇集团控股(06829.HK)附属与汽车经销商订立谅解备忘录 拟共同建立并推广香港电动商用车换电生态系统",
+        "date": "2026-05-21",
+        "source": "每日经济新闻",
+        "url": "http://finance.eastmoney.com/a/202605213745600453.html"
+      },
+      {
+        "title": "蔚来：已在全国建成8870座充换电站",
+        "date": "2026-05-17",
+        "source": "第一财经",
+        "url": "http://finance.eastmoney.com/a/202605173739658612.html"
+      },
+      {
+        "title": "4月全社会用电量同比增6%，充换电服务业增61.9%",
+        "date": "2026-05-19",
+        "source": "中新经纬",
+        "url": "http://finance.eastmoney.com/a/202605193742403643.html"
+      },
+      {
+        "title": "李斌：增程只是解决了早期用户的“安心感，换电站是更明智的选择",
+        "date": "2026-05-17",
+        "source": "南方财经网",
+        "url": "http://finance.eastmoney.com/a/202605173739762138.html"
+      }
+    ]
+  },
+  "north_flow": null,
+  "nev_sector": {
+    "total_stocks": 213
+  },
+  "ah_premium": -34.98,
+  "peg": 1.81,
+  "peg_signal": {
+    "text": "偏高区间 ⚠️",
+    "color": "#f85149",
+    "level": "sell"
+  },
+  "upstream_avg_change": -3.64,
+  "competitor_avg_change": -0.52
+}
