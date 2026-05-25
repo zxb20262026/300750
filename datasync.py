@@ -329,6 +329,37 @@ def fetch_nev_sector():
     except: return None
 
 
+def fetch_week_flow():
+    """CATL 近5日每日主力资金流向"""
+    try:
+        # 多试几个endpoint
+        for url in [
+            "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300750&fields1=f1,f3&fields2=f51,f52,f53&lmt=6",
+            "https://push2.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300750&fields1=f1,f3&fields2=f51,f52,f53&lmt=6",
+        ]:
+            try:
+                raw = urllib.request.urlopen(
+                    urllib.request.Request(url, headers=H_EM), timeout=5, context=ssl_ctx
+                ).read().decode()
+                d = json.loads(raw)
+                klines = d.get("data", {}).get("klines", [])
+                if klines:
+                    result = []
+                    for k in klines:
+                        parts = k.split(",")
+                        if len(parts) >= 3:
+                            result.append({
+                                "date": parts[0],
+                                "main_net": round(float(parts[1]) / 1e8, 2),
+                            })
+                    return result
+            except:
+                continue
+        return []
+    except:
+        return []
+
+
 # ═══════════════════════════════════════════
 # 主采集
 # ═══════════════════════════════════════════
@@ -364,6 +395,7 @@ def collect_all(verbose=True):
     if verbose: print("💰 北向..."); data["north_flow"] = fetch_north_flow()
     if verbose: print("🚗 新能源车..."); data["nev_sector"] = fetch_nev_sector()
     if verbose: print("📊 估值..."); data["valuation"] = fetch_valuation_data()
+    if verbose: print("📅 周回顾..."); data["week_flow"] = fetch_week_flow()
 
     compute_derived(data)
     if verbose: print("=" * 50 + "\n✅ 采集完成")
@@ -613,7 +645,138 @@ def compute_derived(data):
         data["competitor_avg_change"] = 0
 
     data["summaries"] = s
+
+    # ── 本周走势回顾 ──
+    compute_week_review(data)
+
     return data
+
+
+def compute_week_review(data):
+    """生成本周5日走势表格 + 周总结"""
+    kline = data.get("catl_kline", [])
+    week_flow = data.get("week_flow", [])
+    a = data.get("catl_a", {})
+    s = data.get("summaries", {})
+
+    if not kline or len(kline) < 6:
+        data["week_review"] = None
+        return
+
+    # 取最近6个交易日 (6个才能算5天的涨跌幅)
+    recent = kline[-6:]
+    days = []
+    for i in range(1, len(recent)):  # skip first, use as prev
+        prev_close = recent[i-1]["close"]
+        curr = recent[i]
+        curr_close = curr["close"]
+        chg = round((curr_close - prev_close) / prev_close * 100, 2) if prev_close else 0
+
+        # 匹配当日主力资金
+        date_str = curr["date"]
+        fund_net = None
+        for wf in week_flow:
+            if wf.get("date") == date_str:
+                fund_net = wf.get("main_net")
+                break
+
+        # 关键事件 (数据驱动)
+        events = []
+        if abs(chg) > 1.5:
+            events.append("放量下跌" if chg < -1.5 else "强势上涨")
+        elif abs(chg) < 0.3:
+            events.append("窄幅横盘")
+        if fund_net and fund_net < -5:
+            events.append(f"主力净流出{abs(fund_net):.1f}亿")
+        elif fund_net and fund_net > 5:
+            events.append(f"主力净流入{fund_net:.1f}亿")
+        if i == len(recent) - 1 and abs(chg) > 1:
+            events.append("盘中触及关键位")
+
+        days.append({
+            "date": date_str,
+            "close": curr_close,
+            "change_pct": chg,
+            "fund_net": fund_net,
+            "events": "，".join(events) if events else "—"
+        })
+
+    # 本周合计
+    if days:
+        first_close = days[0]["close"]
+        last_close = days[-1]["close"]
+        week_chg = round((last_close - first_close) / first_close * 100, 2) if first_close else 0
+
+        # 资金: 优先用每日明细，降级用5日累计
+        daily_funds = [d["fund_net"] for d in days if d["fund_net"] is not None]
+        if daily_funds:
+            week_fund = round(sum(daily_funds), 2)
+        else:
+            # 降级: 用fetch_catl_fund_flow的5日累计
+            fund_data = data.get("catl_fund") or {}
+            d5 = fund_data.get("five_day")
+            week_fund = round(d5 / 1e4, 2) if d5 else 0
+            # 把5日累计均匀填入每一天
+            if week_fund != 0 and len(days) > 0:
+                per_day = round(week_fund / len(days), 2)
+                for d in days:
+                    if d["fund_net"] is None:
+                        d["fund_net"] = per_day
+                        d["fund_note"] = "（日均估算）"
+
+        # 周总结
+        chg_values = [d["change_pct"] for d in days]
+        fund_values = [d["fund_net"] for d in days if d["fund_net"] is not None]
+
+        # 判断趋势
+        neg_count = sum(1 for c in chg_values if c < 0)
+        pos_count = sum(1 for c in chg_values if c > 0)
+
+        if neg_count >= 4:
+            if chg_values[-1] > chg_values[0]:
+                trend_desc = "跌多涨少，但跌幅逐日收窄，抛压接近衰竭"
+            else:
+                trend_desc = "连续阴跌，弱势不改"
+        elif pos_count >= 4:
+            trend_desc = "持续走强，多头掌控"
+        elif neg_count >= 3:
+            trend_desc = "偏弱震荡，卖压占优"
+        elif pos_count >= 3:
+            trend_desc = "偏强震荡，买盘积极"
+        else:
+            trend_desc = "涨跌互现，震荡整理"
+
+        # 资金总结
+        if week_fund < -10:
+            fund_desc = f"主力持续净流出，全周累计{abs(week_fund):.1f}亿"
+        elif week_fund < 0:
+            fund_desc = f"主力资金偏空，全周净流出{abs(week_fund):.1f}亿"
+        elif week_fund > 0:
+            fund_desc = f"主力资金偏多，全周净流入{week_fund:.1f}亿"
+        else:
+            fund_desc = "主力资金基本平衡"
+
+        # 大盘对比
+        vs_m = s.get("vs_market", {})
+        market_context = ""
+        if vs_m.get("type") == "diverge_down":
+            market_context = "大盘上涨但宁德逆跌，极端分化延续（半导体/AI算力虹吸资金）"
+        elif vs_m.get("type") == "underperform":
+            market_context = "跑输大盘，新能源板块整体承压"
+
+        week_summary = f"结构性极端分化 — {market_context if market_context else '市场分化'}。{trend_desc}。{fund_desc}。"
+
+        data["week_review"] = {
+            "days": days,
+            "total": {
+                "close": last_close,
+                "week_chg": week_chg,
+                "week_fund": week_fund,
+            },
+            "summary": week_summary,
+            "trend_desc": trend_desc,
+            "fund_desc": fund_desc,
+        }
 
 
 # ═══════════════════════════════════════════
