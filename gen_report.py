@@ -174,7 +174,7 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .ah-table td:first-child{text-align:left;color:#8b949e;white-space:nowrap}
 .ah-deep{padding:10px 0}
 .ah-deep li{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:3px 0;padding-left:14px;position:relative;list-style:none}
-.ah-deep li::before{content:'\\2022';position:absolute;left:0;color:#484f58}
+.ah-deep li::before{content:'•';position:absolute;left:0;color:#484f58}
 .ah-deep .ah-red{color:#f85149;font-weight:700}
 .ah-deep .ah-green{color:#3fb950;font-weight:600}
 .ah-deep .ah-gold{color:#d29922;font-weight:600}
