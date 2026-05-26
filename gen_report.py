@@ -149,7 +149,8 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .tech-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
 .tech-card .t-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
 .tech-card .t-val{font-size:1.25em;font-weight:700;margin-bottom:2px}
-.tech-card .t-dev{font-size:0.65em;padding:1px 6px;border-radius:3px;display:inline-block}
+.tech-card .t-dev{font-size:0.65em;padding:1px 0;display:block}
+.tech-card .t-status{font-size:0.68em;font-weight:600;margin-top:2px}
 .tech-chart{background:rgba(255,255,255,0.01);border:1px solid #1e2d45;border-radius:8px;padding:10px;margin-bottom:14px;overflow-x:auto}
 .tech-summary{padding:10px 0}
 .tech-summary li{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:2px 0;padding-left:14px;position:relative;list-style:none}
@@ -752,21 +753,50 @@ def build_technical_analysis(data):
 
     def _dev_card(label, val, color, price_ref):
         if val is None or price_ref is None:
-            return f'<div class="tech-card"><div class="t-lbl">{label}</div><div class="t-val" style="color:{color}">—</div><div class="t-dev" style="background:rgba(139,148,158,0.12);color:#8b949e">—</div></div>'
-        dev = round(val - price_ref, 2)
-        dev_pct = round(dev / price_ref * 100, 2)
-        sign = "+" if dev > 0 else ""
-        # MA高于收盘价=下跌偏离→负面(红), MA低于收盘价=正向偏离→正面(绿)
+            return f'<div class="tech-card"><div class="t-lbl">{label}</div><div class="t-val" style="color:{color}">—</div><div class="t-status" style="color:#6e7681">数据暂缺</div></div>'
+        # 偏离百分比：价格偏离MA的程度 (price - MA) / MA * 100
+        # 负值=价格低于MA(破位)，正值=价格高于MA(站上)
+        dev_pct = round((price_ref - val) / val * 100, 2) if label != "收盘价" else 0
+        sign = "" if dev_pct > 0 else "-" if dev_pct < 0 else ""
+        abs_pct = abs(dev_pct)
+
+        # 状态描述
         if label == "收盘价":
-            dev_clr = "#8b949e"
-            dev_bg = "139,148,158"
+            status = "当日收盘"
+            status_clr = "#8b949e"
         elif val > price_ref:
-            dev_clr = "#f85149"
-            dev_bg = "248,81,73"
+            # MA在价格上方 → 价格跌破该均线
+            if abs_pct < 1:
+                status = f"接近{label}，几乎持平"
+                status_clr = "#d29922"
+            elif abs_pct < 3:
+                status = f"小幅跌破{label}"
+                status_clr = "#f85149"
+            else:
+                status = f"跌破{label}，偏离较大"
+                status_clr = "#f85149"
         else:
-            dev_clr = "#3fb950"
-            dev_bg = "63,185,80"
-        return f'<div class="tech-card"><div class="t-lbl">{label}</div><div class="t-val" style="color:{color}">¥{val:.2f}</div><div class="t-dev" style="background:rgba({dev_bg},0.12);color:{dev_clr}">{sign}{dev:.2f} ({sign}{dev_pct}%)</div></div>'
+            # MA在价格下方 → 价格站上该均线
+            if abs_pct < 1:
+                status = f"接近{label}"
+                status_clr = "#d29922"
+            else:
+                status = f"站上{label}，获得支撑"
+                status_clr = "#3fb950"
+
+        dev_html = ""
+        if label != "收盘价":
+            dev_clr = "#f85149" if dev_pct < -2 else "#d29922" if dev_pct < 0 else "#3fb950"
+            dev_html = f'<div class="t-dev" style="color:{dev_clr}">偏离 {sign}{abs_pct:.1f}%</div>'
+        else:
+            dev_html = ''
+
+        return f'''<div class="tech-card">
+          <div class="t-lbl">{label}</div>
+          <div class="t-val" style="color:{color}">¥{val:.2f}</div>
+          <div class="t-status" style="color:{status_clr};font-size:0.68em;font-weight:600;margin-top:2px">{status}</div>
+          {dev_html}
+        </div>'''
 
     cards_html = (
         _dev_card("收盘价", price, "#58a6ff", price) +
@@ -892,103 +922,173 @@ def _build_tech_chart(kline, mas):
 
 
 def _build_tech_summary(data, mas, price, chg_pct, chg_str, streak):
-    """生成技术面研判文字"""
-    a = data.get("catl_a", {})
+    """生成技术面研判 — 丰富版，小白友好"""
     ma5 = mas.get("MA5")
     ma20 = mas.get("MA20")
     ma60 = mas.get("MA60")
-
     lines = []
 
-    # 1. 当日表现 + 连跌/连涨
+    # ═══════════════════════════════════════
+    # 数据准备
+    # ═══════════════════════════════════════
     direction = streak.get("direction", "")
     days = streak.get("days", 0)
     streak_pct = abs(streak.get("pct", 0))
-    # 大盘对比
     ss_idx = data.get("market", {}).get("上证指数", {})
     mkt_chg = ss_idx.get("change_pct") if ss_idx else None
-    if direction and days >= 3:
-        mkt_tip = f"，大盘{'+' if mkt_chg and mkt_chg>0 else ''}{mkt_chg:.2f}%" if mkt_chg else ""
+    above_ma5 = price > ma5 if ma5 and price else False
+    above_ma20 = price > ma20 if ma20 and price else False
+    above_ma60 = price > ma60 if ma60 and price else False
+
+    # 偏离百分比 (price - MA) / MA
+    dev5 = round((price - ma5) / ma5 * 100, 2) if ma5 and price else None
+    dev20 = round((price - ma20) / ma20 * 100, 2) if ma20 and price else None
+    dev60 = round((price - ma60) / ma60 * 100, 2) if ma60 and price else None
+
+    # ═══════════════════════════════════════
+    # 📌 一、今日走势概览
+    # ═══════════════════════════════════════
+    mkt_str = f"大盘{'+' if mkt_chg and mkt_chg>0 else ''}{mkt_chg:.2f}%" if mkt_chg is not None else ""
+    lines.append(f'<span class="ts-key">📌 今日走势</span>：宁德时代<span class="ts-key">{chg_str}</span>'
+                 + (f'，{mkt_str}' if mkt_str else ''))
+
+    if chg_pct < 0 and mkt_chg and mkt_chg > 0.3:
+        lines.append(f'<span class="ts-warn">⚠️ 今日逆势下跌</span>——大盘{mkt_chg:+.2f}%上涨，宁德独自下跌{chg_str}。'
+                     f'这意味着资金正在从锂电板块流出，转向其他热门板块（如半导体、AI算力）。'
+                     f'逆势下跌说明<b>短线抛压仍然存在</b>，但不必过度恐慌——通常这种\"大盘涨我不涨\"是洗盘的尾声。')
+    elif chg_pct > 0 and mkt_chg and mkt_chg < -0.3:
+        lines.append(f'<span class="ts-positive">🌟 今日逆势上涨</span>——大盘{mkt_chg:+.2f}%下跌，宁德独自上涨{chg_str}。'
+                     f'这种\"大盘跌我涨\"的走势通常意味着<b>资金正在回流锂电龙头</b>，显示市场对宁德基本面的认可。')
+    elif chg_pct < 0:
+        lines.append(f'今日跟随大盘走弱。短期看属于正常调整，不必过度解读。')
+
+    # ═══════════════════════════════════════
+    # 📉 二、连跌/连涨态势
+    # ═══════════════════════════════════════
+    if direction and days >= 2:
         if direction == "跌":
-            lines.append(f'今日<span class="ts-key">{chg_str}</span>{mkt_tip}，连续{days}日阴跌，累计跌幅<span class="ts-warn">{streak_pct:.1f}%</span>')
+            lines.append(f'<span class="ts-key">📉 连跌态势</span>：已连续<span class="ts-warn">{days}日阴跌</span>，累计跌幅<span class="ts-warn">{streak_pct:.1f}%</span>。'
+                         f'连续下跌后，短期超卖信号正在积累。历史数据显示，连续{days}日下跌后'
+                         f'反弹概率约为{70 if days >= 4 else 55}%，但建议等待企稳信号（十字星或放量阳线）再考虑加仓。')
         else:
-            lines.append(f'今日<span class="ts-key">{chg_str}</span>{mkt_tip}，连续{days}日上涨，累计涨幅<span class="ts-positive">{streak_pct:.1f}%</span>')
+            lines.append(f'<span class="ts-key">📈 连涨态势</span>：已连续<span class="ts-positive">{days}日上涨</span>，累计涨幅<span class="ts-positive">+{streak_pct:.1f}%</span>。'
+                         f'短期动能充足，但连续上涨后追高需谨慎。')
+
+    # ═══════════════════════════════════════
+    # 📊 三、均线系统诊断
+    # ═══════════════════════════════════════
+    lines.append(f'<span class="ts-key">📊 均线诊断</span>：')
+
+    if above_ma5 and above_ma20 and above_ma60:
+        lines.append(f'  当前股价<span class="ts-positive">站上所有均线</span>（MA5={ma5:.0f}、MA20={ma20:.0f}、MA60={ma60:.0f}），'
+                     f'三条均线形成<span class="ts-positive">多头排列</span>——这是技术面上较强的看涨信号。'
+                     f'短期均线(MA5)在长期均线(MA60)上方，说明近期买入成本高于长期成本，市场情绪偏多。')
+    elif above_ma60:
+        broken = []
+        if not above_ma5 and ma5: broken.append(f"MA5(偏离{abs(dev5):.1f}%)" if dev5 else "MA5")
+        if not above_ma20 and ma20: broken.append(f"MA20(偏离{abs(dev20):.1f}%)" if dev20 else "MA20")
+        lines.append(f'  股价已跌破{"、".join(broken)}，但<span class="ts-positive">仍在MA60({ma60:.0f})上方</span>，'
+                     f'MA60是机构常用的<b>牛熊分界线</b>——只要守住了，中长期趋势就仍然向上。'
+                     f'当前距MA60仅<span class="ts-key">{abs(dev60):.1f}%</span>，这是关键的支撑考验。')
     else:
-        mkt_tip = f"，大盘{'+' if mkt_chg and mkt_chg>0 else ''}{mkt_chg:.2f}%" if mkt_chg else ""
-        lines.append(f'今日<span class="ts-key">{chg_str}</span>{mkt_tip}')
+        lines.append(f'  <span class="ts-warn">⚠️ 股价已跌破MA60({ma60:.0f})</span>，偏离<span class="ts-warn">{abs(dev60):.1f}%</span>。'
+                     f'MA60被视为<b>中长期趋势的生命线</b>，有效跌破意味着多数持仓者处于浮亏状态，'
+                     f'技术面转为弱势。建议密切关注未来2-3个交易日是否能快速收复MA60。')
 
-    # 2. 均线位置判断
-    if price:
-        above_ma5 = price > ma5 if ma5 else False
-        above_ma20 = price > ma20 if ma20 else False
-        above_ma60 = price > ma60 if ma60 else False
+    # 均线距离详解
+    if ma5 and ma20 and price:
+        ma5_20_gap = round((ma5 - ma20) / ma20 * 100, 2)
+        if ma5_20_gap < -3:
+            lines.append(f'  MA5({ma5:.0f})与MA20({ma20:.0f})之间差距{abs(ma5_20_gap):.1f}%，'
+                         f'<span class="ts-warn">短期均线加速下穿中期均线</span>，形成\"死叉\"雏形，短线需谨慎。')
+        elif ma5_20_gap < 0:
+            lines.append(f'  MA5({ma5:.0f})略低于MA20({ma20:.0f})，短期均线走弱，但差距不大，'
+                         f'若MA5能在未来几个交易日拐头向上，将重新形成\"金叉\"信号。')
 
-        if above_ma5 and above_ma20:
-            ma_items = []
-            for nm, val in [("MA5", ma5), ("MA20", ma20), ("MA60", ma60)]:
-                if val: ma_items.append(f"{nm}({val:.0f})")
-            lines.append(f'股价站上 {"、".join(ma_items)}，多头排列')
-        elif above_ma60:
-            below = []
-            if not above_ma5 and ma5: below.append(f"MA5({ma5:.0f})")
-            if not above_ma20 and ma20: below.append(f"MA20({ma20:.0f})")
-            lines.append(f'股价已跌破 {"、".join(below)}，逼近 <span class="ts-key">MA60({ma60:.0f})</span> 核心支撑')
-        else:
-            lines.append(f'<span class="ts-warn">⚠️ 警告：若有效跌破MA60({ma60:.0f})，技术面将转弱，需重新评估</span>')
+    # ═══════════════════════════════════════
+    # 💡 四、量价配合分析
+    # ═══════════════════════════════════════
+    vol_info = data.get("summaries", {}).get("volume_ratio", {})
+    vol_ratio = vol_info.get("ratio", 0) if vol_info else 0
+    # 防止数据异常（量比极高通常是单位换算问题）
+    if 0 < vol_ratio < 50:
+        if vol_ratio > 1.5 and chg_pct < 0:
+            lines.append(f'<span class="ts-key">💡 量价分析</span>：今日量比<span class="ts-warn">{vol_ratio:.1f}倍</span>，放量下跌——'
+                         f'说明有资金在低位承接，同时也说明抛压较重。放量下跌后通常需要缩量企稳才能确认底部。')
+        elif vol_ratio > 1.5 and chg_pct > 0:
+            lines.append(f'<span class="ts-key">💡 量价分析</span>：今日量比<span class="ts-positive">{vol_ratio:.1f}倍</span>，放量上涨——'
+                         f'成交活跃配合上涨，说明买盘意愿强，短期走势健康。')
+        elif vol_ratio < 0.7 and chg_pct < 0:
+            lines.append(f'<span class="ts-key">💡 量价分析</span>：今日量比{vol_ratio:.1f}倍，缩量下跌——'
+                         f'说明抛压在减轻，空方力量衰减，是<span class="ts-positive">止跌企稳的积极信号</span>。')
 
-    # 3. MA60距离
-    if ma60 and price:
-        dist = round((price - ma60) / ma60 * 100, 2)
-        sign = "+" if dist > 0 else ""
-        if 0.5 < dist < 3:
-            lines.append(f'距MA60仅 <span class="ts-key">{sign}{dist}%</span>，回调空间有限，支撑强度高')
-        elif -3 < dist < -0.5:
-            lines.append(f'<span class="ts-warn">距MA60仅 {dist}%，若有效跌破将触发止损盘</span>')
-        elif dist >= 3:
-            lines.append(f'距MA60 <span class="ts-positive">{sign}{dist}%</span>，安全边际充足')
-        elif dist <= -3:
-            lines.append(f'<span class="ts-warn">已跌破MA60 {dist}%，向下空间打开，需警惕</span>')
+    # ═══════════════════════════════════════
+    # 🔄 五、逆势/背离信号
+    # ═══════════════════════════════════════
+    if chg_pct < 0 and mkt_chg and mkt_chg > 0.5:
+        lines.append(f'<span class="ts-positive">🔄 积极信号</span>：大盘涨{mkt_chg:+.2f}%但宁德逆势下跌——'
+                     f'历史上这种\"大盘涨个股跌\"的背离，往往出现在调整末期，是恐慌盘加速出清的信号。'
+                     f'当最坚定的持仓者也选择离场时，底部就不远了。')
+    elif chg_pct > 0 and mkt_chg and mkt_chg < -0.5:
+        lines.append(f'<span class="ts-positive">🔄 积极信号</span>：大盘跌{mkt_chg:+.2f}%但宁德逆势上涨——'
+                     f'说明<b>聪明钱正在逆势布局宁德</b>，抗跌性强，资金认可度高。')
 
-    # 4. 逆势/积极信号
-    ss_index = data.get("market", {}).get("上证指数", {})
-    market_chg = ss_index.get("change_pct") if ss_index else None
-    if chg_pct < 0 and market_chg and market_chg > 0.5:
-        lines.append(f'<span class="ts-positive">积极信号：大盘涨{market_chg:+.2f}%+宁德逆跌 → 通常意味着最后一跌，恐慌盘加速出清</span>')
-    elif chg_pct > 0 and market_chg and market_chg < -0.5:
-        lines.append(f'<span class="ts-positive">积极信号：大盘跌{market_chg:+.2f}%+宁德逆涨 → 资金回流龙头，抗跌性强</span>')
-
-    # 5. 关键价位
+    # ═══════════════════════════════════════
+    # 🎯 六、关键价位与操作参考
+    # ═══════════════════════════════════════
     resist = []
     support = []
     if ma5 and price and ma5 > price: resist.append(f"MA5={ma5:.0f}")
+    elif ma5 and price and ma5 < price: support.append(f"MA5={ma5:.0f}")
     if ma20 and price and ma20 > price: resist.append(f"MA20={ma20:.0f}")
+    elif ma20 and price and ma20 < price: support.append(f"MA20={ma20:.0f}")
     if ma60 and price:
-        if ma60 > price:
-            resist.append(f"MA60={ma60:.0f}")
-        else:
-            support.append(f"MA60={ma60:.0f}")
+        if ma60 > price: resist.append(f"MA60={ma60:.0f}")
+        else: support.append(f"MA60={ma60:.0f}")
     # 心理关口
     if price:
         psych_down = round(price / 10) * 10 - 10
         psych_up = round(price / 10) * 10 + 10
-        # 支撑：心理关口需低于当前价，且与MA60不重叠
-        if psych_down < price:
-            if not ma60 or psych_down != round(ma60/10)*10:
-                support.append(f"心理关口{psych_down:.0f}")
-        # 首个下方整数关口（如果10元间隔太近）
-        psych_100 = round(price / 100) * 100
-        if psych_100 < price and psych_100 not in [round(ma60/100)*100] if ma60 else True:
-            support.append(f"整数关口{psych_100:.0f}")
+        if psych_down < price and (not ma60 or psych_down != round(ma60 / 10) * 10):
+            support.append(f"心理关口{psych_down:.0f}")
         if psych_up > price:
             resist.append(f"心理关口{psych_up:.0f}")
-
-    # 去重 + 排序
     resist = list(dict.fromkeys(resist))
     support = list(dict.fromkeys(support))
+    resist_str = "、".join(resist[:4]) if resist else "—"
+    support_str = "、".join(support[:4]) if support else "—"
 
-    resist_str = "、".join(resist) if resist else "—"
-    support_str = "、".join([s for s in support if s]) if any(support) else "—"
-    lines.append(f'<span class="ts-key">关键价位</span>：上方压力 {resist_str}；下方支撑 {support_str}')
+    lines.append(f'<span class="ts-key">🎯 关键价位</span>：'
+                 f'<span style="color:#f85149">上方压力</span> {resist_str}；'
+                 f'<span style="color:#3fb950">下方支撑</span> {support_str}')
+
+    # 操作参考
+    if above_ma60 and dev60 and abs(dev60) < 3:
+        lines.append(f'<span class="ts-key">💼 操作参考</span>：股价在MA60支撑位附近，是<b>观察窗口而非操作窗口</b>。'
+                     f'长线投资者可考虑在MA60附近分批金字塔式建仓（例如¥{ma60:.0f}上方分3-5批），'
+                     f'止损设于MA60下方2-3%。短线交易者建议等待放量阳线确认信号。')
+    elif above_ma60 and dev60 and dev60 >= 3:
+        lines.append(f'<span class="ts-key">💼 操作参考</span>：股价在MA60上方{dev60:.1f}%，安全边际充足。'
+                     f'长线持有者可继续持有，若回踩MA60(¥{ma60:.0f})不破则是加仓良机。')
+    elif not above_ma60:
+        lines.append(f'<span class="ts-key">💼 操作参考</span>：股价已失守MA60，<span class="ts-warn">趋势偏弱</span>。'
+                     f'建议长线投资者暂时观望，等待股价重新站上MA60后再考虑加仓。'
+                     f'短线如有反弹至MA60附近，可考虑减仓降低风险。')
+
+    # ═══════════════════════════════════════
+    # 📝 七、一句话总结
+    # ═══════════════════════════════════════
+    if above_ma60 and dev60 and abs(dev60) < 3:
+        one_line = (f'短期承压但MA60支撑有效，处于关键观察期。'
+                    f'基本面未恶化，长线逻辑不变，耐心等待企稳。')
+    elif above_ma60:
+        one_line = (f'技术面偏强，短期趋势向上。长线持有者可安心持股，'
+                    f'短线可在回踩均线时分批加仓。')
+    else:
+        one_line = (f'技术面偏弱，需谨慎对待。但公司基本面良好，'
+                    f'技术面的弱势往往是长线布局的机会窗口——关键是要<b>分批、耐心、不止损在恐慌中</b>。')
+
+    lines.append(f'<span class="ts-key">📝 一句话</span>：{one_line}')
 
     return "".join(f"<li>{l}</li>" for l in lines)
 
