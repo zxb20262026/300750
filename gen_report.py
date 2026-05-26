@@ -226,7 +226,7 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .ac-eps-table td:first-child{text-align:left;color:#8b949e}
 @media(max-width:600px){.ac-cards{grid-template-columns:repeat(2,1fr)}.ac-hero{flex-direction:column;text-align:center}}
 
-/* ── 北向资金增强模块 ── */
+/* ── 大资金动向模块 ── */
 .nf-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .nf-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
 .nf-card .nf-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
@@ -1588,78 +1588,100 @@ def build_analyst_consensus(data):
 </div>'''
 
 
-def build_northbound_flow(data):
-    """北向资金 — 沪深港通净流向 + 趋势分析"""
-    nf = data.get("north_flow")
-    s = data.get("summaries", {})
+def build_big_money_flow(data):
+    """大资金动向 — 大宗交易 + 主力资金"""
+    bt = data.get("block_trades") or {}
     fund = data.get("catl_fund") or {}
     a = data.get("catl_a", {})
+    price_now = a.get("price") if a else None
 
-    if not nf:
-        return '<div class="module"><div class="module-hdr"><span class="icon">🌏</span><h2>北向资金</h2></div><p style="color:#8b949e;font-size:0.8em">数据暂不可用（非交易时段或接口异常）</p></div>'
+    # ── 大宗交易统计卡 ──
+    if bt.get("has_data") and bt.get("recent"):
+        trades = bt["recent"]
+        total_amt = bt.get("total_amount_wan", 0) / 10000  # 转亿
+        inst_buy = bt.get("inst_buy_count", 0)
+        inst_sell = bt.get("inst_sell_count", 0)
+        
+        # 统计方向
+        inst_net = inst_buy - inst_sell
+        inst_direction = "机构净买入" if inst_net > 0 else "机构净卖出" if inst_net < 0 else "机构均衡"
+        inst_clr = "#3fb950" if inst_net > 0 else "#f85149" if inst_net < 0 else "#8b949e"
 
-    today = nf.get("today", {})
-    yesterday = nf.get("yesterday", {})
-
-    today_net = float(today.get("net", 0))
-    yday_net = float(yesterday.get("net", 0)) if yesterday else 0
-    net_clr = "#3fb950" if today_net > 0 else "#f85149" if today_net < 0 else "#8b949e"
-    net_sign = "+" if today_net > 0 else ""
-
-    # Direction change
-    direction_change = ""
-    if yesterday and today_net != 0 and yday_net != 0:
-        if today_net > 0 and yday_net < 0:
-            direction_change = "🔄 北向转流入"
-        elif today_net < 0 and yday_net > 0:
-            direction_change = "⚠️ 北向转流出"
-
-    # Fund flow integration
-    main_net = fund.get("main_net", 0)
-    five_day = fund.get("five_day", 0)
-
-    cards = f'''<div class="nf-cards">
+        cards = f'''<div class="nf-cards">
       <div class="nf-card">
-        <div class="nf-lbl">北向净流入（今日）</div>
-        <div class="nf-val" style="color:{net_clr}">{net_sign}{today_net:.1f}亿</div>
-        <div class="nf-note">{direction_change if direction_change else today.get("date","")}</div>
+        <div class="nf-lbl">近30日大宗交易</div>
+        <div class="nf-val">{bt.get("count_30d",0)}笔</div>
+        <div class="nf-note">合计 {total_amt:.1f}亿</div>
       </div>
       <div class="nf-card">
-        <div class="nf-lbl">北向净流入（昨）</div>
-        <div class="nf-val" style="color:{"#3fb950" if yday_net>0 else "#f85149" if yday_net<0 else "#8b949e"}">{f"{yday_net:+.1f}" if yesterday else "—"}亿</div>
-        <div class="nf-note">{yesterday.get("date","") if yesterday else ""}</div>
+        <div class="nf-lbl">机构席位动向</div>
+        <div class="nf-val" style="color:{inst_clr}">{inst_direction}</div>
+        <div class="nf-note">买{inst_buy}笔 · 卖{inst_sell}笔</div>
       </div>
       <div class="nf-card">
         <div class="nf-lbl">主力资金（5日）</div>
-        <div class="nf-val" style="color:{"#3fb950" if five_day>0 else "#f85149" if five_day<0 else "#8b949e"}">{f"{five_day/1e4:+.1f}" if five_day else "—"}亿</div>
-        <div class="nf-note">{"净流入" if five_day>0 else "净流出" if five_day<0 else "—"}</div>
+        <div class="nf-val" style="color:{"#3fb950" if (fund.get("five_day",0) or 0)>0 else "#f85149" if (fund.get("five_day",0) or 0)<0 else "#8b949e"}">{f"{(fund.get('five_day',0) or 0)/1e4:+.1f}" if fund.get("five_day") else "—"}亿</div>
+        <div class="nf-note">超大单+大单净额</div>
       </div>
     </div>'''
 
-    # Deep analysis
-    analysis_parts = []
-    if today_net > 5:
-        analysis_parts.append(f'<li class="nf-deep">🌊 北向资金今日大幅净流入{today_net:.0f}亿元，外资积极做多信号明确</li>')
-    elif today_net > 0:
-        analysis_parts.append(f'<li class="nf-deep">💧 北向资金今日小幅净流入{today_net:.1f}亿元，外资保持温和配置</li>')
-    elif today_net < -5:
-        analysis_parts.append(f'<li class="nf-deep">🔻 北向资金今日净流出{abs(today_net):.0f}亿元，外资短期避险情绪升温</li>')
-    elif today_net < 0:
-        analysis_parts.append(f'<li class="nf-deep">📉 北向资金今日小幅净流出{abs(today_net):.1f}亿元</li>')
+        # ── 大宗交易明细表 ──
+        table = '<table class="nf-table"><tr><th>日期</th><th>成交价</th><th>成交量(万股)</th><th>成交额(万)</th><th>买方</th><th>卖方</th></tr>'
+        for t in trades[:5]:
+            buyer_short = t["buyer"][:12] + ("…" if len(t["buyer"]) > 12 else "")
+            seller_short = t["seller"][:12] + ("…" if len(t["seller"]) > 12 else "")
+            buyer_clr = "#3fb950" if "机构专用" in t.get("buyer","") else "#c9d1d9"
+            seller_clr = "#f85149" if "机构专用" in t.get("seller","") else "#c9d1d9"
+            price_gap = ""
+            if price_now and t["price"]:
+                gap = round((t["price"] - price_now) / price_now * 100, 1)
+                gap_clr = "#3fb950" if gap > 0 else "#f85149" if gap < 0 else ""
+                price_gap = f'<span style="font-size:0.7em;color:{gap_clr}">({gap:+.1f}%)</span>'
+            table += f'<tr><td>{t["date"]}</td><td>¥{t["price"]:.2f}{price_gap}</td><td>{t["volume_wan"]:.0f}</td><td>{t["amount_wan"]:.0f}</td><td style="color:{buyer_clr};font-size:0.85em">{buyer_short}</td><td style="color:{seller_clr};font-size:0.85em">{seller_short}</td></tr>'
+        table += '</table>'
+
+        # ── 研判 ──
+        parts = []
+        if inst_buy > inst_sell:
+            parts.append(f'<li>🟢 近30日机构专用席位净买入{inst_net}笔，机构通过大宗渠道主动吸筹</li>')
+        elif inst_sell > inst_buy:
+            parts.append(f'<li>🔴 近30日机构专用席位净卖出{abs(inst_net)}笔，注意机构减持信号</li>')
+        
+        # 折溢价分析
+        if price_now:
+            above = sum(1 for t in trades if t["price"] and t["price"] > price_now)
+            below = sum(1 for t in trades if t["price"] and t["price"] < price_now)
+            if above > below:
+                parts.append(f'<li>📈 近期{above}笔大宗成交价高于现价（溢价成交），机构认可当前估值</li>')
+            elif below > above:
+                parts.append(f'<li>📉 近期{below}笔大宗成交价低于现价（折价成交），关注机构定价预期</li>')
+
+        main_net = fund.get("main_net", 0)
+        if main_net:
+            mn_yi = main_net / 1e4
+            if abs(mn_yi) > 1:
+                parts.append(f'<li>💰 主力资金今日{"净流入" if mn_yi>0 else "净流出"}{abs(mn_yi):.1f}亿，与大宗方向{"一致" if (inst_net>0)==(mn_yi>0) else "背离，需关注"}</li>')
+
+        if not parts:
+            parts.append('<li>📌 近期无显著机构异动，大宗交易平稳，机构维持现有仓位</li>')
+
     else:
-        analysis_parts.append('<li class="nf-deep">➖ 北向资金今日基本持平，外资观望</li>')
-
-    if main_net:
-        mn_yi = main_net / 1e4
-        if abs(mn_yi) > 3:
-            analysis_parts.append(f'<li class="nf-deep">💹 主力资金今日{"净流入" if mn_yi>0 else "净流出"}{abs(mn_yi):.1f}亿元，与北向{"同向" if (today_net>0)==(mn_yi>0) else "背离"}</li>')
-
-    analysis_parts.append('<li class="nf-deep">📌 北向资金对宁德时代定价权影响显著，持续跟踪外资仓位变化是判断中期趋势的关键指标</li>')
+        cards = '<div class="nf-cards"><div class="nf-card"><div class="nf-lbl">大宗交易</div><div class="nf-val" style="color:#8b949e">暂无</div><div class="nf-note">近30日无大宗交易记录</div></div>'
+        # 主力资金仍显示
+        d5 = (fund.get("five_day", 0) or 0) / 1e4
+        cards += f'''<div class="nf-card">
+        <div class="nf-lbl">主力资金（5日）</div>
+        <div class="nf-val" style="color:{"#3fb950" if d5>0 else "#f85149" if d5<0 else "#8b949e"}">{f"{d5:+.1f}" if d5 else "—"}亿</div>
+        <div class="nf-note">超大单+大单净额</div>
+      </div></div>'''
+        table = ''
+        parts = ['<li>📌 近期无大宗交易，关注主力资金流向判断机构态度</li>']
 
     return f'''<div class="module">
-  <div class="module-hdr"><span class="icon">🌏</span><h2>北向资金</h2></div>
+  <div class="module-hdr"><span class="icon">🦈</span><h2>大资金动向</h2></div>
   {cards}
-  <ul class="nf-deep">{chr(10).join(analysis_parts)}</ul>
+  {table}
+  <ul class="nf-deep">{chr(10).join(parts)}</ul>
 </div>'''
 
 
@@ -1858,7 +1880,6 @@ def build_sectors(data):
 
 def build_fund_flow(data):
     fund = data.get("catl_fund") or {}
-    nf = data.get("north_flow")
     rows = ""
     for label, val in [("主力净流入(今)", fund.get("main_net")), ("超大单", fund.get("huge_net")),
                        ("大单", fund.get("big_net")), ("散户(小单)", fund.get("small_net")),
@@ -1867,12 +1888,8 @@ def build_fund_flow(data):
         if val is not None:
             clr = "#f85149" if val > 0 else "#3fb950"
             rows += f'<tr><td>{label}</td><td style="color:{clr}">{sign(val)}{val/1e4:.2f}亿</td></tr>'
-    nf_html = ""
-    if nf:
-        net = nf["today"]["net"]
-        nf_html = f'<div style="margin-top:12px;padding:10px;background:rgba(88,166,255,0.05);border-radius:8px"><span style="color:#8b949e;font-size:0.78em">北向资金 · {nf["today"]["date"]}</span><span style="color:{"#f85149" if net>0 else "#3fb950"};font-size:1.1em;font-weight:700;margin-left:8px">{sign(net)}{net:.1f}亿</span></div>'
-    if not rows and not nf_html: return ""
-    return f'<div class="module"><div class="module-hdr"><span class="icon">💰</span><h2>资金面</h2></div>{"<table>"+rows+"</table>" if rows else ""}{nf_html}</div>'
+    if not rows: return ""
+    return f'<div class="module"><div class="module-hdr"><span class="icon">💰</span><h2>资金面</h2></div><table>{rows}</table></div>'
 
 
 def build_week_news(data):
@@ -2026,7 +2043,7 @@ def _gen_impact_cards(data):
                 f"对于长线持有者：PEG&lt;1叠加MA60强支撑，是分批加仓的较好时机，"
                 f"建议在¥390-¥400区间金字塔式建仓，止损位设在MA60下方3%（约¥385）。"
                 f"对于短线交易者：趋势未扭转前保持观望，等待放量阳线确认企稳信号再入场。"
-                f"下周重点关注：月度排产数据、北向资金是否回流转正、以及碳酸锂价格是否继续下探。"
+                f"下周重点关注：月度排产数据、大宗交易机构动向、以及碳酸锂价格是否继续下探。"
             )
         },
     ]
@@ -2071,7 +2088,7 @@ def generate(data):
   {build_ah_analysis(data)}
   {build_peg_analysis(data)}
   {build_analyst_consensus(data)}
-  {build_northbound_flow(data)}
+  {build_big_money_flow(data)}
   {build_financial_trends(data)}
   {build_battery_install(data)}
   {build_upstream(data)}
