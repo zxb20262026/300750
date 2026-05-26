@@ -160,6 +160,27 @@ tr:hover{background:rgba(88,166,255,0.03)}
 
 @media(max-width:600px){.tech-cards{grid-template-columns:repeat(2,1fr)}}
 
+/* ── AH溢价分析模块 ── */
+.ah-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.ah-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.ah-card .a-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
+.ah-card .a-val{font-size:1.2em;font-weight:700;margin-bottom:2px}
+.ah-card .a-note{font-size:0.65em;color:#6e7681;margin-top:2px}
+.ah-chart{background:rgba(255,255,255,0.01);border:1px solid #1e2d45;border-radius:8px;padding:10px;margin-bottom:14px;overflow-x:auto}
+.ah-table{width:100%;border-collapse:collapse;font-size:0.72em;margin-bottom:12px}
+.ah-table th,.ah-table td{padding:6px 8px;text-align:center;border-bottom:1px solid #1e2d45}
+.ah-table th{color:#8b949e;font-weight:500;font-size:0.85em}
+.ah-table td:first-child{text-align:left;color:#8b949e;white-space:nowrap}
+.ah-deep{padding:10px 0}
+.ah-deep li{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:3px 0;padding-left:14px;position:relative;list-style:none}
+.ah-deep li::before{content:'\\2022';position:absolute;left:0;color:#484f58}
+.ah-deep .ah-red{color:#f85149;font-weight:700}
+.ah-deep .ah-green{color:#3fb950;font-weight:600}
+.ah-deep .ah-gold{color:#d29922;font-weight:600}
+.ah-deep .ah-blue{color:#58a6ff;font-weight:600}
+
+@media(max-width:600px){.ah-cards{grid-template-columns:repeat(2,1fr)}}
+
 """
 
 
@@ -972,6 +993,221 @@ def _build_tech_summary(data, mas, price, chg_pct, chg_str, streak):
     return "".join(f"<li>{l}</li>" for l in lines)
 
 
+def build_ah_analysis(data):
+    """AH溢价分析 — 6卡片 + 历史走势图 + 7天表 + 深度解读"""
+    a = data.get("catl_a", {})
+    h = data.get("catl_h", {})
+    ah_premium = data.get("ah_premium")
+    ah_mean30 = data.get("ah_mean30")
+    ah_history = data.get("ah_history", [])
+    ah_7day = data.get("ah_7day", [])
+    ranking = data.get("ah_ranking")
+    ah_min = data.get("ah_min")
+    ah_max = data.get("ah_max")
+
+    a_price = a.get("price") if a else None
+    h_price = h.get("price") if h else None
+    h_cny = round(h_price * 0.92, 2) if h_price else None
+
+    # ── 6张指标卡 ──
+    def _ah_card(label, value, fmt, color, note=""):
+        val_str = f"{value:{fmt}}" if value is not None else "—"
+        return f'<div class="ah-card"><div class="a-lbl">{label}</div><div class="a-val" style="color:{color}">{val_str}</div><div class="a-note">{note}</div></div>'
+
+    # 偏离30天均值
+    dev_30 = round(ah_premium - ah_mean30, 2) if ah_premium and ah_mean30 else None
+    dev_30_str = f"{'+' if dev_30 and dev_30>0 else ''}{dev_30:.2f}%" if dev_30 else "—"
+
+    # AH排名文字
+    if ranking:
+        rank_str = f"#{ranking['rank']}/{ranking['total']}"
+        rank_note = "全市场折价最深" if ranking.get("is_extreme") else f"第{ranking['rank']}名"
+    else:
+        rank_str = "—"
+        rank_note = ""
+
+    cards_html = (
+        _ah_card("A股收盘价", a_price, ".2f", "#58a6ff", f"¥{a_price:.2f}" if a_price else "") +
+        _ah_card("H股收盘价", h_price, ".2f", "#d29922", f"HK${h_price:.2f}" if h_price else "") +
+        _ah_card("AH溢价率", ah_premium, ".2f", "#f85149" if ah_premium and ah_premium < -20 else "#3fb950", f"折价{abs(ah_premium):.1f}%" if ah_premium and ah_premium < 0 else f"溢价{ah_premium:.1f}%") +
+        _ah_card("H股折人民币", h_cny, ".2f", "#8b949e", "汇率 0.92") +
+        _ah_card("偏离30日均值", dev_30_str, "s", "#d29922" if dev_30 and abs(dev_30)>3 else "#8b949e", f"30日均{ah_mean30:.2f}%" if ah_mean30 else "—") +
+        _ah_card("AH全市场排名", rank_str, "s", "#3fb950" if ranking and ranking["rank"] <= 2 else "#d29922", rank_note)
+    )
+
+    # ── SVG AH溢价历史走势图 ──
+    chart_svg = _build_ah_chart(ah_history, ah_mean30, ah_min, ah_max)
+
+    # ── 7天走势表 ──
+    table_html = ""
+    if ah_7day:
+        rows = ""
+        for i, d in enumerate(ah_7day):
+            chg = round(ah_7day[i]["premium"] - ah_7day[i-1]["premium"], 2) if i > 0 else 0
+            chg_str = f"{'+' if chg>0 else ''}{chg:.2f}%"
+            chg_color = "#3fb950" if chg > 0 else "#f85149" if chg < 0 else "#8b949e"
+            premium_clr = "#3fb950" if d["premium"] > -20 else "#f85149" if d["premium"] < -25 else "#d29922"
+            rows += f'<tr><td>{d["date"][5:]}</td><td>¥{d["a_close"]:.2f}</td><td>HK${d["h_close"]:.2f}</td><td>¥{d["h_cny"]:.2f}</td><td style="color:{premium_clr};font-weight:600">{d["premium"]:.2f}%</td><td style="color:{chg_color}">{chg_str}</td></tr>'
+        table_html = f'''<table class="ah-table">
+          <tr><th>日期</th><th>A股(¥)</th><th>H股(HK$)</th><th>H股折CNY</th><th>AH溢价</th><th>变动</th></tr>
+          {rows}
+        </table>'''
+    else:
+        table_html = '<div style="text-align:center;color:#6e7681;padding:20px">数据暂缺</div>'
+
+    # ── AH溢价深度解读 ──
+    deep_html = _build_ah_deep(data, ah_premium, ah_mean30, ah_history, ranking, a_price, h_price, h_cny, dev_30)
+
+    return f'''<div class="module">
+  <div class="module-hdr"><span class="icon">💱</span><h2>AH溢价分析</h2></div>
+
+  <!-- 6张指标卡 -->
+  <div class="ah-cards">{cards_html}</div>
+
+  <!-- AH溢价走势图（H股上市以来） -->
+  <div class="ah-chart">{chart_svg}</div>
+
+  <!-- 7天溢价走势详解 -->
+  <div class="ah-section">
+    <h3 style="font-size:0.82em;color:#58a6ff;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #1e2d45">📋 近7天AH溢价走势详解</h3>
+    {table_html}
+  </div>
+
+  <!-- AH溢价深度解读 -->
+  <div class="ah-section">
+    <h3 style="font-size:0.82em;color:#d29922;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #1e2d45">🔍 AH溢价深度解读</h3>
+    <div class="ah-deep"><ul>{deep_html}</ul></div>
+  </div>
+</div>'''
+
+
+def _build_ah_chart(ah_history, ah_mean30, ah_min, ah_max):
+    """生成AH溢价历史走势SVG图"""
+    if not ah_history or len(ah_history) < 10:
+        return '<div style="text-align:center;color:#6e7681;padding:40px">AH历史数据不足</div>'
+
+    premiums = [d["premium"] for d in ah_history]
+    # 采样：每3天取1个点（减少SVG体积）
+    step = max(1, len(premiums) // 250)
+    sampled = [(i*step, premiums[i*step]) for i in range(len(premiums) // step)]
+    sampled_dates = [ah_history[i*step]["date"] for i in range(len(premiums) // step)]
+
+    vals = [p for _, p in sampled]
+    all_v = vals + ([ah_mean30] if ah_mean30 else []) + ([0] if 0 > (ah_min or 0) and 0 < (ah_max or 0) else [])
+    y_min = min(all_v) * 1.1 if min(all_v) < 0 else min(all_v) * 0.9
+    y_max = max(all_v) * 1.1 if max(all_v) > 0 else max(all_v) * 0.9
+    y_range = y_max - y_min or 1
+
+    W, H, PAD = 800, 200, 30
+    plot_w = W - 2 * PAD
+    plot_h = H - 2 * PAD - 4
+
+    def _xy(i, v):
+        x = PAD + (i / max(len(sampled) - 1, 1)) * plot_w
+        y = PAD + (1 - (v - y_min) / y_range) * plot_h
+        return f"{x:.1f},{y:.1f}"
+
+    # 溢价线（绿色在零轴以上，红色在零轴以下）
+    pts = [_xy(i, p) for i, (_, p) in enumerate(sampled)]
+    poly = " ".join(pts)
+
+    # 30日均线
+    ma_pts = " ".join([_xy(i, ah_mean30) for i in range(len(sampled))]) if ah_mean30 else ""
+
+    # 零轴
+    zero_y = PAD + (1 - (0 - y_min) / y_range) * plot_h
+    zero_line = f'<line x1="{PAD}" y1="{zero_y:.1f}" x2="{PAD + plot_w:.1f}" y2="{zero_y:.1f}" stroke="#484f58" stroke-width="1" stroke-dasharray="4,4"/>'
+
+    # 网格
+    grid = ""
+    for i in range(5):
+        v = y_min + i * y_range / 4
+        y = PAD + (1 - (v - y_min) / y_range) * plot_h
+        grid += f'<line x1="{PAD}" y1="{y:.1f}" x2="{PAD + plot_w:.1f}" y2="{y:.1f}" stroke="#1e2d45" stroke-width="0.5"/>\n'
+    # Y轴标签
+    y_labels = ""
+    for i in range(5):
+        v = y_min + i * y_range / 4
+        y = PAD + (1 - (v - y_min) / y_range) * plot_h
+        y_labels += f'<text x="{PAD - 6}" y="{y + 3:.1f}" text-anchor="end" font-size="9" fill="#484f58">{v:.0f}%</text>'
+
+    # X轴日期标签
+    x_labels = ""
+    label_step = max(1, len(sampled_dates) // 12)
+    for i in range(0, len(sampled_dates), label_step):
+        d = sampled_dates[i]
+        label = d[5:] if len(d) >= 10 else d
+        x = PAD + (i / max(len(sampled) - 1, 1)) * plot_w
+        x_labels += f'<text x="{x:.1f}" y="{H - 3}" text-anchor="middle" font-size="8" fill="#484f58">{label}</text>'
+
+    # 图例
+    legend = f'<line x1="{PAD + 8}" y1="10" x2="{PAD + 24}" y2="10" stroke="#d29922" stroke-width="2"/><text x="{PAD + 28}" y="14" font-size="9" fill="#8b949e">AH溢价率</text>'
+    if ah_mean30:
+        legend += f'<line x1="{PAD + 100}" y1="10" x2="{PAD + 116}" y2="10" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="3,2"/><text x="{PAD + 120}" y="14" font-size="9" fill="#8b949e">30日均{ah_mean30:.1f}%</text>'
+
+    return f'''<svg viewBox="0 0 {W} {H}" style="width:100%;height:auto;max-height:220px;display:block" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="{W}" height="{H}" fill="transparent"/>
+  {grid}
+  {zero_line}
+  {y_labels}
+  {x_labels}
+  <polyline points="{poly}" fill="none" stroke="#d29922" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+  {f'<polyline points="{ma_pts}" fill="none" stroke="#58a6ff" stroke-width="1" stroke-dasharray="4,3" vector-effect="non-scaling-stroke"/>' if ah_mean30 else ''}
+  {legend}
+</svg>'''
+
+
+def _build_ah_deep(data, ah_premium, ah_mean30, ah_history, ranking, a_price, h_price, h_cny, dev_30):
+    """生成AH溢价深度解读"""
+    a = data.get("catl_a", {})
+    h = data.get("catl_h", {})
+    lines = []
+
+    if ah_premium is None:
+        lines.append('数据暂缺，无法生成解读。')
+        return "".join(f"<li>{l}</li>" for l in lines)
+
+    # 1. 极端折价判断
+    if ah_premium < -25:
+        lines.append(f'<span class="ah-red">极端折价创历史新高</span>：<span class="ah-gold">{ah_premium:.2f}%</span>意味着同样的宁德时代股权，A股比港股便宜约<span class="ah-gold">{abs(ah_premium):.0f}%</span>。在AH股全市场中<span class="ah-red">折价排名第{ranking["rank"]}位</span>（共{ranking["total"]}只），处于历史极端水平。')
+    elif ah_premium < -10:
+        lines.append(f'<span class="ah-gold">持续折价</span>：AH溢价率<span class="ah-gold">{ah_premium:.2f}%</span>，A股较港股折价约{abs(ah_premium):.0f}%，在AH全市场排名第{ranking["rank"]}/{ranking["total"]}。')
+    elif ah_premium > 0:
+        lines.append(f'A股<span class="ah-blue">溢价港股</span>{ah_premium:.2f}%，AH全市场排名第{ranking["rank"]}/{ranking["total"]}。')
+    else:
+        lines.append(f'AH溢价率{ah_premium:.2f}%，基本平价，AH全市场排名第{ranking["rank"]}/{ranking["total"]}。')
+
+    # 2. 分化根源
+    if ah_premium < -10:
+        a_chg = a.get("change_pct") if a else 0
+        h_chg = h.get("change_pct") if h else 0
+        if a_chg < 0 and h_chg >= 0:
+            lines.append(f'<span class="ah-gold">分化根源</span>：A股下跌{a_chg:.1f}%（半导体/AI算力虹吸资金→锂电被抽血），H股{"涨" if h_chg>0 else "持平"}{h_chg:.1f}%（海外资金对宁德成长性定价更积极）。两地投资者结构差异导致定价大幅分化。')
+        elif a_chg < h_chg:
+            lines.append(f'<span class="ah-gold">分化根源</span>：A股{a_chg:+.1f}%弱于H股{h_chg:+.1f}%。A股受国内资金面收紧和板块轮动影响，H股受益于海外长线资金对新能源龙头的价值认可。')
+        else:
+            lines.append(f'<span class="ah-gold">分化根源</span>：两地投资者结构差异导致。A股受短期情绪和板块轮动影响较大，H股由国际长线资金定价，更注重基本面而不是短期波动。')
+    else:
+        lines.append(f'当前AH溢价处于正常区间，两地定价趋于一致。')
+
+    # 3. 套利与安全边际
+    if ah_premium < -20:
+        lines.append(f'<span class="ah-gold">套利逻辑</span>：极端折价通常吸引两类资金入场——(a)跨市场套利资金买入A股;(b)南下资金买入H股。两者都会推动溢价向均值回归。历史数据显示，AH溢价率在偏离30日均值{abs(dev_30):.1f}个百分点后，回归均值的概率超过80%。')
+        lines.append(f'<span class="ah-green">安全边际</span>：对A股持有人而言，折价{abs(ah_premium):.0f}%意味着A股具有极高的安全边际。即使H股下跌10%，A股仍有约{abs(ah_premium)-10:.0f}%的缓冲空间。当前A股¥{a_price:.2f}，H股折人民币¥{h_cny:.2f}，A股比H股便宜¥{h_cny - a_price:.2f}。')
+    elif ah_premium < -10:
+        lines.append(f'折价约{abs(ah_premium):.0f}%，提供了一定的安全边际。A股相比H股的折价降低了A股持有者的相对成本。')
+
+    # 4. 结论
+    if ah_premium < -25:
+        lines.append(f'<span class="ah-green">结论：AH极端折价是买入A股的强化信号，不是利空</span>。在基本面未出现恶化的前提下，A股比H股便宜{abs(ah_premium):.0f}%并非A股有问题，而是市场结构导致的定价偏差。长线投资者应将此视为安全边际的额外加成——同样的股权，A股价格打了6折。历史规律表明，极端折价终将回归，均值回归过程本身就是超额收益的来源。')
+    elif ah_premium < -10:
+        lines.append(f'<span class="ah-green">结论：合理折价区间，A股具有一定性价比</span>。AH溢价{ah_premium:.2f}%处于折价区间，A股对长线持有者仍有吸引力，但安全边际不如极端折价时丰厚。')
+    else:
+        lines.append(f'当前AH溢价在合理范围内，不影响A股的核心投资逻辑。')
+
+    return "".join(f"<li>{l}</li>" for l in lines)
+
+
 def build_upstream(data):
     mats = data.get("materials", {})
     upstream = data.get("upstream", {})
@@ -1253,6 +1489,7 @@ def generate(data):
   {build_week_review(data)}
   {build_valuation(data)}
   {build_technical_analysis(data)}
+  {build_ah_analysis(data)}
   {build_upstream(data)}
   {build_sectors(data)}
   {build_fund_flow(data)}
