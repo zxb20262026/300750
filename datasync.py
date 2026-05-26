@@ -88,6 +88,87 @@ def fetch_catl_kline(days=60):
     except: return []
 
 
+def fetch_hk_kline(days=750):
+    """CATL H股(00750)历史K线"""
+    try:
+        raw = get(f"https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=hk03750,day,,,{days},qfq", headers=H_EM)
+        d = json.loads(raw)
+        klines = d.get("data", {}).get("hk03750", {}).get("qfqday", []) or \
+                 d.get("data", {}).get("hk03750", {}).get("day", [])
+        result = []
+        for k in klines:
+            parts = k.split(",") if isinstance(k, str) else k
+            if len(parts) >= 6:
+                result.append({"date": parts[0], "open": float(parts[1]), "close": float(parts[2]),
+                               "high": float(parts[3]), "low": float(parts[4]),
+                               "volume": float(parts[5]) if parts[5] else 0})
+        return result
+    except: return []
+
+
+def compute_ah_history(hk_kline, a_kline, fx_rate=0.92):
+    """计算AH溢价历史序列：按日期对齐A股和H股收盘价"""
+    if not hk_kline or not a_kline: return []
+    a_map = {k["date"]: k["close"] for k in a_kline}
+    result = []
+    for hk in hk_kline:
+        d = hk["date"]
+        if d in a_map:
+            h_cny = hk["close"] * fx_rate
+            if h_cny > 0:
+                premium = round((a_map[d] - h_cny) / h_cny * 100, 2)
+                result.append({"date": d, "a_close": a_map[d], "h_close": hk["close"],
+                               "h_cny": round(h_cny, 2), "premium": premium})
+    return result
+
+
+def fetch_ah_ranking(a_price, h_price, fx_rate=0.92):
+    """获取CATL在AH股中的溢价排名（约15只主流AH股）"""
+    AH_PEERS = [
+        ("招商银行", "sh600036", "hk03968"),
+        ("中国平安", "sh601318", "hk02318"),
+        ("比亚迪", "sz002594", "hk01211"),
+        ("海螺水泥", "sh600585", "hk00914"),
+        ("青岛啤酒", "sh600600", "hk00168"),
+        ("工商银行", "sh601398", "hk01398"),
+        ("建设银行", "sh601939", "hk00939"),
+        ("中国石油", "sh601857", "hk00857"),
+        ("中国神华", "sh601088", "hk01088"),
+        ("中芯国际", "sh688981", "hk00981"),
+        ("紫金矿业", "sh601899", "hk02899"),
+        ("潍柴动力", "sz000338", "hk02338"),
+        ("福耀玻璃", "sh600660", "hk03606"),
+        ("中国中车", "sh601766", "hk01766"),
+        ("中国中铁", "sh601390", "hk00390"),
+    ]
+    premiums = []
+    catl_h_cny = (h_price or 0) * fx_rate
+    catl_premium = round((a_price - catl_h_cny) / catl_h_cny * 100, 2) if catl_h_cny else 0
+
+    for name, a_code, h_code in AH_PEERS:
+        try:
+            a_raw = get(f"https://hq.sinajs.cn/list={a_code}", "gbk")
+            h_raw = get(f"https://hq.sinajs.cn/list={h_code}", "gbk")
+            a_m = re.search(r'"(.+?)"', a_raw)
+            h_m = re.search(r'"(.+?)"', h_raw)
+            if not a_m or not h_m: continue
+            a_p = float(a_m.group(1).split(",")[3])
+            h_p = float(h_m.group(1).split(",")[3])
+            if not a_p or not h_p: continue
+            h_cny = h_p * fx_rate
+            item_premium = round((a_p - h_cny) / h_cny * 100, 2)
+            premiums.append({"name": name, "a_price": a_p, "h_price": h_p,
+                             "premium": item_premium, "h_cny": round(h_cny, 2)})
+        except: continue
+
+    premiums.append({"name": "宁德时代", "a_price": a_price, "h_price": h_price,
+                     "premium": catl_premium, "h_cny": round(catl_h_cny, 2)})
+    premiums.sort(key=lambda x: x["premium"])
+    rank = next((i+1 for i, p in enumerate(premiums) if p["name"] == "宁德时代"), len(premiums))
+    return {"peers": premiums, "rank": rank, "total": len(premiums),
+            "catl_premium": catl_premium, "is_extreme": catl_premium < -25}
+
+
 def fetch_market_indices():
     results = {}
     for name, code in MARKET_INDICES.items():
@@ -388,6 +469,8 @@ def collect_all(verbose=True):
     data["catl_pe"] = fetch_catl_pe()
     data["catl_fund"] = fetch_catl_fund_flow()
     data["catl_kline"] = fetch_catl_kline(90)  # 90天用于技术面分析
+    data["catl_kline_long"] = fetch_catl_kline(750)  # 长周期用于AH溢价历史
+    data["hk_kline"] = fetch_hk_kline(750)  # H股上市以来
     data["market"] = fetch_market_indices()
     if verbose:
         a = data["catl_a"]
@@ -409,6 +492,13 @@ def collect_all(verbose=True):
     if verbose: print("🚗 新能源车..."); data["nev_sector"] = fetch_nev_sector()
     if verbose: print("📊 估值..."); data["valuation"] = fetch_valuation_data()
     if verbose: print("📅 周回顾..."); data["week_flow"] = fetch_week_flow()
+    if verbose: print("💱 AH溢价...")
+    if verbose and data.get("ah_history"):
+        print(f"  AH历史: {len(data['ah_history'])}天 · 当前{data.get('ah_premium','—'):.1f}% · "
+              f"30日均{data.get('ah_mean30', '—')}")
+    if verbose and data.get("ah_ranking"):
+        r = data["ah_ranking"]
+        print(f"  AH排名: #{r['rank']}/{r['total']} {'极端' if r.get('is_extreme') else ''}")
 
     compute_derived(data)
     if verbose: print("=" * 50 + "\n✅ 采集完成")
@@ -507,6 +597,38 @@ def compute_derived(data):
     else:
         data["ah_premium"] = None
         s["ah"] = {"level": "unknown", "text": "—"}
+
+    # ── AH溢价历史序列 + 排名 ──
+    hk_kline = data.get("hk_kline", [])
+    a_long = data.get("catl_kline_long", [])
+    if hk_kline and a_long:
+        ah_history = compute_ah_history(hk_kline, a_long)
+        data["ah_history"] = ah_history
+        # 30天均值
+        if len(ah_history) >= 30:
+            recent_30 = [d["premium"] for d in ah_history[-30:]]
+            data["ah_mean30"] = round(statistics.mean(recent_30), 2)
+        else:
+            data["ah_mean30"] = None
+        # 7天详情
+        data["ah_7day"] = ah_history[-7:] if len(ah_history) >= 7 else ah_history[-len(ah_history):]
+        # 极值
+        if ah_history:
+            premiums_only = [d["premium"] for d in ah_history]
+            data["ah_min"] = min(premiums_only)
+            data["ah_max"] = max(premiums_only)
+    else:
+        data["ah_history"] = []
+        data["ah_mean30"] = None
+        data["ah_7day"] = []
+
+    # ── AH排名（批量抓取，较慢）──
+    a = data.get("catl_a", {})
+    h = data.get("catl_h", {})
+    if a and h:
+        data["ah_ranking"] = fetch_ah_ranking(a.get("price", 0), h.get("price", 0))
+    else:
+        data["ah_ranking"] = None
 
     if pe_ttm and pe_ttm > 0 and price:
         peg = round(pe_ttm / GROWTH_ASSUMPTION, 2)
