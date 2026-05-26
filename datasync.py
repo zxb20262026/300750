@@ -588,6 +588,73 @@ def fetch_financial_trends():
     return result
 
 
+def fetch_block_trades():
+    """大宗交易 — 新浪个股大宗交易页面"""
+    try:
+        url = "https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/dzjy/index.phtml?symbol=300750"
+        raw = get(url, "gbk")
+        # 解析表格行
+        rows = re.findall(r'<tr[^>]*>.*?</tr>', raw, re.DOTALL)
+        trades = []
+        for row in rows:
+            cells = re.findall(r'<td[^>]*>(.*?)</td>', row, re.DOTALL)
+            if len(cells) < 8:
+                continue
+            # 清理HTML标签
+            clean = [re.sub(r'<[^>]+>', '', c).strip() for c in cells]
+            clean = [re.sub(r'\s+', ' ', c).strip() for c in clean]
+            # 跳过表头行
+            if '交易日期' in clean[0] or not clean[0]:
+                continue
+            try:
+                trade = {
+                    "date": clean[0],
+                    "price": float(clean[3]) if len(clean) > 3 and clean[3] else None,
+                    "volume_wan": float(clean[4]) if len(clean) > 4 and clean[4] else None,
+                    "amount_wan": float(clean[5]) if len(clean) > 5 and clean[5] else None,
+                    "buyer": clean[6] if len(clean) > 6 else "",
+                    "seller": clean[7] if len(clean) > 7 else "",
+                    "market": clean[8] if len(clean) > 8 else "A股",
+                }
+                if trade["price"]:
+                    trades.append(trade)
+            except (ValueError, IndexError):
+                continue
+        
+        if not trades:
+            return {"recent": [], "has_data": False}
+        
+        # 计算统计数据（近1个月）
+        import datetime
+        recent_trades = []
+        one_month_ago = (datetime.datetime.now() - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
+        for t in trades:
+            if t["date"] >= one_month_ago:
+                recent_trades.append(t)
+        if not recent_trades:
+            recent_trades = trades[:5]
+        
+        # 机构专用统计
+        inst_buy = sum(1 for t in recent_trades if "机构专用" in t.get("buyer",""))
+        inst_sell = sum(1 for t in recent_trades if "机构专用" in t.get("seller",""))
+        inst_amount = sum(t["amount_wan"] for t in recent_trades if "机构专用" in t.get("buyer",""))
+        
+        # 折溢价：大宗价格 vs 当前价格
+        total_amount = sum(t["amount_wan"] for t in recent_trades)
+        
+        return {
+            "recent": recent_trades[:8],
+            "has_data": True,
+            "count_30d": len(recent_trades),
+            "total_amount_wan": round(total_amount, 2),
+            "inst_buy_count": inst_buy,
+            "inst_sell_count": inst_sell,
+            "inst_buy_amount": round(inst_amount, 2),
+        }
+    except:
+        return {"recent": [], "has_data": False}
+
+
 def fetch_battery_install():
     """电池装机量 — 月度参考数据（来源：中国汽车动力电池产业联盟）"""
     # 月度数据，每次月度报告发布后手动更新
@@ -649,6 +716,7 @@ def collect_all(verbose=True):
     if verbose: print("🧠 一致预期EPS..."); data["analyst_eps"] = fetch_analyst_eps()
     if verbose: print("📈 财务..."); data["financials"] = fetch_financial_trends()
     if verbose: print("🔋 装机量..."); data["battery_install"] = fetch_battery_install()
+    if verbose: print("📦 大宗交易..."); data["block_trades"] = fetch_block_trades()
     if verbose: print("💱 AH溢价...")
     if verbose and data.get("ah_history"):
         print(f"  AH历史: {len(data['ah_history'])}天 · 当前{data.get('ah_premium','—'):.1f}% · "
