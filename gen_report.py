@@ -180,6 +180,24 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .ah-deep .ah-gold{color:#d29922;font-weight:600}
 .ah-deep .ah-blue{color:#58a6ff;font-weight:600}
 
+/* ── PEG估值分析模块 ── */
+.peg-table{width:100%;border-collapse:collapse;font-size:0.8em;margin-bottom:14px}
+.peg-table th,.peg-table td{padding:7px 10px;border-bottom:1px solid #1e2d45}
+.peg-table th{color:#8b949e;font-weight:500;font-size:0.82em;text-align:left}
+.peg-table td:first-child{color:#8b949e;font-weight:500;width:35%}
+.peg-table td:nth-child(2){font-weight:600;width:25%}
+.peg-table td:nth-child(3){font-size:0.82em;color:#c9d1d9;width:40%}
+.peg-conclusion{background:rgba(63,185,80,0.06);border:1px solid rgba(63,185,80,0.2);border-radius:8px;padding:14px;margin-top:12px}
+.peg-conclusion .pc-title{font-size:0.85em;font-weight:700;color:#3fb950;margin-bottom:8px}
+.peg-conclusion .pc-item{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:2px 0}
+.peg-conclusion .pc-ok{color:#3fb950;font-weight:600}
+.peg-conclusion .pc-no{color:#8b949e}
+.peg-conclusion .pc-warn{color:#f85149;font-weight:600}
+.peg-range{background:rgba(210,153,34,0.06);border:1px solid rgba(210,153,34,0.2);border-radius:8px;padding:12px;margin-top:10px;text-align:center}
+.peg-range .pr-title{font-size:0.78em;color:#d29922;font-weight:600;margin-bottom:6px}
+.peg-range .pr-value{font-size:1.1em;font-weight:700;color:#d29922}
+.peg-range .pr-note{font-size:0.7em;color:#8b949e;margin-top:4px}
+
 @media(max-width:600px){.ah-cards{grid-template-columns:repeat(2,1fr)}}
 
 """
@@ -1308,6 +1326,118 @@ def _build_ah_deep(data, ah_premium, ah_mean30, ah_history, ranking, a_price, h_
     return "".join(f"<li>{l}</li>" for l in lines)
 
 
+def build_peg_analysis(data):
+    """PEG估值分析 — 指标表 + 结论 + 合理估值区间"""
+    a = data.get("catl_a", {})
+    pe_info = data.get("catl_pe", {})
+    val = data.get("valuation", {})
+    peg_val = data.get("peg")
+    catl_peer = val.get("peers", {}).get("宁德时代", {})
+
+    price = a.get("price") if a else None
+    pe_ttm = pe_info.get("pe_ttm") if pe_info else None
+    pb = catl_peer.get("pb")
+    roe = catl_peer.get("roe")
+    eps_ttm = round(price / pe_ttm, 2) if price and pe_ttm else None
+
+    # 预测EPS: 基于增长假设
+    eps_2026e = round(eps_ttm * (1 + GROWTH_ASSUMPTION / 100), 2) if eps_ttm else None
+    forward_pe = round(price / eps_2026e, 2) if price and eps_2026e else None
+
+    # 行业PE中位（排除负PE）
+    peer_pes = [p.get("pe") for p in val.get("peers", {}).values()
+                if p.get("pe") and p["pe"] > 0 and p.get("name") != "宁德时代"]
+    peer_pes.sort()
+    industry_pe = peer_pes[len(peer_pes)//2] if peer_pes else None
+    discount = round((1 - pe_ttm/industry_pe) * 100, 1) if pe_ttm and industry_pe else None
+
+    # 机构数据
+    inst = val.get("institution", {})
+    target_avg = inst.get("target_avg")
+    target_count = inst.get("buy", 0) + inst.get("overweight", 0)
+
+    # 合理估值区间: EPS_2026E × PE 25-30x
+    range_low = round(eps_2026e * 25, 0) if eps_2026e else None
+    range_high = round(eps_2026e * 30, 0) if eps_2026e else None
+    upside_low = round((range_low - price) / price * 100, 1) if price and range_low else None
+    upside_high = round((range_high - price) / price * 100, 1) if price and range_high else None
+
+    def _row(label, value, judge, v_color="#e6edf3"):
+        v_str = f"{value}" if value is not None else "—"
+        return f'<tr><td>{label}</td><td style="color:{v_color}">{v_str}</td><td>{judge}</td></tr>'
+
+    rows = ""
+    rows += _row("当前股价", f"¥{price:.2f}" if price else "—", "", "#58a6ff")
+    rows += _row("PE(TTM)", f"{pe_ttm:.1f}x" if pe_ttm else "—",
+                 f'<span style="color:#3fb950">历史偏低</span>' if pe_ttm and pe_ttm < 25 else "合理")
+    rows += _row("预测EPS(2026E)", f"¥{eps_2026e:.2f}" if eps_2026e else "—",
+                 f'基于{GROWTH_ASSUMPTION}%增长假设' if eps_2026e else "—")
+    rows += _row("远期PE(2026E)", f"{forward_pe:.2f}x" if forward_pe else "—",
+                 f"¥{price:.0f} / ¥{eps_2026e:.2f}" if price and eps_2026e else "—")
+    rows += _row("PEG", f"{peg_val:.2f}" if peg_val else "—",
+                 '<span style="color:#3fb950;font-weight:700"> < 1 → 买入区间 ✅</span>' if peg_val and peg_val < 1 else
+                 '<span style="color:#d29922">1~1.5 → 合理区间</span>' if peg_val and peg_val <= 1.5 else
+                 '<span style="color:#f85149">>1.5 → 偏高区间 ⚠️</span>')
+    rows += _row("PB", f"{pb:.1f}x" if pb else "—",
+                 f'ROE {roe:.2f}%支撑' if roe else "—")
+    if industry_pe:
+        rows += _row("行业PE中位", f"{industry_pe:.2f}x",
+                     f'<span style="color:#3fb950">宁德折价{discount:.0f}%</span>' if discount and discount > 0 else "行业均值")
+    if target_avg:
+        rows += _row("机构目标均价", f"¥{target_avg:.0f}",
+                     f'{target_count}家覆盖，上行{round((target_avg-price)/price*100,1):+}%' if price else "—")
+
+    # PEG结论
+    if peg_val and peg_val < 1:
+        conclusion_title = f'PEG估值结论：PEG = <span style="color:#3fb950">{peg_val:.2f} < 1</span>，处于<span style="color:#3fb950">价值低估区间</span>'
+        buy_ok = '<span class="pc-ok">✅ 满足 → 维持"买入"评级</span>'
+        buy_no = '<span class="pc-no">—</span>'
+        sell_ok = '<span class="pc-no">❌ 远未触发 → 继续持有</span>'
+        sell_no = '<span class="pc-no">—</span>'
+    elif peg_val and peg_val <= 1.5:
+        conclusion_title = f'PEG估值结论：PEG = <span style="color:#d29922">{peg_val:.2f}</span>，处于<span style="color:#d29922">合理区间</span>'
+        buy_ok = '<span class="pc-no">—</span>'
+        buy_no = '<span class="pc-ok">PEG≥1 → 等待更好价格</span>'
+        sell_ok = '<span class="pc-no">❌ 未触发 → 继续持有</span>'
+        sell_no = '<span class="pc-no">—</span>'
+    else:
+        conclusion_title = f'PEG估值结论：PEG = <span style="color:#f85149">{peg_val:.2f} > 1.5</span>，处于<span style="color:#f85149">偏高区间</span>'
+        buy_ok = '<span class="pc-no">—</span>'
+        buy_no = '<span class="pc-no">—</span>'
+        sell_ok = '<span class="pc-warn">⚠️ 触发 → 考虑减仓</span>'
+        sell_no = '<span class="pc-no">—</span>'
+
+    # 涨跌幅信息
+    chg_info = ""
+    a_chg = a.get("change_pct") if a else None
+    if a_chg:
+        chg_info = f'，今日{a_chg:+.1f}%'
+
+    table_html = f'''<table class="peg-table">
+      <tr><th>指标</th><th>数值</th><th>评估</th></tr>
+      {rows}
+    </table>'''
+
+    range_html = ""
+    if eps_2026e and range_low:
+        range_html = f'<div class="peg-range"><div class="pr-title">合理估值区间（基于2026E EPS ¥{eps_2026e:.2f} × PE 25-30x）</div><div class="pr-value">¥{range_low:.0f} — ¥{range_high:.0f}</div><div class="pr-note">较当前价有 <span style="color:#3fb950;font-weight:600">+{upside_low}% ~ +{upside_high}%</span> 上行空间</div></div>'
+
+    return f'''<div class="module">
+  <div class="module-hdr"><span class="icon">🧮</span><h2>PEG估值分析</h2></div>
+
+  {table_html}
+
+  <div class="peg-conclusion">
+    <div class="pc-title">🧮 {conclusion_title}</div>
+    <div class="pc-item">• 买入条件（PEG&lt;1）：{buy_ok}</div>
+    <div class="pc-item">• 卖出条件（PEG&gt;1.5）：{sell_ok}</div>
+    <div class="pc-item">• 当前价位：¥{price:.2f}{chg_info}，估值安全边际充足</div>
+  </div>
+
+  {range_html}
+</div>'''
+
+
 def build_upstream(data):
     mats = data.get("materials", {})
     upstream = data.get("upstream", {})
@@ -1590,6 +1720,7 @@ def generate(data):
   {build_valuation(data)}
   {build_technical_analysis(data)}
   {build_ah_analysis(data)}
+  {build_peg_analysis(data)}
   {build_upstream(data)}
   {build_sectors(data)}
   {build_fund_flow(data)}
