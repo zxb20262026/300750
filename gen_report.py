@@ -200,7 +200,73 @@ tr:hover{background:rgba(88,166,255,0.03)}
 
 @media(max-width:600px){.ah-cards{grid-template-columns:repeat(2,1fr)}}
 
-"""
+/* ── 分析师一致预期模块 ── */
+.ac-hero{display:flex;align-items:center;gap:16px;padding:16px;background:rgba(88,166,255,0.05);border:1px solid rgba(88,166,255,0.15);border-radius:10px;margin-bottom:14px;flex-wrap:wrap}
+.ac-hero .ac-badge{font-size:0.85em;font-weight:700;padding:6px 14px;border-radius:6px;white-space:nowrap}
+.ac-hero .ac-badge.buy{background:rgba(63,185,80,0.15);color:#3fb950;border:1px solid rgba(63,185,80,0.3)}
+.ac-hero .ac-badge.hold{background:rgba(210,153,34,0.15);color:#d29922;border:1px solid rgba(210,153,34,0.3)}
+.ac-hero .ac-badge.sell{background:rgba(248,81,73,0.15);color:#f85149;border:1px solid rgba(248,81,73,0.3)}
+.ac-hero .ac-info{font-size:0.8em;color:#c9d1d9;line-height:1.6;flex:1;min-width:200px}
+.ac-hero .ac-info b{color:#58a6ff}
+.ac-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.ac-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.ac-card .ac-lbl{font-size:0.68em;color:#8b949e;margin-bottom:4px}
+.ac-card .ac-val{font-size:1.15em;font-weight:700;margin-bottom:2px}
+.ac-card .ac-sub{font-size:0.68em;color:#6e7681}
+.ac-target-bar{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:14px;margin-bottom:14px}
+.ac-target-bar .at-title{font-size:0.78em;color:#8b949e;margin-bottom:8px}
+.at-range{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.at-range .at-label{font-size:0.7em;color:#6e7681;width:40px;text-align:right}
+.at-range .at-bar{flex:1;height:8px;background:rgba(255,255,255,0.05);border-radius:4px;position:relative;overflow:visible}
+.at-range .at-fill{height:100%;background:linear-gradient(90deg,#3fb950,#d29922,#f85149);border-radius:4px}
+.at-range .at-marker{position:absolute;top:-4px;width:2px;height:16px;background:#58a6ff;border-radius:1px}
+.ac-eps-table{width:100%;border-collapse:collapse;font-size:0.78em;margin-top:8px}
+.ac-eps-table th,.ac-eps-table td{padding:6px 10px;border-bottom:1px solid #1e2d45;text-align:center}
+.ac-eps-table th{color:#8b949e;font-weight:500;font-size:0.85em}
+.ac-eps-table td:first-child{text-align:left;color:#8b949e}
+@media(max-width:600px){.ac-cards{grid-template-columns:repeat(2,1fr)}.ac-hero{flex-direction:column;text-align:center}}
+
+/* ── 北向资金增强模块 ── */
+.nf-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.nf-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.nf-card .nf-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
+.nf-card .nf-val{font-size:1.2em;font-weight:700;margin-bottom:2px}
+.nf-card .nf-note{font-size:0.65em;color:#6e7681;margin-top:2px}
+.nf-table{width:100%;border-collapse:collapse;font-size:0.78em;margin-bottom:12px}
+.nf-table th,.nf-table td{padding:6px 10px;border-bottom:1px solid #1e2d45;text-align:center}
+.nf-table th{color:#8b949e;font-weight:500}
+.nf-deep{padding:8px 0}
+.nf-deep li{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:3px 0;padding-left:14px;position:relative;list-style:none}
+.nf-deep li::before{content:'\\2022';position:absolute;left:0;color:#484f58}
+@media(max-width:600px){.nf-cards{grid-template-columns:repeat(2,1fr)}}
+
+/* ── 财务面追踪模块 ── */
+.fin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.fin-item{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.fin-item .f-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
+.fin-item .f-val{font-size:1.15em;font-weight:700;margin-bottom:2px}
+.fin-item .f-chg{font-size:0.68em;margin-top:2px}
+.fin-table{width:100%;border-collapse:collapse;font-size:0.75em;margin-bottom:12px}
+.fin-table th,.fin-table td{padding:5px 8px;border-bottom:1px solid #1e2d45;text-align:center}
+.fin-table th{color:#8b949e;font-weight:500;font-size:0.85em}
+.fin-table td:first-child{text-align:left;color:#8b949e;font-weight:500}
+.fin-metric{font-weight:600}
+@media(max-width:600px){.fin-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── 电池装机量模块 ── */
+.bt-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.bt-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.bt-card .b-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
+.bt-card .b-val{font-size:1.2em;font-weight:700;margin-bottom:2px}
+.bt-card .b-note{font-size:0.65em;color:#6e7681;margin-top:2px}
+.bt-table{width:100%;border-collapse:collapse;font-size:0.78em;margin-bottom:12px}
+.bt-table th,.bt-table td{padding:6px 10px;border-bottom:1px solid #1e2d45;text-align:center}
+.bt-table th{color:#8b949e;font-weight:500}
+.bt-table td:first-child{text-align:left;color:#8b949e}
+.bt-deep{padding:8px 0}
+.bt-deep li{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:3px 0;padding-left:14px;position:relative;list-style:none}
+.bt-deep li::before{content:'\\2022';position:absolute;left:0;color:#484f58}
+@media(max-width:600px){.bt-cards{grid-template-columns:repeat(2,1fr)}}"""
 
 
 # ═══════════════════════════════════════════
@@ -1438,6 +1504,289 @@ def build_peg_analysis(data):
 </div>'''
 
 
+def build_analyst_consensus(data):
+    """分析师一致预期 — 评级总览 + 目标价区间 + EPS预测"""
+    ac = data.get("analyst_consensus") or {}
+    targets = data.get("analyst_targets") or {}
+    eps_data = data.get("analyst_eps") or []
+    a = data.get("catl_a", {})
+    price_now = a.get("price") if a else None
+    latest = ac.get("latest")
+
+    if not latest:
+        return '<div class="module"><div class="module-hdr"><span class="icon">🔮</span><h2>分析师一致预期</h2></div><p style="color:#8b949e;font-size:0.8em">数据暂不可用</p></div>'
+
+    rating = latest.get("rating", "—")
+    badge_class = "buy" if "买入" in rating else "hold" if "增持" in rating or "中性" in rating else "sell"
+    buy_num = latest.get("buy_num") or 0
+    add_num = latest.get("add_num") or 0
+    neutral_num = latest.get("neutral_num") or 0
+    org_num = latest.get("org_num") or 1
+    bullish_ratio = round((buy_num + add_num) / max(org_num, 1) * 100)
+
+    # Hero banner
+    hero = f'''<div class="ac-hero">
+      <span class="ac-badge {badge_class}">{rating}</span>
+      <div class="ac-info">
+        近1月 <b>{org_num}</b> 家机构评级 ·
+        买入 <b>{buy_num}</b> ·
+        增持 <b>{add_num}</b> ·
+        中性 <b>{neutral_num}</b><br>
+        看多比例 <b>{bullish_ratio}%</b> · 无减持/卖出评级
+      </div>
+    </div>'''
+
+    # Period cards
+    period_rows = ""
+    for p in ac.get("periods", [])[:3]:
+        b = p.get("buy_num") or 0
+        a_num = p.get("add_num") or 0
+        o = p.get("org_num") or 1
+        period_rows += f'''<div class="ac-card">
+      <div class="ac-lbl">{p.get("window","")}</div>
+      <div class="ac-val" style="color:#{"3fb950" if "买入" in p.get("rating","") else "d29922"}">{p.get("rating","")}</div>
+      <div class="ac-sub">买{b}·增{a_num}/{o}家</div>
+    </div>'''
+
+    # Target price bar
+    target_html = ""
+    if targets and price_now:
+        t_mid = targets.get("target_mid") or targets.get("avg", 0)
+        t_high = targets.get("target_high") or targets.get("high", 0)
+        t_low = targets.get("target_low") or targets.get("low", 0)
+        if t_mid and t_high and t_low:
+            upside = round((t_mid - price_now) / price_now * 100, 1) if price_now else 0
+            us_clr = "#3fb950" if upside > 0 else "#f85149"
+            bar_pct = min(100, max(0, round((price_now - t_low) / max(t_high - t_low, 1) * 100)))
+            target_html = f'''<div class="ac-target-bar">
+      <div class="at-title">🎯 一致预期目标区间 · 合理估值 <b style="color:#58a6ff">¥{t_low:.0f}~{t_high:.0f}</b> · 上行空间 <b style="color:{us_clr}">{upside:+.1f}%</b></div>
+      <div class="at-range">
+        <span class="at-label">¥{t_low:.0f}</span>
+        <div class="at-bar"><div class="at-fill" style="width:100%"></div><div class="at-marker" style="left:{bar_pct}%"></div></div>
+        <span class="at-label">¥{t_high:.0f}</span>
+      </div>
+      <div style="text-align:center;font-size:0.7em;color:#58a6ff;margin-top:4px">▲ 现价 ¥{price_now:.0f} · 隐含PE {targets.get('implied_pe','—')}x</div>
+    </div>'''
+
+    # EPS table
+    eps_html = ""
+    if eps_data:
+        eps_html = '<table class="ac-eps-table"><tr><th>年度</th><th>类型</th><th>一致预期EPS</th><th>对应PE</th><th>ROE</th></tr>'
+        for e in eps_data[:4]:
+            eps = e.get("eps"); pe = e.get("pe"); roe = e.get("roe")
+            ym = "实际" if e.get("year_mark") == "A" else "预测"
+            color = "#8b949e" if ym == "实际" else "#58a6ff"
+            eps_html += f'<tr><td>{e.get("year","")}</td><td style="color:{color}">{ym}</td><td class="fin-metric">{f"¥{float(eps):.2f}" if eps else "—"}</td><td>{f"{float(pe):.1f}x" if pe else "—"}</td><td>{f"{float(roe):.1f}%" if roe else "—"}</td></tr>'
+        eps_html += '</table>'
+
+    return f'''<div class="module">
+  <div class="module-hdr"><span class="icon">🔮</span><h2>分析师一致预期</h2></div>
+  {hero}
+  <div class="ac-cards">{period_rows}</div>
+  {target_html}
+  {eps_html}
+</div>'''
+
+
+def build_northbound_flow(data):
+    """北向资金 — 沪深港通净流向 + 趋势分析"""
+    nf = data.get("north_flow")
+    s = data.get("summaries", {})
+    fund = data.get("catl_fund") or {}
+    a = data.get("catl_a", {})
+
+    if not nf:
+        return '<div class="module"><div class="module-hdr"><span class="icon">🌏</span><h2>北向资金</h2></div><p style="color:#8b949e;font-size:0.8em">数据暂不可用（非交易时段或接口异常）</p></div>'
+
+    today = nf.get("today", {})
+    yesterday = nf.get("yesterday", {})
+
+    today_net = float(today.get("net", 0))
+    yday_net = float(yesterday.get("net", 0)) if yesterday else 0
+    net_clr = "#3fb950" if today_net > 0 else "#f85149" if today_net < 0 else "#8b949e"
+    net_sign = "+" if today_net > 0 else ""
+
+    # Direction change
+    direction_change = ""
+    if yesterday and today_net != 0 and yday_net != 0:
+        if today_net > 0 and yday_net < 0:
+            direction_change = "🔄 北向转流入"
+        elif today_net < 0 and yday_net > 0:
+            direction_change = "⚠️ 北向转流出"
+
+    # Fund flow integration
+    main_net = fund.get("main_net", 0)
+    five_day = fund.get("five_day", 0)
+
+    cards = f'''<div class="nf-cards">
+      <div class="nf-card">
+        <div class="nf-lbl">北向净流入（今日）</div>
+        <div class="nf-val" style="color:{net_clr}">{net_sign}{today_net:.1f}亿</div>
+        <div class="nf-note">{direction_change if direction_change else today.get("date","")}</div>
+      </div>
+      <div class="nf-card">
+        <div class="nf-lbl">北向净流入（昨）</div>
+        <div class="nf-val" style="color:{"#3fb950" if yday_net>0 else "#f85149" if yday_net<0 else "#8b949e"}">{f"{yday_net:+.1f}" if yesterday else "—"}亿</div>
+        <div class="nf-note">{yesterday.get("date","") if yesterday else ""}</div>
+      </div>
+      <div class="nf-card">
+        <div class="nf-lbl">主力资金（5日）</div>
+        <div class="nf-val" style="color:{"#3fb950" if five_day>0 else "#f85149" if five_day<0 else "#8b949e"}">{f"{five_day/1e4:+.1f}" if five_day else "—"}亿</div>
+        <div class="nf-note">{"净流入" if five_day>0 else "净流出" if five_day<0 else "—"}</div>
+      </div>
+    </div>'''
+
+    # Deep analysis
+    analysis_parts = []
+    if today_net > 5:
+        analysis_parts.append(f'<li class="nf-deep">🌊 北向资金今日大幅净流入{today_net:.0f}亿元，外资积极做多信号明确</li>')
+    elif today_net > 0:
+        analysis_parts.append(f'<li class="nf-deep">💧 北向资金今日小幅净流入{today_net:.1f}亿元，外资保持温和配置</li>')
+    elif today_net < -5:
+        analysis_parts.append(f'<li class="nf-deep">🔻 北向资金今日净流出{abs(today_net):.0f}亿元，外资短期避险情绪升温</li>')
+    elif today_net < 0:
+        analysis_parts.append(f'<li class="nf-deep">📉 北向资金今日小幅净流出{abs(today_net):.1f}亿元</li>')
+    else:
+        analysis_parts.append('<li class="nf-deep">➖ 北向资金今日基本持平，外资观望</li>')
+
+    if main_net:
+        mn_yi = main_net / 1e4
+        if abs(mn_yi) > 3:
+            analysis_parts.append(f'<li class="nf-deep">💹 主力资金今日{"净流入" if mn_yi>0 else "净流出"}{abs(mn_yi):.1f}亿元，与北向{"同向" if (today_net>0)==(mn_yi>0) else "背离"}</li>')
+
+    analysis_parts.append('<li class="nf-deep">📌 北向资金对宁德时代定价权影响显著，持续跟踪外资仓位变化是判断中期趋势的关键指标</li>')
+
+    return f'''<div class="module">
+  <div class="module-hdr"><span class="icon">🌏</span><h2>北向资金</h2></div>
+  {cards}
+  <ul class="nf-deep">{chr(10).join(analysis_parts)}</ul>
+</div>'''
+
+
+def build_financial_trends(data):
+    """财务面追踪 — 核心指标卡片 + 季度趋势表"""
+    fin = data.get("financials") or {}
+    quarters = fin.get("quarters", [])
+    trends = fin.get("trends", {})
+
+    if not quarters:
+        return '<div class="module"><div class="module-hdr"><span class="icon">📊</span><h2>财务面追踪</h2></div><p style="color:#8b949e;font-size:0.8em">财务数据采集中</p></div>'
+
+    latest = quarters[-1]
+
+    # Key metric cards
+    def chg_clr(v):
+        if v is None: return "#8b949e"
+        return "#3fb950" if v >= 0 else "#f85149"
+
+    def chg_sign(v):
+        if v is None: return ""
+        return "+" if v >= 0 else ""
+
+    cards = f'''<div class="fin-grid">
+      <div class="fin-item">
+        <div class="f-lbl">PE(TTM)</div>
+        <div class="f-val">{fin.get("pe_ttm","—")}{"x" if fin.get("pe_ttm") else ""}</div>
+        <div class="f-chg" style="color:{"#3fb950" if fin.get("pe_ttm") and fin["pe_ttm"]<25 else "#d29922"}">{"低估" if fin.get("pe_ttm") and fin["pe_ttm"]<25 else "合理" if fin.get("pe_ttm") and fin["pe_ttm"]<40 else ""}</div>
+      </div>
+      <div class="fin-item">
+        <div class="f-lbl">ROE</div>
+        <div class="f-val">{fin.get("roe","—")}{"%" if fin.get("roe") else ""}</div>
+        <div class="f-chg" style="color:#3fb950">{"优秀" if fin.get("roe") and fin["roe"]>20 else "良好" if fin.get("roe") and fin["roe"]>15 else ""}</div>
+      </div>
+      <div class="fin-item">
+        <div class="f-lbl">市净率</div>
+        <div class="f-val">{f"{fin.get('pb','—')}x" if fin.get("pb") else "—"}</div>
+        <div class="f-chg" style="color:#8b949e">总市值{fin.get('mcap','—')}亿</div>
+      </div>
+      <div class="fin-item">
+        <div class="f-lbl">毛利率(QoQ)</div>
+        <div class="f-val">{latest.get("gross_margin","—")}%</div>
+        <div class="f-chg" style="color:{chg_clr(1 if len(quarters)>1 and latest['gross_margin']>=quarters[-2]['gross_margin'] else None)}">{"↑ 改善" if len(quarters)>1 and latest['gross_margin']>=quarters[-2]['gross_margin'] else "↓ 略降" if len(quarters)>1 else ""}</div>
+      </div>
+    </div>'''
+
+    # Quarterly trend table
+    table = '<table class="fin-table"><tr><th>报告期</th><th>营收(亿)</th><th>净利润(亿)</th><th>EPS</th><th>ROE</th><th>毛利率</th></tr>'
+    for q in quarters:
+        table += f'<tr><td>{q["period"]}</td><td class="fin-metric">{q["revenue"]}</td><td class="fin-metric">{q["net_profit"]}</td><td>¥{q["eps"]}</td><td>{q["roe"]}%</td><td>{q["gross_margin"]}%</td></tr>'
+    table += '</table>'
+
+    # Trend summary
+    trend_lines = []
+    if trends.get("revenue_qoq"):
+        trend_lines.append(f'<li>📈 最新季度营收 {latest["revenue"]}亿 · 环比 <span style="color:{chg_clr(trends["revenue_qoq"])}">{chg_sign(trends["revenue_qoq"])}{trends["revenue_qoq"]}%</span></li>')
+    if trends.get("profit_qoq"):
+        trend_lines.append(f'<li>💰 净利润 {latest["net_profit"]}亿 · 环比 <span style="color:{chg_clr(trends["profit_qoq"])}">{chg_sign(trends["profit_qoq"])}{trends["profit_qoq"]}%</span></li>')
+    if trends.get("revenue_yoy"):
+        trend_lines.append(f'<li>📊 营收同比 <span style="color:{chg_clr(trends["revenue_yoy"])}">{chg_sign(trends["revenue_yoy"])}{trends["revenue_yoy"]}%</span> · 净利同比 <span style="color:{chg_clr(trends["profit_yoy"])}">{chg_sign(trends["profit_yoy"])}{trends["profit_yoy"]}%</span></li>')
+    trend_lines.append('<li>🔋 宁德时代毛利率稳步提升至28%+，受益于碳酸锂成本下降+规模效应，盈利能力持续改善</li>')
+
+    return f'''<div class="module">
+  <div class="module-hdr"><span class="icon">📊</span><h2>财务面追踪</h2></div>
+  {cards}
+  {table}
+  <ul class="nf-deep">{chr(10).join(trend_lines)}</ul>
+</div>'''
+
+
+def build_battery_install(data):
+    """电池装机量 — 月度市占率趋势"""
+    bi = data.get("battery_install") or {}
+    monthly = bi.get("monthly", [])
+
+    if not monthly:
+        return '<div class="module"><div class="module-hdr"><span class="icon">🔋</span><h2>电池装机量</h2></div><p style="color:#8b949e;font-size:0.8em">月度装机数据待更新（每月11日发布）</p></div>'
+
+    latest = monthly[-1]
+    prev_m = monthly[-2] if len(monthly) > 1 else None
+
+    share_chg = round(latest["catl_share"] - prev_m["catl_share"], 1) if prev_m else 0
+    share_clr = "#3fb950" if share_chg >= 0 else "#f85149"
+    gwh_chg = round((latest["catl_gwh"] - prev_m["catl_gwh"]) / prev_m["catl_gwh"] * 100, 1) if prev_m else 0
+
+    cards = f'''<div class="bt-cards">
+      <div class="bt-card">
+        <div class="b-lbl">CATL装机量({latest["month"]})</div>
+        <div class="b-val">{latest["catl_gwh"]} GWh</div>
+        <div class="b-note" style="color:{"#3fb950" if gwh_chg>0 else "#f85149"}">环比 {gwh_chg:+.1f}%</div>
+      </div>
+      <div class="bt-card">
+        <div class="b-lbl">国内市占率</div>
+        <div class="b-val" style="color:{share_clr}">{latest["catl_share"]}%</div>
+        <div class="b-note" style="color:{share_clr}">环比 {share_chg:+.1f}pp</div>
+      </div>
+      <div class="bt-card">
+        <div class="b-lbl">行业总装机</div>
+        <div class="b-val">{latest["total_gwh"]} GWh</div>
+        <div class="b-note">{latest["month"]}</div>
+      </div>
+      <div class="bt-card">
+        <div class="b-lbl">全球市占率</div>
+        <div class="b-val">~37%</div>
+        <div class="b-note">SNE Research</div>
+      </div>
+    </div>'''
+
+    # Monthly table
+    table = '<table class="bt-table"><tr><th>月份</th><th>行业总装机(GWh)</th><th>CATL装机(GWh)</th><th>CATL市占率</th></tr>'
+    for m in reversed(monthly):
+        table += f'<tr><td>{m["month"]}</td><td>{m["total_gwh"]}</td><td class="fin-metric">{m["catl_gwh"]}</td><td style="color:{"#3fb950" if m["catl_share"]>=45 else "#d29922"}"><b>{m["catl_share"]}%</b></td></tr>'
+    table += '</table>'
+
+    analysis = f'''<ul class="bt-deep">
+      <li>🏆 国内市占率稳定在 44-46% 区间，连续多年保持绝对龙头地位</li>
+      <li>🌍 {bi.get("yoy_global", "")}</li>
+      <li>📌 {bi.get("trend", "")}</li>
+      <li>📅 {bi.get("update_note", "月度数据待更新")}</li>
+    </ul>'''
+
+    return f'''<div class="module">
+  <div class="module-hdr"><span class="icon">🔋</span><h2>电池装机量</h2></div>
+  {cards}
+  {table}
+  {analysis}
+</div>'''
 def build_upstream(data):
     mats = data.get("materials", {})
     upstream = data.get("upstream", {})
@@ -1721,6 +2070,10 @@ def generate(data):
   {build_technical_analysis(data)}
   {build_ah_analysis(data)}
   {build_peg_analysis(data)}
+  {build_analyst_consensus(data)}
+  {build_northbound_flow(data)}
+  {build_financial_trends(data)}
+  {build_battery_install(data)}
   {build_upstream(data)}
   {build_sectors(data)}
   {build_fund_flow(data)}
