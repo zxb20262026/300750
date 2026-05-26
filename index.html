@@ -121,7 +121,8 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .tech-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
 .tech-card .t-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
 .tech-card .t-val{font-size:1.25em;font-weight:700;margin-bottom:2px}
-.tech-card .t-dev{font-size:0.65em;padding:1px 6px;border-radius:3px;display:inline-block}
+.tech-card .t-dev{font-size:0.65em;padding:1px 0;display:block}
+.tech-card .t-status{font-size:0.68em;font-weight:600;margin-top:2px}
 .tech-chart{background:rgba(255,255,255,0.01);border:1px solid #1e2d45;border-radius:8px;padding:10px;margin-bottom:14px;overflow-x:auto}
 .tech-summary{padding:10px 0}
 .tech-summary li{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:2px 0;padding-left:14px;position:relative;list-style:none}
@@ -274,7 +275,27 @@ tr:hover{background:rgba(88,166,255,0.03)}
   <div class="module-hdr"><span class="icon">📈</span><h2>技术面分析</h2></div>
 
   <!-- 4张指标卡 -->
-  <div class="tech-cards"><div class="tech-card"><div class="t-lbl">收盘价</div><div class="t-val" style="color:#58a6ff">¥402.88</div><div class="t-dev" style="background:rgba(139,148,158,0.12);color:#8b949e">0.00 (0.0%)</div></div><div class="tech-card"><div class="t-lbl">MA5</div><div class="t-val" style="color:#d29922">¥411.67</div><div class="t-dev" style="background:rgba(248,81,73,0.12);color:#f85149">+8.79 (+2.18%)</div></div><div class="tech-card"><div class="t-lbl">MA20</div><div class="t-val" style="color:#f85149">¥430.68</div><div class="t-dev" style="background:rgba(248,81,73,0.12);color:#f85149">+27.80 (+6.9%)</div></div><div class="tech-card"><div class="t-lbl">MA60</div><div class="t-val" style="color:#3fb950">¥403.06</div><div class="t-dev" style="background:rgba(248,81,73,0.12);color:#f85149">+0.18 (+0.04%)</div></div></div>
+  <div class="tech-cards"><div class="tech-card">
+          <div class="t-lbl">收盘价</div>
+          <div class="t-val" style="color:#58a6ff">¥402.88</div>
+          <div class="t-status" style="color:#8b949e;font-size:0.68em;font-weight:600;margin-top:2px">当日收盘</div>
+          
+        </div><div class="tech-card">
+          <div class="t-lbl">MA5</div>
+          <div class="t-val" style="color:#d29922">¥411.67</div>
+          <div class="t-status" style="color:#f85149;font-size:0.68em;font-weight:600;margin-top:2px">小幅跌破MA5</div>
+          <div class="t-dev" style="color:#f85149">偏离 -2.1%</div>
+        </div><div class="tech-card">
+          <div class="t-lbl">MA20</div>
+          <div class="t-val" style="color:#f85149">¥430.68</div>
+          <div class="t-status" style="color:#f85149;font-size:0.68em;font-weight:600;margin-top:2px">跌破MA20，偏离较大</div>
+          <div class="t-dev" style="color:#f85149">偏离 -6.5%</div>
+        </div><div class="tech-card">
+          <div class="t-lbl">MA60</div>
+          <div class="t-val" style="color:#3fb950">¥403.06</div>
+          <div class="t-status" style="color:#d29922;font-size:0.68em;font-weight:600;margin-top:2px">接近MA60，几乎持平</div>
+          <div class="t-dev" style="color:#d29922">偏离 -0.0%</div>
+        </div></div>
 
   <!-- 90天趋势图 -->
   <div class="tech-chart"><svg viewBox="0 0 800 220" style="width:100%;height:auto;max-height:230px;display:block" xmlns="http://www.w3.org/2000/svg">
@@ -297,7 +318,7 @@ tr:hover{background:rgba(88,166,255,0.03)}
 
   <!-- 技术面研判 -->
   <div class="tech-summary">
-    <ul><li>今日<span class="ts-key">-2.01%</span>，大盘+0.96%</li><li><span class="ts-warn">⚠️ 警告：若有效跌破MA60(403)，技术面将转弱，需重新评估</span></li><li><span class="ts-positive">积极信号：大盘涨+0.96%+宁德逆跌 → 通常意味着最后一跌，恐慌盘加速出清</span></li><li><span class="ts-key">关键价位</span>：上方压力 MA5=412、MA20=431、MA60=403、心理关口410；下方支撑 心理关口390</li></ul>
+    <ul><li><span class="ts-key">📌 今日走势</span>：宁德时代<span class="ts-key">-2.01%</span>，大盘+0.96%</li><li><span class="ts-warn">⚠️ 今日逆势下跌</span>——大盘+0.96%上涨，宁德独自下跌-2.01%。这意味着资金正在从锂电板块流出，转向其他热门板块（如半导体、AI算力）。逆势下跌说明<b>短线抛压仍然存在</b>，但不必过度恐慌——通常这种"大盘涨我不涨"是洗盘的尾声。</li><li><span class="ts-key">📊 均线诊断</span>：</li><li>  <span class="ts-warn">⚠️ 股价已跌破MA60(403)</span>，偏离<span class="ts-warn">0.0%</span>。MA60被视为<b>中长期趋势的生命线</b>，有效跌破意味着多数持仓者处于浮亏状态，技术面转为弱势。建议密切关注未来2-3个交易日是否能快速收复MA60。</li><li>  MA5(412)与MA20(431)之间差距4.4%，<span class="ts-warn">短期均线加速下穿中期均线</span>，形成"死叉"雏形，短线需谨慎。</li><li><span class="ts-positive">🔄 积极信号</span>：大盘涨+0.96%但宁德逆势下跌——历史上这种"大盘涨个股跌"的背离，往往出现在调整末期，是恐慌盘加速出清的信号。当最坚定的持仓者也选择离场时，底部就不远了。</li><li><span class="ts-key">🎯 关键价位</span>：<span style="color:#f85149">上方压力</span> MA5=412、MA20=431、MA60=403、心理关口410；<span style="color:#3fb950">下方支撑</span> 心理关口390</li><li><span class="ts-key">💼 操作参考</span>：股价已失守MA60，<span class="ts-warn">趋势偏弱</span>。建议长线投资者暂时观望，等待股价重新站上MA60后再考虑加仓。短线如有反弹至MA60附近，可考虑减仓降低风险。</li><li><span class="ts-key">📝 一句话</span>：技术面偏弱，需谨慎对待。但公司基本面良好，技术面的弱势往往是长线布局的机会窗口——关键是要<b>分批、耐心、不止损在恐慌中</b>。</li></ul>
   </div>
 </div>
   <div class="module">
