@@ -152,6 +152,24 @@ tr:hover{background:rgba(88,166,255,0.03)}
 .ah-deep .ah-gold{color:#d29922;font-weight:600}
 .ah-deep .ah-blue{color:#58a6ff;font-weight:600}
 
+/* ── PEG估值分析模块 ── */
+.peg-table{width:100%;border-collapse:collapse;font-size:0.8em;margin-bottom:14px}
+.peg-table th,.peg-table td{padding:7px 10px;border-bottom:1px solid #1e2d45}
+.peg-table th{color:#8b949e;font-weight:500;font-size:0.82em;text-align:left}
+.peg-table td:first-child{color:#8b949e;font-weight:500;width:35%}
+.peg-table td:nth-child(2){font-weight:600;width:25%}
+.peg-table td:nth-child(3){font-size:0.82em;color:#c9d1d9;width:40%}
+.peg-conclusion{background:rgba(63,185,80,0.06);border:1px solid rgba(63,185,80,0.2);border-radius:8px;padding:14px;margin-top:12px}
+.peg-conclusion .pc-title{font-size:0.85em;font-weight:700;color:#3fb950;margin-bottom:8px}
+.peg-conclusion .pc-item{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:2px 0}
+.peg-conclusion .pc-ok{color:#3fb950;font-weight:600}
+.peg-conclusion .pc-no{color:#8b949e}
+.peg-conclusion .pc-warn{color:#f85149;font-weight:600}
+.peg-range{background:rgba(210,153,34,0.06);border:1px solid rgba(210,153,34,0.2);border-radius:8px;padding:12px;margin-top:10px;text-align:center}
+.peg-range .pr-title{font-size:0.78em;color:#d29922;font-weight:600;margin-bottom:6px}
+.peg-range .pr-value{font-size:1.1em;font-weight:700;color:#d29922}
+.peg-range .pr-note{font-size:0.7em;color:#8b949e;margin-top:4px}
+
 @media(max-width:600px){.ah-cards{grid-template-columns:repeat(2,1fr)}}
 
 </style>
@@ -358,6 +376,23 @@ tr:hover{background:rgba(88,166,255,0.03)}
     <h3 style="font-size:0.82em;color:#d29922;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #1e2d45">🔍 AH溢价深度解读</h3>
     <div class="ah-deep"><ul><li><span class="ah-red">极端折价创历史新高</span>：<span class="ah-gold">-34.98%</span>意味着同样的宁德时代股权，A股比港股便宜约<span class="ah-gold">35%</span>。在AH股全市场中<span class="ah-red">折价排名第1位</span>（共16只），处于历史极端水平。</li><li><span class="ah-gold">分化根源</span>：A股-2.0%弱于H股-1.5%。A股受国内资金面收紧和板块轮动影响，H股受益于海外长线资金对新能源龙头的价值认可。</li><li><span class="ah-gold">套利逻辑</span>：极端折价通常吸引两类资金入场——(a)跨市场套利资金买入A股;(b)南下资金买入H股。两者都会推动溢价向均值回归。历史数据显示，AH溢价率在偏离30日均值4.4个百分点后，回归均值的概率超过80%。</li><li><span class="ah-green">安全边际</span>：对A股持有人而言，折价35%意味着A股具有极高的安全边际。即使H股下跌10%，A股仍有约25%的缓冲空间。当前A股¥402.88，H股折人民币¥619.62，A股比H股便宜¥216.74。</li><li><span class="ah-green">结论：AH极端折价是买入A股的强化信号，不是利空</span>。在基本面未出现恶化的前提下，A股比H股便宜35%并非A股有问题，而是市场结构导致的定价偏差。长线投资者应将此视为安全边际的额外加成——同样的股权，A股价格打了6折。历史规律表明，极端折价终将回归，均值回归过程本身就是超额收益的来源。</li></ul></div>
   </div>
+</div>
+  <div class="module">
+  <div class="module-hdr"><span class="icon">🧮</span><h2>PEG估值分析</h2></div>
+
+  <table class="peg-table">
+      <tr><th>指标</th><th>数值</th><th>评估</th></tr>
+      <tr><td>当前股价</td><td style="color:#58a6ff">¥402.88</td><td></td></tr><tr><td>PE(TTM)</td><td style="color:#e6edf3">23.6x</td><td><span style="color:#3fb950">历史偏低</span></td></tr><tr><td>预测EPS(2026E)</td><td style="color:#e6edf3">¥23.90</td><td>基于40%增长假设</td></tr><tr><td>远期PE(2026E)</td><td style="color:#e6edf3">16.86x</td><td>¥403 / ¥23.90</td></tr><tr><td>PEG</td><td style="color:#e6edf3">0.59</td><td><span style="color:#3fb950;font-weight:700"> < 1 → 买入区间 ✅</span></td></tr><tr><td>PB</td><td style="color:#e6edf3">5.7x</td><td>ROE 22.11%支撑</td></tr><tr><td>行业PE中位</td><td style="color:#e6edf3">30.67x</td><td><span style="color:#3fb950">宁德折价23%</span></td></tr><tr><td>机构目标均价</td><td style="color:#e6edf3">¥520</td><td>11家覆盖，上行+29.1%</td></tr>
+    </table>
+
+  <div class="peg-conclusion">
+    <div class="pc-title">🧮 PEG估值结论：PEG = <span style="color:#3fb950">0.59 < 1</span>，处于<span style="color:#3fb950">价值低估区间</span></div>
+    <div class="pc-item">• 买入条件（PEG&lt;1）：<span class="pc-ok">✅ 满足 → 维持"买入"评级</span></div>
+    <div class="pc-item">• 卖出条件（PEG&gt;1.5）：<span class="pc-no">❌ 远未触发 → 继续持有</span></div>
+    <div class="pc-item">• 当前价位：¥402.88，今日-2.0%，估值安全边际充足</div>
+  </div>
+
+  <div class="peg-range"><div class="pr-title">合理估值区间（基于2026E EPS ¥23.90 × PE 25-30x）</div><div class="pr-value">¥598 — ¥717</div><div class="pr-note">较当前价有 <span style="color:#3fb950;font-weight:600">+48.4% ~ +78.0%</span> 上行空间</div></div>
 </div>
   <div class="module">
   <div class="module-hdr"><span class="icon">⛏️</span><h2>上游原材料雷达</h2><span class="status" style="background:rgba(88,166,255,0.1);color:#58a6ff">平均 -3.6%</span></div>
