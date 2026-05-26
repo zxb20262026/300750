@@ -172,72 +172,138 @@ tr:hover{background:rgba(88,166,255,0.03)}
 
 @media(max-width:600px){.ah-cards{grid-template-columns:repeat(2,1fr)}}
 
-</style>
+/* ── 分析师一致预期模块 ── */
+.ac-hero{display:flex;align-items:center;gap:16px;padding:16px;background:rgba(88,166,255,0.05);border:1px solid rgba(88,166,255,0.15);border-radius:10px;margin-bottom:14px;flex-wrap:wrap}
+.ac-hero .ac-badge{font-size:0.85em;font-weight:700;padding:6px 14px;border-radius:6px;white-space:nowrap}
+.ac-hero .ac-badge.buy{background:rgba(63,185,80,0.15);color:#3fb950;border:1px solid rgba(63,185,80,0.3)}
+.ac-hero .ac-badge.hold{background:rgba(210,153,34,0.15);color:#d29922;border:1px solid rgba(210,153,34,0.3)}
+.ac-hero .ac-badge.sell{background:rgba(248,81,73,0.15);color:#f85149;border:1px solid rgba(248,81,73,0.3)}
+.ac-hero .ac-info{font-size:0.8em;color:#c9d1d9;line-height:1.6;flex:1;min-width:200px}
+.ac-hero .ac-info b{color:#58a6ff}
+.ac-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.ac-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.ac-card .ac-lbl{font-size:0.68em;color:#8b949e;margin-bottom:4px}
+.ac-card .ac-val{font-size:1.15em;font-weight:700;margin-bottom:2px}
+.ac-card .ac-sub{font-size:0.68em;color:#6e7681}
+.ac-target-bar{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:14px;margin-bottom:14px}
+.ac-target-bar .at-title{font-size:0.78em;color:#8b949e;margin-bottom:8px}
+.at-range{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.at-range .at-label{font-size:0.7em;color:#6e7681;width:40px;text-align:right}
+.at-range .at-bar{flex:1;height:8px;background:rgba(255,255,255,0.05);border-radius:4px;position:relative;overflow:visible}
+.at-range .at-fill{height:100%;background:linear-gradient(90deg,#3fb950,#d29922,#f85149);border-radius:4px}
+.at-range .at-marker{position:absolute;top:-4px;width:2px;height:16px;background:#58a6ff;border-radius:1px}
+.ac-eps-table{width:100%;border-collapse:collapse;font-size:0.78em;margin-top:8px}
+.ac-eps-table th,.ac-eps-table td{padding:6px 10px;border-bottom:1px solid #1e2d45;text-align:center}
+.ac-eps-table th{color:#8b949e;font-weight:500;font-size:0.85em}
+.ac-eps-table td:first-child{text-align:left;color:#8b949e}
+@media(max-width:600px){.ac-cards{grid-template-columns:repeat(2,1fr)}.ac-hero{flex-direction:column;text-align:center}}
+
+/* ── 北向资金增强模块 ── */
+.nf-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.nf-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.nf-card .nf-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
+.nf-card .nf-val{font-size:1.2em;font-weight:700;margin-bottom:2px}
+.nf-card .nf-note{font-size:0.65em;color:#6e7681;margin-top:2px}
+.nf-table{width:100%;border-collapse:collapse;font-size:0.78em;margin-bottom:12px}
+.nf-table th,.nf-table td{padding:6px 10px;border-bottom:1px solid #1e2d45;text-align:center}
+.nf-table th{color:#8b949e;font-weight:500}
+.nf-deep{padding:8px 0}
+.nf-deep li{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:3px 0;padding-left:14px;position:relative;list-style:none}
+.nf-deep li::before{content:'\\2022';position:absolute;left:0;color:#484f58}
+@media(max-width:600px){.nf-cards{grid-template-columns:repeat(2,1fr)}}
+
+/* ── 财务面追踪模块 ── */
+.fin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.fin-item{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.fin-item .f-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
+.fin-item .f-val{font-size:1.15em;font-weight:700;margin-bottom:2px}
+.fin-item .f-chg{font-size:0.68em;margin-top:2px}
+.fin-table{width:100%;border-collapse:collapse;font-size:0.75em;margin-bottom:12px}
+.fin-table th,.fin-table td{padding:5px 8px;border-bottom:1px solid #1e2d45;text-align:center}
+.fin-table th{color:#8b949e;font-weight:500;font-size:0.85em}
+.fin-table td:first-child{text-align:left;color:#8b949e;font-weight:500}
+.fin-metric{font-weight:600}
+@media(max-width:600px){.fin-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── 电池装机量模块 ── */
+.bt-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.bt-card{background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 10px;text-align:center}
+.bt-card .b-lbl{font-size:0.68em;color:#8b949e;margin-bottom:3px}
+.bt-card .b-val{font-size:1.2em;font-weight:700;margin-bottom:2px}
+.bt-card .b-note{font-size:0.65em;color:#6e7681;margin-top:2px}
+.bt-table{width:100%;border-collapse:collapse;font-size:0.78em;margin-bottom:12px}
+.bt-table th,.bt-table td{padding:6px 10px;border-bottom:1px solid #1e2d45;text-align:center}
+.bt-table th{color:#8b949e;font-weight:500}
+.bt-table td:first-child{text-align:left;color:#8b949e}
+.bt-deep{padding:8px 0}
+.bt-deep li{font-size:0.78em;color:#c9d1d9;line-height:1.7;padding:3px 0;padding-left:14px;position:relative;list-style:none}
+.bt-deep li::before{content:'\\2022';position:absolute;left:0;color:#484f58}
+@media(max-width:600px){.bt-cards{grid-template-columns:repeat(2,1fr)}}</style>
 </head>
 <body>
 <div class="wrap">
   <div class="header">
   <h1>🔋 宁德时代 · 生态链日监控</h1>
   <div class="sub">CATL Ecosystem Radar · 2026-05-26 · 持仓200股</div>
-  <div class="sub" style="margin-top:2px">A股 <span style="color:#3fb950;font-weight:700">¥402.88 -2.01%</span></div>
+  <div class="sub" style="margin-top:2px">A股 <span style="color:#f85149;font-weight:700">¥403.7 +0.20%</span></div>
   <span class="badge badge-morning">早报 ☀️</span>
 </div>
-  <div class="kpi-grid"><div class="kpi-card"><div class="kpi-label">CATL A股</div><div class="kpi-value" style="color:#3fb950">¥402.88</div><div class="kpi-change" style="color:#3fb950">🟢 -2.0%</div><div class="kpi-note">连跌1日 累计-0.0% · 5日跌3.6%</div></div><div class="kpi-card"><div class="kpi-label">H股</div><div class="kpi-value" style="color:#3fb950">HK$673.50</div><div class="kpi-change" style="color:#3fb950">-1.5%</div><div class="kpi-note">≈ ¥619.6</div></div><div class="kpi-card"><div class="kpi-label">PE(TTM)</div><div class="kpi-value" style="color:#58a6ff">23.6x</div><div class="kpi-note">PE=23.6x 偏低</div></div><div class="kpi-card"><div class="kpi-label">PEG</div><div class="kpi-value" style="color:#3fb950">0.59</div><div class="kpi-change" style="color:#3fb950">低估区间 ✅</div><div class="kpi-note">PEG=0.59 < 1.0 买入区间
-已低于买入线 ¥683 (69%)</div></div><div class="kpi-card"><div class="kpi-label">AH溢价</div><div class="kpi-value" style="color:#3fb950">-35.0%</div><div class="kpi-note">A股折价港股35% 再创新低</div></div><div class="kpi-card"><div class="kpi-label">成交额</div><div class="kpi-value" style="color:#8b949e">155亿</div><div class="kpi-note">成交额155亿 放量明显 · 量能124.0x均量</div></div><div class="kpi-card"><div class="kpi-label">主力净流入</div><div class="kpi-value" style="color:#8b949e">—</div><div class="kpi-note">数据暂缺</div></div><div class="kpi-card"><div class="kpi-label">碳酸锂期货</div><div class="kpi-value" style="color:#f85149">18.8万</div><div class="kpi-change" style="color:#f85149">+4.8%</div><div class="kpi-note">碳酸锂18.8万/吨 成本压力</div></div><div class="kpi-card"><div class="kpi-label">行业(电池)</div><div class="kpi-value" style="color:#3fb950">-0.9%</div><div class="kpi-note">数据源: 新能源车指数
-弱于行业1.1%</div></div><div class="kpi-card"><div class="kpi-label">MA60支撑</div><div class="kpi-value" style="color:#d29922">¥403</div><div class="kpi-note">MA60=¥403 距0.04%
+  <div class="kpi-grid"><div class="kpi-card"><div class="kpi-label">CATL A股</div><div class="kpi-value" style="color:#f85149">¥403.70</div><div class="kpi-change" style="color:#f85149">🔴 +0.2%</div><div class="kpi-note">连涨1日 累计+0.0% · 5日跌2.7%</div></div><div class="kpi-card"><div class="kpi-label">H股</div><div class="kpi-value" style="color:#f85149">HK$686.00</div><div class="kpi-change" style="color:#f85149">0.0%</div><div class="kpi-note">≈ ¥631.1</div></div><div class="kpi-card"><div class="kpi-label">PE(TTM)</div><div class="kpi-value" style="color:#58a6ff">23.6x</div><div class="kpi-note">PE=23.6x 偏低</div></div><div class="kpi-card"><div class="kpi-label">PEG</div><div class="kpi-value" style="color:#3fb950">0.59</div><div class="kpi-change" style="color:#3fb950">低估区间 ✅</div><div class="kpi-note">PEG=0.59 < 1.0 买入区间
+已低于买入线 ¥683 (69%)</div></div><div class="kpi-card"><div class="kpi-label">AH溢价</div><div class="kpi-value" style="color:#3fb950">-36.0%</div><div class="kpi-note">A股折价港股36% 再创新低</div></div><div class="kpi-card"><div class="kpi-label">成交额</div><div class="kpi-value" style="color:#8b949e">29亿</div><div class="kpi-note">成交额29亿 正常 · 量能26.5x均量</div></div><div class="kpi-card"><div class="kpi-label">主力净流入</div><div class="kpi-value" style="color:#f85149">+0.00亿</div><div class="kpi-note">资金平稳</div></div><div class="kpi-card"><div class="kpi-label">碳酸锂期货</div><div class="kpi-value" style="color:#f85149">18.3万</div><div class="kpi-change" style="color:#f85149">+1.7%</div><div class="kpi-note">碳酸锂18.3万/吨 成本压力</div></div><div class="kpi-card"><div class="kpi-label">行业(电池)</div><div class="kpi-value" style="color:#3fb950">-0.1%</div><div class="kpi-note">数据源: 新能源车指数
+与行业同步</div></div><div class="kpi-card"><div class="kpi-label">MA60支撑</div><div class="kpi-value" style="color:#d29922">¥404</div><div class="kpi-note">MA60=¥404 距0.04%
 临近核心支撑</div></div></div>
-  <div class="core-banner" style="border-color:#3fb950">PEG 0.59 买入区间 · 碳酸锂18.79万/吨 成本压力 · AH溢价-35.0% 折价 · 逆势下跌 分化延续</div>
+  <div class="core-banner" style="border-color:#3fb950">PEG 0.59 买入区间 · 碳酸锂18.27万/吨 成本压力 · AH溢价-36.0% 折价</div>
   <div class="summary-panel">
   <div class="sp-title">📋 数据变化总结</div>
-  <div class="summary-item info"><span class="si-icon">📊</span><span class="si-content"><span class="hl-green">PEG=0.59 低估</span>，已进入买入区间 (买入线 ¥683) · PE 23.6x 偏低</span></div><div class="summary-item critical"><span class="si-icon">📈</span><span class="si-content"><span class="hl-yellow">逆势下跌-2.0% (大盘+0.96%)</span> → 资金虹吸（半导体/AI算力）或个股利空</span></div><div class="summary-item positive"><span class="si-icon">💱</span><span class="si-content"><span class="hl-green">A股折价港股35% 再创新低</span> → A股相对H股便宜</span></div><div class="summary-item important"><span class="si-icon">📐</span><span class="si-content">跌破MA5(¥412) · MA20(¥431) · <span class="hl-yellow">逼近MA60(¥403)核心支撑</span> · 若有效跌破则技术面转弱</span></div><div class="summary-item important"><span class="si-icon">⛏️</span><span class="si-content">碳酸锂18.8万/吨 成本压力 → 成本端影响</span></div><div class="summary-item important"><span class="si-icon">⚠️</span><span class="si-content">上游异动: <span class="hl-yellow">恩捷股份 -5.3%</span> · <span class="hl-yellow">天赐材料 -8.6%</span></span></div><div class="summary-item info"><span class="si-icon">🏭</span><span class="si-content">弱于行业1.1% (行业电池 -0.9%)</span></div><div class="summary-item info"><span class="si-icon">💼</span><span class="si-content">成本¥350 浮盈15.1%</span></div>
+  <div class="summary-item info"><span class="si-icon">📊</span><span class="si-content"><span class="hl-green">PEG=0.59 低估</span>，已进入买入区间 (买入线 ¥683) · PE 23.6x 偏低</span></div><div class="summary-item info"><span class="si-icon">📈</span><span class="si-content"><span class="hl-yellow">逆势上涨0.2% (大盘-0.88%)</span> → 个股独立利好驱动</span></div><div class="summary-item positive"><span class="si-icon">💱</span><span class="si-content"><span class="hl-green">A股折价港股36% 再创新低</span> → A股相对H股便宜</span></div><div class="summary-item important"><span class="si-icon">📐</span><span class="si-content">跌破MA5(¥409) · MA20(¥429) · <span class="hl-yellow">逼近MA60(¥404)核心支撑</span> · 若有效跌破则技术面转弱</span></div><div class="summary-item important"><span class="si-icon">⛏️</span><span class="si-content">碳酸锂18.3万/吨 成本压力 → 成本端影响</span></div><div class="summary-item info"><span class="si-icon">🏭</span><span class="si-content">与行业同步 (行业电池 -0.1%)</span></div><div class="summary-item info"><span class="si-icon">💼</span><span class="si-content">成本¥350 浮盈15.3%</span></div>
 </div>
   <div class="trade-plan">
   <div class="tp-title">🎯 操作建议</div>
-  <p style="color:#d29922;font-weight:600;font-size:0.9em;margin-bottom:10px">临近MA60强支撑 · PEG 0.59 偏贵但恐慌盘加速出清中</p>
-  <div class="trade-section"><h3>📍 支撑位/压力位</h3><p>MA5=¥412 (短期压力) · MA20=¥431 · <span class="hl-yellow">MA60=¥403 (核心支撑)</span></p><p>心理关口: ¥400</p></div>
+  <p style="color:#3fb950;font-weight:600;font-size:0.9em;margin-bottom:10px">PEG进入买入区间，可分批建仓</p>
+  <div class="trade-section"><h3>📍 支撑位/压力位</h3><p>MA5=¥409 (短期压力) · MA20=¥429 · <span class="hl-yellow">MA60=¥404 (核心支撑)</span></p><p>心理关口: ¥400</p></div>
   <div class="trade-section"><h3>🔔 加仓触发条件 (满足任一)</h3><ul>
-<li>条件A: MA60(¥403)附近企稳(连续2日收盘高于MA60) → 第一批加仓</li>
+<li>条件A: MA60(¥404)附近企稳(连续2日收盘高于MA60) → 第一批加仓</li>
 <li>条件B: 跌破400后快速收回(长下影线) → 第二批加仓</li>
 <li>条件C: PEG进一步下降至0.6以下 → 一次性加仓</li>
 </ul></div>
   <div class="trade-section"><h3>📋 加仓计划</h3><ul>
-<li>第一批: ¥398-406 × 30% (MA60支撑区)</li>
+<li>第一批: ¥399-407 × 30% (MA60支撑区)</li>
 <li>第二批: ¥393-400 × 40% (心理关口+恐慌区)</li>
 <li>第三批: ¥385以下 × 30% (极端情况，需重新评估基本面)</li>
 </ul></div>
-  <div class="trade-section"><h3>🎯 目标价</h3><p>买入价(PEG=1): ¥683 · 目标区间: ¥427-461 (基于PE 25-27x)</p><p>止损位: ¥375 (有效跌破视为逻辑破坏)</p><p>风险收益比: 约 1.5:1 (潜在涨幅+10.2% vs 潜在跌幅-6.9%)</p></div>
+  <div class="trade-section"><h3>🎯 目标价</h3><p>买入价(PEG=1): ¥683 · 目标区间: ¥427-461 (基于PE 25-27x)</p><p>止损位: ¥375 (有效跌破视为逻辑破坏)</p><p>风险收益比: 约 1.4:1 (潜在涨幅+10.0% vs 潜在跌幅-7.1%)</p></div>
 </div>
   <div class="module">
   <div class="module-hdr"><span class="icon">📅</span><h2>本周走势回顾</h2></div>
   <table class="val-table">
     <tr><th>日期</th><th>收盘价</th><th>涨跌幅</th><th>主力净流向</th><th>关键事件</th></tr>
-    <tr><td>05-19</td><td>¥417.92</td><td style="color:#f85149">+0.2%</td><td style="color:#8b949e">—</td><td style="font-size:0.72em;color:#8b949e">窄幅横盘</td></tr><tr><td>05-20</td><td>¥414.75</td><td style="color:#3fb950">-0.8%</td><td style="color:#8b949e">—</td><td style="font-size:0.72em;color:#8b949e">—</td></tr><tr><td>05-21</td><td>¥411.63</td><td style="color:#3fb950">-0.8%</td><td style="color:#8b949e">—</td><td style="font-size:0.72em;color:#8b949e">—</td></tr><tr><td>05-22</td><td>¥411.16</td><td style="color:#3fb950">-0.1%</td><td style="color:#8b949e">—</td><td style="font-size:0.72em;color:#8b949e">窄幅横盘</td></tr><tr><td>05-25</td><td>¥402.88</td><td style="color:#3fb950">-2.0%</td><td style="color:#8b949e">—</td><td style="font-size:0.72em;color:#8b949e">放量下跌，盘中触及关键位</td></tr>
+    <tr><td>05-20</td><td>¥414.75</td><td style="color:#3fb950">-0.8%</td><td style="color:#3fb950">-6.28亿</td><td style="font-size:0.72em;color:#8b949e">主力净流出6.3亿</td></tr><tr><td>05-21</td><td>¥411.63</td><td style="color:#3fb950">-0.8%</td><td style="color:#3fb950">-1.77亿</td><td style="font-size:0.72em;color:#8b949e">—</td></tr><tr><td>05-22</td><td>¥411.16</td><td style="color:#3fb950">-0.1%</td><td style="color:#3fb950">-3.44亿</td><td style="font-size:0.72em;color:#8b949e">窄幅横盘</td></tr><tr><td>05-25</td><td>¥402.88</td><td style="color:#3fb950">-2.0%</td><td style="color:#3fb950">-25.93亿</td><td style="font-size:0.72em;color:#8b949e">放量下跌，主力净流出25.9亿</td></tr><tr><td>05-26</td><td>¥403.70</td><td style="color:#f85149">+0.2%</td><td style="color:#8b949e">—</td><td style="font-size:0.72em;color:#8b949e">窄幅横盘</td></tr>
     <tr style="font-weight:700;border-top:2px solid #d29922">
       <td>本周合计</td>
-      <td>¥402.88</td>
-      <td style="color:#3fb950">-3.6%</td>
-      <td style="color:#3fb950">0.00亿</td>
+      <td>¥403.70</td>
+      <td style="color:#3fb950">-2.7%</td>
+      <td style="color:#3fb950">-37.42亿</td>
       <td style="font-size:0.72em;color:#d29922">大盘涨宁德跌，极端分化</td>
     </tr>
   </table>
   <div style="margin-top:10px;padding:10px;background:rgba(210,153,34,0.06);border-left:3px solid #d29922;border-radius:4px;font-size:0.8em;color:#c9d1d9;line-height:1.6">
-    📝 本周CATL累计下跌3.6%，4天下跌。
+    📝 本周CATL累计下跌2.7%，4天下跌。
 
-每日涨跌: +0.2% → -0.8% → -0.8% → -0.1% → -2.0%
+每日涨跌: -0.8% → -0.8% → -0.1% → -2.0% → +0.2%
 
-⚠️ 跌幅仍在扩大（前半周-0.3% → 后半周-1.0%），抛压尚未释放完毕。
+📉 好消息是跌幅在收窄（前半周均值-0.8% → 后半周-0.6%），抛压可能接近尾声。
 
-📊 大盘（上证）上涨+1.0%，但宁德逆势下跌-4.6个百分点——资金被半导体、AI算力等热门板块虹吸，新能源/锂电暂时失血。
+📊 宁德跑输大盘（周跌2.7% vs 上证-0.9%），板块整体偏弱。
 
-💰 主力资金本周基本平衡（东财数据暂缺，待恢复后更新）。
+💰 主力资金本周持续净流出，合计37.4亿元，机构在减仓。
 
 📏 当前PE=23.6x，PEG=0.59，处于低估区间（PEG<1），越跌越便宜。
 
-📐 MA60=¥403，当前价距MA60仅0.0%，已逼近核心支撑位——这是技术面的关键防线。
+📐 MA60=¥404，当前价距MA60仅0.0%，已逼近核心支撑位——这是技术面的关键防线。
 
-💱 AH溢价-35.0%（A股折价港股），意味着A股比港股便宜35%，对A股持有者是成本端利好。
+💱 AH溢价-36.0%（A股折价港股），意味着A股比港股便宜36%，对A股持有者是成本端利好。
 
-⛏️ 碳酸锂18.8万/吨 成本压力——原材料成本上行，短期压缩利润空间。
+⛏️ 碳酸锂18.3万/吨 成本压力——原材料成本上行，短期压缩利润空间。
 
 💡 综合来看：估值已进入低估区间，技术面逼近强支撑。如果你是长期持有者，当前价位可能是分批加仓的窗口期。但短期趋势偏弱，建议等企稳信号出现后再动手。
   </div>
@@ -257,10 +323,10 @@ tr:hover{background:rgba(88,166,255,0.03)}
   <!-- 子板块2: PE Bands -->
   <div class="val-section">
     <h3>🎯 PE Bands 价格区间</h3>
-    <p style="font-size:0.78em;color:#c9d1d9;margin-bottom:8px">当前¥403 处于<span class="hl-yellow">合理区</span>，PE=23.6x</p>
+    <p style="font-size:0.78em;color:#c9d1d9;margin-bottom:8px">当前¥404 处于<span class="hl-yellow">合理区</span>，PE=23.6x</p>
     <div class="band-bar"><div style="position:relative"><span style="position:absolute;left:16.666666666666668%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥256</span><span style="position:absolute;left:33.333333333333336%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥307</span><span style="position:absolute;left:50.0%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥358</span><span style="position:absolute;left:66.66666666666667%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥427</span><span style="position:absolute;left:83.33333333333334%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥512</span><span style="position:absolute;left:100.0%;transform:translateX(-50%);font-size:0.58em;color:#8b949e;top:-16px;z-index:1">¥597</span></div><div class="band-seg" style="left:0.0%;width:16.666666666666668%;background:#3fb950;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:16.666666666666668%;width:16.666666666666668%;background:#58a6ff;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:33.333333333333336%;width:16.666666666666668%;background:#8b949e;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:50.0%;width:16.666666666666668%;background:#d29922;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:66.66666666666667%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-seg" style="left:83.33333333333334%;width:16.666666666666668%;background:#f85149;opacity:0.3;border-right:1px solid #0a0e17"></div><div class="band-marker" style="left:58.333333333333336%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,0.5)"></div>
     <div style="position:absolute;left:58.333333333333336%;top:-28px;transform:translateX(-50%);background:#d29922;color:#0a0e17;padding:1px 8px;border-radius:4px;font-size:0.65em;font-weight:700;white-space:nowrap;z-index:3">
-      当前 ¥403
+      当前 ¥404
     </div></div>
     <div class="band-labels"><span>清仓</span><span>止损</span><span>保守</span><span>合理</span><span>偏高</span><span>泡沫</span></div>
     <table class="val-table" style="margin-top:8px">
@@ -274,7 +340,7 @@ tr:hover{background:rgba(88,166,255,0.03)}
     <h3>⚖️ 同行估值对比</h3>
     <table class="val-table">
       <tr><th>公司</th><th>PE(TTM)</th><th>ROE</th><th>PEG</th><th>估值性价比</th></tr>
-      <tr style="font-weight:700;color:#58a6ff"><td>宁德时代</td><td style="color:#3fb950">23.6x</td><td>22.1%</td><td>0.94</td><td style="color:#d29922">合理</td></tr><tr ><td>比亚迪</td><td style="color:#e6edf3">31.8x</td><td>11.0%</td><td>1.27</td><td style="color:#f85149">偏高</td></tr><tr ><td>亿纬锂能</td><td style="color:#e6edf3">30.7x</td><td>10.2%</td><td>1.23</td><td style="color:#f85149">偏高</td></tr><tr ><td>国轩高科</td><td style="color:#e6edf3">27.2x</td><td>8.0%</td><td>1.09</td><td style="color:#d29922">合理</td></tr><tr ><td>欣旺达</td><td style="color:#f85149">56.4x</td><td>3.2%</td><td>2.26</td><td style="color:#f85149">高估</td></tr><tr ><td>孚能科技</td><td style="color:#3fb950">-23.5x</td><td>-8.0%</td><td>—</td><td style="color:#f85149">—</td></tr>
+      <tr style="font-weight:700;color:#58a6ff"><td>宁德时代</td><td style="color:#3fb950">23.7x</td><td>22.1%</td><td>0.95</td><td style="color:#d29922">合理</td></tr><tr ><td>比亚迪</td><td style="color:#e6edf3">31.7x</td><td>11.0%</td><td>1.27</td><td style="color:#f85149">偏高</td></tr><tr ><td>亿纬锂能</td><td style="color:#e6edf3">30.6x</td><td>10.2%</td><td>1.22</td><td style="color:#f85149">偏高</td></tr><tr ><td>国轩高科</td><td style="color:#e6edf3">26.9x</td><td>8.0%</td><td>1.08</td><td style="color:#d29922">合理</td></tr><tr ><td>欣旺达</td><td style="color:#f85149">55.6x</td><td>3.2%</td><td>2.23</td><td style="color:#f85149">高估</td></tr><tr ><td>孚能科技</td><td style="color:#3fb950">-23.8x</td><td>-8.0%</td><td>—</td><td style="color:#f85149">—</td></tr>
     </table>
   </div>
 
@@ -285,7 +351,7 @@ tr:hover{background:rgba(88,166,255,0.03)}
       <div class="inst-card"><div class="lbl">2025分红率</div><div class="val" style="color:#58a6ff">1.2%</div><div class="note">占净利润</div></div>
       <div class="inst-card"><div class="lbl">股息率</div><div class="val" style="color:#3fb950">0.38%</div><div class="note">当前价位</div></div>
       <div class="inst-card"><div class="lbl">机构评级</div><div class="val" style="color:#3fb950">9买入+2增持</div><div class="note">0中性/卖出</div></div>
-      <div class="inst-card"><div class="lbl">机构目标均价</div><div class="val" style="color:#d29922">¥520</div><div class="note">距当前+29.1%上行空间</div></div>
+      <div class="inst-card"><div class="lbl">机构目标均价</div><div class="val" style="color:#d29922">¥520</div><div class="note">距当前+28.8%上行空间</div></div>
     </div>
   </div>
 </div>
@@ -295,22 +361,22 @@ tr:hover{background:rgba(88,166,255,0.03)}
   <!-- 4张指标卡 -->
   <div class="tech-cards"><div class="tech-card">
           <div class="t-lbl">收盘价</div>
-          <div class="t-val" style="color:#58a6ff">¥402.88</div>
+          <div class="t-val" style="color:#58a6ff">¥403.70</div>
           <div class="t-status" style="color:#8b949e;font-size:0.68em;font-weight:600;margin-top:2px">当日收盘</div>
           
         </div><div class="tech-card">
           <div class="t-lbl">MA5</div>
-          <div class="t-val" style="color:#d29922">¥411.67</div>
+          <div class="t-val" style="color:#d29922">¥408.82</div>
           <div class="t-status" style="color:#f85149;font-size:0.68em;font-weight:600;margin-top:2px">小幅跌破MA5</div>
-          <div class="t-dev" style="color:#f85149">偏离 -2.1%</div>
+          <div class="t-dev" style="color:#d29922">偏离 -1.2%</div>
         </div><div class="tech-card">
           <div class="t-lbl">MA20</div>
-          <div class="t-val" style="color:#f85149">¥430.68</div>
+          <div class="t-val" style="color:#f85149">¥428.92</div>
           <div class="t-status" style="color:#f85149;font-size:0.68em;font-weight:600;margin-top:2px">跌破MA20，偏离较大</div>
-          <div class="t-dev" style="color:#f85149">偏离 -6.5%</div>
+          <div class="t-dev" style="color:#f85149">偏离 -5.9%</div>
         </div><div class="tech-card">
           <div class="t-lbl">MA60</div>
-          <div class="t-val" style="color:#3fb950">¥403.06</div>
+          <div class="t-val" style="color:#3fb950">¥403.87</div>
           <div class="t-status" style="color:#d29922;font-size:0.68em;font-weight:600;margin-top:2px">接近MA60，几乎持平</div>
           <div class="t-dev" style="color:#d29922">偏离 -0.0%</div>
         </div></div>
@@ -325,25 +391,25 @@ tr:hover{background:rgba(88,166,255,0.03)}
 <line x1="24" y1="24.0" x2="776.0" y2="24.0" stroke="#1e2d45" stroke-width="0.5"/>
 
   <text x="18" y="193.0" text-anchor="end" font-size="9" fill="#484f58">¥322</text><text x="18" y="151.5" text-anchor="end" font-size="9" fill="#484f58">¥360</text><text x="18" y="110.0" text-anchor="end" font-size="9" fill="#484f58">¥398</text><text x="18" y="68.5" text-anchor="end" font-size="9" fill="#484f58">¥436</text><text x="18" y="27.0" text-anchor="end" font-size="9" fill="#484f58">¥474</text>
-  <text x="24.0" y="216" text-anchor="middle" font-size="8" fill="#484f58">01-06</text><text x="150.7" y="216" text-anchor="middle" font-size="8" fill="#484f58">01-27</text><text x="277.5" y="216" text-anchor="middle" font-size="8" fill="#484f58">02-25</text><text x="404.2" y="216" text-anchor="middle" font-size="8" fill="#484f58">03-18</text><text x="531.0" y="216" text-anchor="middle" font-size="8" fill="#484f58">04-09</text><text x="657.7" y="216" text-anchor="middle" font-size="8" fill="#484f58">04-30</text>
-  <polyline points="24.0,140.7 32.4,144.0 40.9,146.0 49.3,145.9 57.8,154.2 66.2,157.1 74.7,162.6 83.1,162.9 91.6,164.4 100.0,168.2 108.5,167.4 116.9,167.2 125.4,171.6 133.8,170.2 142.3,175.7 150.7,178.6 159.2,177.9 167.6,175.8 176.1,167.0 184.5,168.1 193.0,169.3 201.4,150.5 209.9,152.8 218.3,146.1 226.8,146.4 235.2,150.6 243.7,147.3 252.1,138.7 260.6,150.2 269.0,153.9 277.5,153.6 285.9,171.3 294.4,175.7 302.8,177.7 311.3,173.5 319.7,179.1 328.2,166.7 336.6,161.7 345.1,158.8 353.5,138.2 362.0,115.8 370.4,117.2 378.9,115.6 387.3,103.1 395.8,106.8 404.2,110.1 412.7,111.7 421.1,98.1 429.6,110.1 438.0,115.6 446.5,114.7 454.9,109.5 463.4,94.6 471.8,98.1 480.3,110.4 488.7,106.0 497.2,111.0 505.6,127.1 514.1,129.1 522.5,121.8 531.0,123.2 539.4,94.8 547.9,82.6 556.3,78.6 564.8,78.4 573.2,53.2 581.7,63.9 590.1,76.7 598.6,60.2 607.0,65.0 615.5,62.2 623.9,55.6 632.4,66.6 640.8,74.5 649.3,55.5 657.7,65.3 666.2,39.1 674.6,48.2 683.1,64.3 691.5,54.3 700.0,70.5 708.4,67.5 716.9,75.2 725.3,78.9 733.8,85.9 742.2,85.1 750.7,88.6 759.1,92.0 767.6,92.5 776.0,101.6" fill="none" stroke="#58a6ff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
-<polyline points="57.8,146.2 66.2,149.4 74.7,153.2 83.1,156.5 91.6,160.2 100.0,163.0 108.5,165.1 116.9,166.0 125.4,167.7 133.8,168.9 142.3,170.4 150.7,172.6 159.2,174.8 167.6,175.6 176.1,175.0 184.5,173.5 193.0,171.6 201.4,166.1 209.9,161.5 218.3,157.3 226.8,153.0 235.2,149.3 243.7,148.6 252.1,145.8 260.6,146.6 269.0,148.1 277.5,148.7 285.9,153.5 294.4,161.0 302.8,166.4 311.3,170.4 319.7,175.5 328.2,174.5 336.6,171.7 345.1,168.0 353.5,160.9 362.0,148.2 370.4,138.3 378.9,129.1 387.3,118.0 395.8,111.7 404.2,110.5 412.7,109.4 421.1,105.9 429.6,107.3 438.0,109.1 446.5,110.0 454.9,109.6 463.4,108.9 471.8,106.5 480.3,105.5 488.7,103.7 497.2,104.0 505.6,110.5 514.1,116.7 522.5,119.0 531.0,122.4 539.4,119.2 547.9,110.3 556.3,100.2 564.8,91.5 573.2,77.5 581.7,71.4 590.1,70.2 598.6,66.5 607.0,63.8 615.5,65.6 623.9,63.9 632.4,61.9 640.8,64.8 649.3,62.9 657.7,63.5 666.2,60.2 674.6,56.5 683.1,54.5 691.5,54.2 700.0,55.3 708.4,61.0 716.9,66.4 725.3,69.3 733.8,75.6 742.2,78.5 750.7,82.7 759.1,86.1 767.6,88.8 776.0,92.0" fill="none" stroke="#d29922" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
-<polyline points="184.5,163.3 193.0,164.7 201.4,165.0 209.9,165.4 218.3,165.4 226.8,165.0 235.2,164.7 243.7,163.9 252.1,162.7 260.6,162.0 269.0,161.2 277.5,160.6 285.9,160.8 294.4,161.0 302.8,161.3 311.3,161.2 319.7,161.3 328.2,160.7 336.6,160.0 345.1,159.6 353.5,158.1 362.0,155.4 370.4,153.8 378.9,151.9 387.3,149.7 395.8,147.8 404.2,145.7 412.7,144.0 421.1,141.9 429.6,139.9 438.0,138.0 446.5,136.1 454.9,133.0 463.4,128.9 471.8,124.9 480.3,121.8 488.7,118.1 497.2,115.3 505.6,113.6 514.1,112.1 522.5,111.3 531.0,111.7 539.4,110.6 547.9,108.9 556.3,107.7 564.8,106.3 573.2,103.4 581.7,101.0 590.1,100.0 598.6,97.5 607.0,94.9 615.5,92.3 623.9,89.6 632.4,88.2 640.8,87.0 649.3,84.3 657.7,82.3 666.2,78.7 674.6,74.7 683.1,71.5 691.5,68.1 700.0,65.5 708.4,64.1 716.9,63.7 725.3,63.7 733.8,64.1 742.2,65.7 750.7,67.0 759.1,67.7 767.6,69.3 776.0,71.2" fill="none" stroke="#f85149" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
-<polyline points="522.5,144.2 531.0,143.9 539.4,143.1 547.9,142.1 556.3,140.9 564.8,139.7 573.2,137.9 581.7,136.3 590.1,134.9 598.6,133.1 607.0,131.4 615.5,129.6 623.9,127.8 632.4,126.0 640.8,124.4 649.3,122.4 657.7,120.6 666.2,118.2 674.6,116.1 683.1,114.4 691.5,112.5 700.0,110.9 708.4,109.5 716.9,108.2 725.3,107.1 733.8,106.1 742.2,105.0 750.7,104.0 759.1,103.2 767.6,102.2 776.0,101.4" fill="none" stroke="#3fb950" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+  <text x="24.0" y="216" text-anchor="middle" font-size="8" fill="#484f58">01-07</text><text x="150.7" y="216" text-anchor="middle" font-size="8" fill="#484f58">01-28</text><text x="277.5" y="216" text-anchor="middle" font-size="8" fill="#484f58">02-26</text><text x="404.2" y="216" text-anchor="middle" font-size="8" fill="#484f58">03-19</text><text x="531.0" y="216" text-anchor="middle" font-size="8" fill="#484f58">04-10</text><text x="657.7" y="216" text-anchor="middle" font-size="8" fill="#484f58">05-06</text>
+  <polyline points="24.0,144.0 32.4,146.0 40.9,145.9 49.3,154.2 57.8,157.1 66.2,162.6 74.7,162.9 83.1,164.4 91.6,168.2 100.0,167.4 108.5,167.2 116.9,171.6 125.4,170.2 133.8,175.7 142.3,178.6 150.7,177.9 159.2,175.8 167.6,167.0 176.1,168.1 184.5,169.3 193.0,150.5 201.4,152.8 209.9,146.1 218.3,146.4 226.8,150.6 235.2,147.3 243.7,138.7 252.1,150.2 260.6,153.9 269.0,153.6 277.5,171.3 285.9,175.7 294.4,177.7 302.8,173.5 311.3,179.1 319.7,166.7 328.2,161.7 336.6,158.8 345.1,138.2 353.5,115.8 362.0,117.2 370.4,115.6 378.9,103.1 387.3,106.8 395.8,110.1 404.2,111.7 412.7,98.1 421.1,110.1 429.6,115.6 438.0,114.7 446.5,109.5 454.9,94.6 463.4,98.1 471.8,110.4 480.3,106.0 488.7,111.0 497.2,127.1 505.6,129.1 514.1,121.8 522.5,123.2 531.0,94.8 539.4,82.6 547.9,78.6 556.3,78.4 564.8,53.2 573.2,63.9 581.7,76.7 590.1,60.2 598.6,65.0 607.0,62.2 615.5,55.6 623.9,66.6 632.4,74.5 640.8,55.5 649.3,65.3 657.7,39.1 666.2,48.2 674.6,64.3 683.1,54.3 691.5,70.5 700.0,67.5 708.4,75.2 716.9,78.9 725.3,85.9 733.8,85.1 742.2,88.6 750.7,92.0 759.1,92.5 767.6,101.6 776.0,100.7" fill="none" stroke="#58a6ff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+<polyline points="57.8,149.4 66.2,153.2 74.7,156.5 83.1,160.2 91.6,163.0 100.0,165.1 108.5,166.0 116.9,167.7 125.4,168.9 133.8,170.4 142.3,172.6 150.7,174.8 159.2,175.6 167.6,175.0 176.1,173.5 184.5,171.6 193.0,166.1 201.4,161.5 209.9,157.3 218.3,153.0 226.8,149.3 235.2,148.6 243.7,145.8 252.1,146.6 260.6,148.1 269.0,148.7 277.5,153.5 285.9,161.0 294.4,166.4 302.8,170.4 311.3,175.5 319.7,174.5 328.2,171.7 336.6,168.0 345.1,160.9 353.5,148.2 362.0,138.3 370.4,129.1 378.9,118.0 387.3,111.7 395.8,110.5 404.2,109.4 412.7,105.9 421.1,107.3 429.6,109.1 438.0,110.0 446.5,109.6 454.9,108.9 463.4,106.5 471.8,105.5 480.3,103.7 488.7,104.0 497.2,110.5 505.6,116.7 514.1,119.0 522.5,122.4 531.0,119.2 539.4,110.3 547.9,100.2 556.3,91.5 564.8,77.5 573.2,71.4 581.7,70.2 590.1,66.5 598.6,63.8 607.0,65.6 615.5,63.9 623.9,61.9 632.4,64.8 640.8,62.9 649.3,63.5 657.7,60.2 666.2,56.5 674.6,54.5 683.1,54.2 691.5,55.3 700.0,61.0 708.4,66.4 716.9,69.3 725.3,75.6 733.8,78.5 742.2,82.7 750.7,86.1 759.1,88.8 767.6,92.0 776.0,95.1" fill="none" stroke="#d29922" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+<polyline points="184.5,164.7 193.0,165.0 201.4,165.4 209.9,165.4 218.3,165.0 226.8,164.7 235.2,163.9 243.7,162.7 252.1,162.0 260.6,161.2 269.0,160.6 277.5,160.8 285.9,161.0 294.4,161.3 302.8,161.2 311.3,161.3 319.7,160.7 328.2,160.0 336.6,159.6 345.1,158.1 353.5,155.4 362.0,153.8 370.4,151.9 378.9,149.7 387.3,147.8 395.8,145.7 404.2,144.0 412.7,141.9 421.1,139.9 429.6,138.0 438.0,136.1 446.5,133.0 454.9,128.9 463.4,124.9 471.8,121.8 480.3,118.1 488.7,115.3 497.2,113.6 505.6,112.1 514.1,111.3 522.5,111.7 531.0,110.6 539.4,108.9 547.9,107.7 556.3,106.3 564.8,103.4 573.2,101.0 581.7,100.0 590.1,97.5 598.6,94.9 607.0,92.3 615.5,89.6 623.9,88.2 632.4,87.0 640.8,84.3 649.3,82.3 657.7,78.7 666.2,74.7 674.6,71.5 683.1,68.1 691.5,65.5 700.0,64.1 708.4,63.7 716.9,63.7 725.3,64.1 733.8,65.7 742.2,67.0 750.7,67.7 759.1,69.3 767.6,71.2 776.0,73.1" fill="none" stroke="#f85149" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+<polyline points="522.5,143.9 531.0,143.1 539.4,142.1 547.9,140.9 556.3,139.7 564.8,137.9 573.2,136.3 581.7,134.9 590.1,133.1 598.6,131.4 607.0,129.6 615.5,127.8 623.9,126.0 632.4,124.4 640.8,122.4 649.3,120.6 657.7,118.2 666.2,116.1 674.6,114.4 683.1,112.5 691.5,110.9 700.0,109.5 708.4,108.2 716.9,107.1 725.3,106.1 733.8,105.0 742.2,104.0 750.7,103.2 759.1,102.2 767.6,101.4 776.0,100.5" fill="none" stroke="#3fb950" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
 
   <line x1="32" y1="10" x2="48" y2="10" stroke="#58a6ff" stroke-width="2"/><text x="52" y="14" font-size="9" fill="#8b949e">收盘价</text><line x1="114" y1="10" x2="130" y2="10" stroke="#d29922" stroke-width="2"/><text x="134" y="14" font-size="9" fill="#8b949e">MA5</text><line x1="196" y1="10" x2="212" y2="10" stroke="#f85149" stroke-width="2"/><text x="216" y="14" font-size="9" fill="#8b949e">MA20</text><line x1="278" y1="10" x2="294" y2="10" stroke="#3fb950" stroke-width="2"/><text x="298" y="14" font-size="9" fill="#8b949e">MA60</text>
 </svg></div>
 
   <!-- 技术面研判 -->
   <div class="tech-summary">
-    <ul><li><span class="ts-key">📌 今日走势</span>：宁德时代<span class="ts-key">-2.01%</span>，大盘+0.96%</li><li><span class="ts-warn">⚠️ 今日逆势下跌</span>——大盘+0.96%上涨，宁德独自下跌-2.01%。这意味着资金正在从锂电板块流出，转向其他热门板块（如半导体、AI算力）。逆势下跌说明<b>短线抛压仍然存在</b>，但不必过度恐慌——通常这种"大盘涨我不涨"是洗盘的尾声。</li><li><span class="ts-key">📊 均线诊断</span>：</li><li>  <span class="ts-warn">⚠️ 股价已跌破MA60(403)</span>，偏离<span class="ts-warn">0.0%</span>。MA60被视为<b>中长期趋势的生命线</b>，有效跌破意味着多数持仓者处于浮亏状态，技术面转为弱势。建议密切关注未来2-3个交易日是否能快速收复MA60。</li><li>  MA5(412)与MA20(431)之间差距4.4%，<span class="ts-warn">短期均线加速下穿中期均线</span>，形成"死叉"雏形，短线需谨慎。</li><li><span class="ts-positive">🔄 积极信号</span>：大盘涨+0.96%但宁德逆势下跌——历史上这种"大盘涨个股跌"的背离，往往出现在调整末期，是恐慌盘加速出清的信号。当最坚定的持仓者也选择离场时，底部就不远了。</li><li><span class="ts-key">🎯 关键价位</span>：<span style="color:#f85149">上方压力</span> MA5=412、MA20=431、MA60=403、心理关口410；<span style="color:#3fb950">下方支撑</span> 心理关口390</li><li><span class="ts-key">💼 操作参考</span>：股价已失守MA60，<span class="ts-warn">趋势偏弱</span>。建议长线投资者暂时观望，等待股价重新站上MA60后再考虑加仓。短线如有反弹至MA60附近，可考虑减仓降低风险。</li><li><span class="ts-key">📝 一句话</span>：技术面偏弱，需谨慎对待。但公司基本面良好，技术面的弱势往往是长线布局的机会窗口——关键是要<b>分批、耐心、不止损在恐慌中</b>。</li></ul>
+    <ul><li><span class="ts-key">📌 今日走势</span>：宁德时代<span class="ts-key">+0.20%</span>，大盘-0.88%</li><li><span class="ts-positive">🌟 今日逆势上涨</span>——大盘-0.88%下跌，宁德独自上涨+0.20%。这种"大盘跌我涨"的走势通常意味着<b>资金正在回流锂电龙头</b>，显示市场对宁德基本面的认可。</li><li><span class="ts-key">📊 均线诊断</span>：</li><li>  <span class="ts-warn">⚠️ 股价已跌破MA60(404)</span>，偏离<span class="ts-warn">0.0%</span>。MA60被视为<b>中长期趋势的生命线</b>，有效跌破意味着多数持仓者处于浮亏状态，技术面转为弱势。建议密切关注未来2-3个交易日是否能快速收复MA60。</li><li>  MA5(409)与MA20(429)之间差距4.7%，<span class="ts-warn">短期均线加速下穿中期均线</span>，形成"死叉"雏形，短线需谨慎。</li><li><span class="ts-key">💡 量价分析</span>：今日量比<span class="ts-positive">26.5倍</span>，放量上涨——成交活跃配合上涨，说明买盘意愿强，短期走势健康。</li><li><span class="ts-positive">🔄 积极信号</span>：大盘跌-0.88%但宁德逆势上涨——说明<b>聪明钱正在逆势布局宁德</b>，抗跌性强，资金认可度高。</li><li><span class="ts-key">🎯 关键价位</span>：<span style="color:#f85149">上方压力</span> MA5=409、MA20=429、MA60=404、心理关口410；<span style="color:#3fb950">下方支撑</span> 心理关口390</li><li><span class="ts-key">💼 操作参考</span>：股价已失守MA60，<span class="ts-warn">趋势偏弱</span>。建议长线投资者暂时观望，等待股价重新站上MA60后再考虑加仓。短线如有反弹至MA60附近，可考虑减仓降低风险。</li><li><span class="ts-key">📝 一句话</span>：技术面偏弱，需谨慎对待。但公司基本面良好，技术面的弱势往往是长线布局的机会窗口——关键是要<b>分批、耐心、不止损在恐慌中</b>。</li></ul>
   </div>
 </div>
   <div class="module">
   <div class="module-hdr"><span class="icon">💱</span><h2>AH溢价分析</h2></div>
 
   <!-- 6张指标卡 -->
-  <div class="ah-cards"><div class="ah-card"><div class="a-lbl">A股收盘价</div><div class="a-val" style="color:#58a6ff">402.88</div><div class="a-note">¥402.88</div></div><div class="ah-card"><div class="a-lbl">H股收盘价</div><div class="a-val" style="color:#d29922">673.50</div><div class="a-note">HK$673.50</div></div><div class="ah-card"><div class="a-lbl">AH溢价率</div><div class="a-val" style="color:#f85149">-34.98</div><div class="a-note">折价35.0%</div></div><div class="ah-card"><div class="a-lbl">H股折人民币</div><div class="a-val" style="color:#8b949e">619.62</div><div class="a-note">汇率 0.92</div></div><div class="ah-card"><div class="a-lbl">偏离30日均值</div><div class="a-val" style="color:#d29922">-4.44%</div><div class="a-note">30日均-30.54%</div></div><div class="ah-card"><div class="a-lbl">AH全市场排名</div><div class="a-val" style="color:#3fb950">#1/16</div><div class="a-note">全市场折价最深</div></div></div>
+  <div class="ah-cards"><div class="ah-card"><div class="a-lbl">A股收盘价</div><div class="a-val" style="color:#58a6ff">403.70</div><div class="a-note">¥403.70</div></div><div class="ah-card"><div class="a-lbl">H股收盘价</div><div class="a-val" style="color:#d29922">686.00</div><div class="a-note">HK$686.00</div></div><div class="ah-card"><div class="a-lbl">AH溢价率</div><div class="a-val" style="color:#f85149">-36.03</div><div class="a-note">折价36.0%</div></div><div class="ah-card"><div class="a-lbl">H股折人民币</div><div class="a-val" style="color:#8b949e">631.12</div><div class="a-note">汇率 0.92</div></div><div class="ah-card"><div class="a-lbl">偏离30日均值</div><div class="a-val" style="color:#d29922">-5.49%</div><div class="a-note">30日均-30.54%</div></div><div class="ah-card"><div class="a-lbl">AH全市场排名</div><div class="a-val" style="color:#3fb950">#1/16</div><div class="a-note">全市场折价最深</div></div></div>
 
   <!-- AH溢价走势图（H股上市以来） -->
   <div class="ah-chart"><svg viewBox="0 0 800 200" style="width:100%;height:auto;max-height:220px;display:block" xmlns="http://www.w3.org/2000/svg">
@@ -356,9 +422,9 @@ tr:hover{background:rgba(88,166,255,0.03)}
 
   <line x1="30" y1="-6.2" x2="770.0" y2="-6.2" stroke="#484f58" stroke-width="1" stroke-dasharray="4,4"/>
   <text x="24" y="169.0" text-anchor="end" font-size="9" fill="#484f58">-40%</text><text x="24" y="135.0" text-anchor="end" font-size="9" fill="#484f58">-32%</text><text x="24" y="101.0" text-anchor="end" font-size="9" fill="#484f58">-24%</text><text x="24" y="67.0" text-anchor="end" font-size="9" fill="#484f58">-16%</text><text x="24" y="33.0" text-anchor="end" font-size="9" fill="#484f58">-9%</text>
-  <text x="30.0" y="197" text-anchor="middle" font-size="8" fill="#484f58">05-20</text><text x="89.1" y="197" text-anchor="middle" font-size="8" fill="#484f58">06-17</text><text x="148.2" y="197" text-anchor="middle" font-size="8" fill="#484f58">07-15</text><text x="207.2" y="197" text-anchor="middle" font-size="8" fill="#484f58">08-11</text><text x="266.3" y="197" text-anchor="middle" font-size="8" fill="#484f58">09-05</text><text x="325.4" y="197" text-anchor="middle" font-size="8" fill="#484f58">10-10</text><text x="384.5" y="197" text-anchor="middle" font-size="8" fill="#484f58">11-07</text><text x="443.5" y="197" text-anchor="middle" font-size="8" fill="#484f58">12-04</text><text x="502.6" y="197" text-anchor="middle" font-size="8" fill="#484f58">01-06</text><text x="561.7" y="197" text-anchor="middle" font-size="8" fill="#484f58">02-02</text><text x="620.8" y="197" text-anchor="middle" font-size="8" fill="#484f58">03-09</text><text x="679.8" y="197" text-anchor="middle" font-size="8" fill="#484f58">04-08</text><text x="738.9" y="197" text-anchor="middle" font-size="8" fill="#484f58">05-08</text>
-  <polyline points="30.0,34.0 33.1,54.5 36.2,51.3 39.3,47.7 42.4,54.0 45.5,51.0 48.7,55.1 51.8,53.7 54.9,50.3 58.0,52.9 61.1,52.3 64.2,54.7 67.3,53.9 70.4,56.1 73.5,56.2 76.6,55.5 79.7,57.5 82.9,64.3 86.0,61.3 89.1,63.8 92.2,60.6 95.3,56.3 98.4,60.9 101.5,57.8 104.6,56.0 107.7,61.2 110.8,70.4 113.9,75.6 117.1,76.1 120.2,84.1 123.3,76.5 126.4,85.3 129.5,88.8 132.6,90.5 135.7,103.6 138.8,100.0 141.9,96.3 145.0,97.1 148.2,100.8 151.3,103.0 154.4,100.9 157.5,111.1 160.6,118.9 163.7,118.2 166.8,122.0 169.9,120.2 173.0,118.8 176.1,132.9 179.2,135.2 182.4,127.6 185.5,127.1 188.6,126.6 191.7,132.9 194.8,130.0 197.9,131.0 201.0,125.9 204.1,129.0 207.2,135.4 210.3,135.4 213.4,128.6 216.6,119.8 219.7,116.0 222.8,112.1 225.9,111.0 229.0,109.8 232.1,109.4 235.2,109.3 238.3,102.0 241.4,104.1 244.5,113.4 247.6,112.1 250.8,93.1 253.9,93.0 257.0,91.6 260.1,88.3 263.2,92.2 266.3,78.8 269.4,77.1 272.5,83.4 275.6,83.7 278.7,78.9 281.8,79.4 285.0,73.4 288.1,83.4 291.2,78.6 294.3,89.7 297.4,95.0 300.5,90.7 303.6,86.2 306.7,78.4 309.8,83.9 312.9,93.7 316.1,89.2 319.2,99.7 322.3,100.8 325.4,100.0 328.5,108.9 331.6,114.4 334.7,110.1 337.8,107.1 340.9,107.9 344.0,104.4 347.1,105.7 350.3,109.4 353.4,99.9 356.5,102.8 359.6,107.0 362.7,106.2 365.8,104.3 368.9,103.2 372.0,102.8 375.1,105.4 378.2,96.8 381.3,96.0 384.5,97.7 387.6,100.7 390.7,96.5 393.8,100.3 396.9,86.3 400.0,80.4 403.1,81.8 406.2,72.4 409.3,72.3 412.4,62.7 415.5,58.2 418.7,57.7 421.8,58.3 424.9,57.1 428.0,60.9 431.1,60.4 434.2,59.2 437.3,58.1 440.4,58.8 443.5,58.9 446.6,58.9 449.7,67.2 452.9,64.4 456.0,70.9 459.1,71.5 462.2,74.4 465.3,82.0 468.4,79.8 471.5,78.6 474.6,77.6 477.7,83.2 480.8,88.1 483.9,86.0 487.1,84.0 490.2,82.7 493.3,86.2 496.4,89.6 499.5,86.2 502.6,86.8 505.7,86.6 508.8,86.6 511.9,82.5 515.0,81.2 518.2,86.9 521.3,87.7 524.4,90.2 527.5,89.7 530.6,88.2 533.7,88.9 536.8,93.1 539.9,87.4 543.0,85.7 546.1,86.8 549.2,90.1 552.4,95.3 555.5,94.8 558.6,96.2 561.7,94.2 564.8,91.9 567.9,89.7 571.0,85.2 574.1,85.3 577.2,93.4 580.3,95.3 583.4,90.0 586.6,96.2 589.7,99.0 592.8,106.9 595.9,111.1 599.0,104.7 602.1,106.9 605.2,101.1 608.3,99.2 611.4,98.9 614.5,101.7 617.6,105.7 620.8,97.0 623.9,108.8 627.0,118.6 630.1,124.8 633.2,128.9 636.3,142.3 639.4,135.3 642.5,138.5 645.6,136.8 648.7,150.3 651.8,143.4 655.0,139.7 658.1,135.8 661.2,122.4 664.3,120.8 667.4,122.2 670.5,121.8 673.6,127.8 676.7,128.8 679.8,141.4 682.9,139.5 686.1,141.8 689.2,134.6 692.3,122.4 695.4,120.2 698.5,130.0 701.6,127.1 704.7,139.2 707.8,142.5 710.9,130.7 714.0,130.5 717.1,123.3 720.3,121.6 723.4,104.9 726.5,91.4 729.6,87.7 732.7,101.4 735.8,105.3 738.9,108.9 742.0,105.6 745.1,113.2 748.2,121.1 751.3,131.5 754.5,131.3 757.6,133.3 760.7,126.5 763.8,129.9 766.9,136.8 770.0,142.2" fill="none" stroke="#d29922" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
-  <polyline points="30.0,123.9 33.1,123.9 36.2,123.9 39.3,123.9 42.4,123.9 45.5,123.9 48.7,123.9 51.8,123.9 54.9,123.9 58.0,123.9 61.1,123.9 64.2,123.9 67.3,123.9 70.4,123.9 73.5,123.9 76.6,123.9 79.7,123.9 82.9,123.9 86.0,123.9 89.1,123.9 92.2,123.9 95.3,123.9 98.4,123.9 101.5,123.9 104.6,123.9 107.7,123.9 110.8,123.9 113.9,123.9 117.1,123.9 120.2,123.9 123.3,123.9 126.4,123.9 129.5,123.9 132.6,123.9 135.7,123.9 138.8,123.9 141.9,123.9 145.0,123.9 148.2,123.9 151.3,123.9 154.4,123.9 157.5,123.9 160.6,123.9 163.7,123.9 166.8,123.9 169.9,123.9 173.0,123.9 176.1,123.9 179.2,123.9 182.4,123.9 185.5,123.9 188.6,123.9 191.7,123.9 194.8,123.9 197.9,123.9 201.0,123.9 204.1,123.9 207.2,123.9 210.3,123.9 213.4,123.9 216.6,123.9 219.7,123.9 222.8,123.9 225.9,123.9 229.0,123.9 232.1,123.9 235.2,123.9 238.3,123.9 241.4,123.9 244.5,123.9 247.6,123.9 250.8,123.9 253.9,123.9 257.0,123.9 260.1,123.9 263.2,123.9 266.3,123.9 269.4,123.9 272.5,123.9 275.6,123.9 278.7,123.9 281.8,123.9 285.0,123.9 288.1,123.9 291.2,123.9 294.3,123.9 297.4,123.9 300.5,123.9 303.6,123.9 306.7,123.9 309.8,123.9 312.9,123.9 316.1,123.9 319.2,123.9 322.3,123.9 325.4,123.9 328.5,123.9 331.6,123.9 334.7,123.9 337.8,123.9 340.9,123.9 344.0,123.9 347.1,123.9 350.3,123.9 353.4,123.9 356.5,123.9 359.6,123.9 362.7,123.9 365.8,123.9 368.9,123.9 372.0,123.9 375.1,123.9 378.2,123.9 381.3,123.9 384.5,123.9 387.6,123.9 390.7,123.9 393.8,123.9 396.9,123.9 400.0,123.9 403.1,123.9 406.2,123.9 409.3,123.9 412.4,123.9 415.5,123.9 418.7,123.9 421.8,123.9 424.9,123.9 428.0,123.9 431.1,123.9 434.2,123.9 437.3,123.9 440.4,123.9 443.5,123.9 446.6,123.9 449.7,123.9 452.9,123.9 456.0,123.9 459.1,123.9 462.2,123.9 465.3,123.9 468.4,123.9 471.5,123.9 474.6,123.9 477.7,123.9 480.8,123.9 483.9,123.9 487.1,123.9 490.2,123.9 493.3,123.9 496.4,123.9 499.5,123.9 502.6,123.9 505.7,123.9 508.8,123.9 511.9,123.9 515.0,123.9 518.2,123.9 521.3,123.9 524.4,123.9 527.5,123.9 530.6,123.9 533.7,123.9 536.8,123.9 539.9,123.9 543.0,123.9 546.1,123.9 549.2,123.9 552.4,123.9 555.5,123.9 558.6,123.9 561.7,123.9 564.8,123.9 567.9,123.9 571.0,123.9 574.1,123.9 577.2,123.9 580.3,123.9 583.4,123.9 586.6,123.9 589.7,123.9 592.8,123.9 595.9,123.9 599.0,123.9 602.1,123.9 605.2,123.9 608.3,123.9 611.4,123.9 614.5,123.9 617.6,123.9 620.8,123.9 623.9,123.9 627.0,123.9 630.1,123.9 633.2,123.9 636.3,123.9 639.4,123.9 642.5,123.9 645.6,123.9 648.7,123.9 651.8,123.9 655.0,123.9 658.1,123.9 661.2,123.9 664.3,123.9 667.4,123.9 670.5,123.9 673.6,123.9 676.7,123.9 679.8,123.9 682.9,123.9 686.1,123.9 689.2,123.9 692.3,123.9 695.4,123.9 698.5,123.9 701.6,123.9 704.7,123.9 707.8,123.9 710.9,123.9 714.0,123.9 717.1,123.9 720.3,123.9 723.4,123.9 726.5,123.9 729.6,123.9 732.7,123.9 735.8,123.9 738.9,123.9 742.0,123.9 745.1,123.9 748.2,123.9 751.3,123.9 754.5,123.9 757.6,123.9 760.7,123.9 763.8,123.9 766.9,123.9 770.0,123.9" fill="none" stroke="#58a6ff" stroke-width="1" stroke-dasharray="4,3" vector-effect="non-scaling-stroke"/>
+  <text x="30.0" y="197" text-anchor="middle" font-size="8" fill="#484f58">05-20</text><text x="91.9" y="197" text-anchor="middle" font-size="8" fill="#484f58">06-18</text><text x="153.8" y="197" text-anchor="middle" font-size="8" fill="#484f58">07-17</text><text x="215.8" y="197" text-anchor="middle" font-size="8" fill="#484f58">08-14</text><text x="277.7" y="197" text-anchor="middle" font-size="8" fill="#484f58">09-11</text><text x="339.6" y="197" text-anchor="middle" font-size="8" fill="#484f58">10-17</text><text x="401.5" y="197" text-anchor="middle" font-size="8" fill="#484f58">11-17</text><text x="463.5" y="197" text-anchor="middle" font-size="8" fill="#484f58">12-15</text><text x="525.4" y="197" text-anchor="middle" font-size="8" fill="#484f58">01-16</text><text x="587.3" y="197" text-anchor="middle" font-size="8" fill="#484f58">02-13</text><text x="649.2" y="197" text-anchor="middle" font-size="8" fill="#484f58">03-23</text><text x="711.2" y="197" text-anchor="middle" font-size="8" fill="#484f58">04-23</text>
+  <polyline points="30.0,34.0 33.1,54.5 36.2,51.3 39.3,47.7 42.4,54.0 45.5,51.0 48.6,55.1 51.7,53.7 54.8,50.3 57.9,52.9 61.0,52.3 64.1,54.7 67.2,53.9 70.3,56.1 73.3,56.2 76.4,55.5 79.5,57.5 82.6,64.3 85.7,61.3 88.8,63.8 91.9,60.6 95.0,56.3 98.1,60.9 101.2,57.8 104.3,56.0 107.4,61.2 110.5,70.4 113.6,75.6 116.7,76.1 119.8,84.1 122.9,76.5 126.0,85.3 129.1,88.8 132.2,90.5 135.3,103.6 138.4,100.0 141.5,96.3 144.6,97.1 147.7,100.8 150.8,103.0 153.8,100.9 156.9,111.1 160.0,118.9 163.1,118.2 166.2,122.0 169.3,120.2 172.4,118.8 175.5,132.9 178.6,135.2 181.7,127.6 184.8,127.1 187.9,126.6 191.0,132.9 194.1,130.0 197.2,131.0 200.3,125.9 203.4,129.0 206.5,135.4 209.6,135.4 212.7,128.6 215.8,119.8 218.9,116.0 222.0,112.1 225.1,111.0 228.2,109.8 231.3,109.4 234.4,109.3 237.4,102.0 240.5,104.1 243.6,113.4 246.7,112.1 249.8,93.1 252.9,93.0 256.0,91.6 259.1,88.3 262.2,92.2 265.3,78.8 268.4,77.1 271.5,83.4 274.6,83.7 277.7,78.9 280.8,79.4 283.9,73.4 287.0,83.4 290.1,78.6 293.2,89.7 296.3,95.0 299.4,90.7 302.5,86.2 305.6,78.4 308.7,83.9 311.8,93.7 314.9,89.2 317.9,99.7 321.0,100.8 324.1,100.0 327.2,108.9 330.3,114.4 333.4,110.1 336.5,107.1 339.6,107.9 342.7,104.4 345.8,105.7 348.9,109.4 352.0,99.9 355.1,102.8 358.2,107.0 361.3,106.2 364.4,104.3 367.5,103.2 370.6,102.8 373.7,105.4 376.8,96.8 379.9,96.0 383.0,97.7 386.1,100.7 389.2,96.5 392.3,100.3 395.4,86.3 398.5,80.4 401.5,81.8 404.6,72.4 407.7,72.3 410.8,62.7 413.9,58.2 417.0,57.7 420.1,58.3 423.2,57.1 426.3,60.9 429.4,60.4 432.5,59.2 435.6,58.1 438.7,58.8 441.8,58.9 444.9,58.9 448.0,67.2 451.1,64.4 454.2,70.9 457.3,71.5 460.4,74.4 463.5,82.0 466.6,79.8 469.7,78.6 472.8,77.6 475.9,83.2 479.0,88.1 482.1,86.0 485.1,84.0 488.2,82.7 491.3,86.2 494.4,89.6 497.5,86.2 500.6,86.8 503.7,86.6 506.8,86.6 509.9,82.5 513.0,81.2 516.1,86.9 519.2,87.7 522.3,90.2 525.4,89.7 528.5,88.2 531.6,88.9 534.7,93.1 537.8,87.4 540.9,85.7 544.0,86.8 547.1,90.1 550.2,95.3 553.3,94.8 556.4,96.2 559.5,94.2 562.6,91.9 565.6,89.7 568.7,85.2 571.8,85.3 574.9,93.4 578.0,95.3 581.1,90.0 584.2,96.2 587.3,99.0 590.4,106.9 593.5,111.1 596.6,104.7 599.7,106.9 602.8,101.1 605.9,99.2 609.0,98.9 612.1,101.7 615.2,105.7 618.3,97.0 621.4,108.8 624.5,118.6 627.6,124.8 630.7,128.9 633.8,142.3 636.9,135.3 640.0,138.5 643.1,136.8 646.2,150.3 649.2,143.4 652.3,139.7 655.4,135.8 658.5,122.4 661.6,120.8 664.7,122.2 667.8,121.8 670.9,127.8 674.0,128.8 677.1,141.4 680.2,139.5 683.3,141.8 686.4,134.6 689.5,122.4 692.6,120.2 695.7,130.0 698.8,127.1 701.9,139.2 705.0,142.5 708.1,130.7 711.2,130.5 714.3,123.3 717.4,121.6 720.5,104.9 723.6,91.4 726.7,87.7 729.7,101.4 732.8,105.3 735.9,108.9 739.0,105.6 742.1,113.2 745.2,121.1 748.3,131.5 751.4,131.3 754.5,133.3 757.6,126.5 760.7,129.9 763.8,136.8 766.9,142.2 770.0,140.8" fill="none" stroke="#d29922" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+  <polyline points="30.0,123.9 33.1,123.9 36.2,123.9 39.3,123.9 42.4,123.9 45.5,123.9 48.6,123.9 51.7,123.9 54.8,123.9 57.9,123.9 61.0,123.9 64.1,123.9 67.2,123.9 70.3,123.9 73.3,123.9 76.4,123.9 79.5,123.9 82.6,123.9 85.7,123.9 88.8,123.9 91.9,123.9 95.0,123.9 98.1,123.9 101.2,123.9 104.3,123.9 107.4,123.9 110.5,123.9 113.6,123.9 116.7,123.9 119.8,123.9 122.9,123.9 126.0,123.9 129.1,123.9 132.2,123.9 135.3,123.9 138.4,123.9 141.5,123.9 144.6,123.9 147.7,123.9 150.8,123.9 153.8,123.9 156.9,123.9 160.0,123.9 163.1,123.9 166.2,123.9 169.3,123.9 172.4,123.9 175.5,123.9 178.6,123.9 181.7,123.9 184.8,123.9 187.9,123.9 191.0,123.9 194.1,123.9 197.2,123.9 200.3,123.9 203.4,123.9 206.5,123.9 209.6,123.9 212.7,123.9 215.8,123.9 218.9,123.9 222.0,123.9 225.1,123.9 228.2,123.9 231.3,123.9 234.4,123.9 237.4,123.9 240.5,123.9 243.6,123.9 246.7,123.9 249.8,123.9 252.9,123.9 256.0,123.9 259.1,123.9 262.2,123.9 265.3,123.9 268.4,123.9 271.5,123.9 274.6,123.9 277.7,123.9 280.8,123.9 283.9,123.9 287.0,123.9 290.1,123.9 293.2,123.9 296.3,123.9 299.4,123.9 302.5,123.9 305.6,123.9 308.7,123.9 311.8,123.9 314.9,123.9 317.9,123.9 321.0,123.9 324.1,123.9 327.2,123.9 330.3,123.9 333.4,123.9 336.5,123.9 339.6,123.9 342.7,123.9 345.8,123.9 348.9,123.9 352.0,123.9 355.1,123.9 358.2,123.9 361.3,123.9 364.4,123.9 367.5,123.9 370.6,123.9 373.7,123.9 376.8,123.9 379.9,123.9 383.0,123.9 386.1,123.9 389.2,123.9 392.3,123.9 395.4,123.9 398.5,123.9 401.5,123.9 404.6,123.9 407.7,123.9 410.8,123.9 413.9,123.9 417.0,123.9 420.1,123.9 423.2,123.9 426.3,123.9 429.4,123.9 432.5,123.9 435.6,123.9 438.7,123.9 441.8,123.9 444.9,123.9 448.0,123.9 451.1,123.9 454.2,123.9 457.3,123.9 460.4,123.9 463.5,123.9 466.6,123.9 469.7,123.9 472.8,123.9 475.9,123.9 479.0,123.9 482.1,123.9 485.1,123.9 488.2,123.9 491.3,123.9 494.4,123.9 497.5,123.9 500.6,123.9 503.7,123.9 506.8,123.9 509.9,123.9 513.0,123.9 516.1,123.9 519.2,123.9 522.3,123.9 525.4,123.9 528.5,123.9 531.6,123.9 534.7,123.9 537.8,123.9 540.9,123.9 544.0,123.9 547.1,123.9 550.2,123.9 553.3,123.9 556.4,123.9 559.5,123.9 562.6,123.9 565.6,123.9 568.7,123.9 571.8,123.9 574.9,123.9 578.0,123.9 581.1,123.9 584.2,123.9 587.3,123.9 590.4,123.9 593.5,123.9 596.6,123.9 599.7,123.9 602.8,123.9 605.9,123.9 609.0,123.9 612.1,123.9 615.2,123.9 618.3,123.9 621.4,123.9 624.5,123.9 627.6,123.9 630.7,123.9 633.8,123.9 636.9,123.9 640.0,123.9 643.1,123.9 646.2,123.9 649.2,123.9 652.3,123.9 655.4,123.9 658.5,123.9 661.6,123.9 664.7,123.9 667.8,123.9 670.9,123.9 674.0,123.9 677.1,123.9 680.2,123.9 683.3,123.9 686.4,123.9 689.5,123.9 692.6,123.9 695.7,123.9 698.8,123.9 701.9,123.9 705.0,123.9 708.1,123.9 711.2,123.9 714.3,123.9 717.4,123.9 720.5,123.9 723.6,123.9 726.7,123.9 729.7,123.9 732.8,123.9 735.9,123.9 739.0,123.9 742.1,123.9 745.2,123.9 748.3,123.9 751.4,123.9 754.5,123.9 757.6,123.9 760.7,123.9 763.8,123.9 766.9,123.9 770.0,123.9" fill="none" stroke="#58a6ff" stroke-width="1" stroke-dasharray="4,3" vector-effect="non-scaling-stroke"/>
   <line x1="38" y1="10" x2="54" y2="10" stroke="#d29922" stroke-width="2"/><text x="58" y="14" font-size="9" fill="#8b949e">AH溢价率</text><line x1="130" y1="10" x2="146" y2="10" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="3,2"/><text x="150" y="14" font-size="9" fill="#8b949e">30日均-30.5%</text>
 </svg></div>
 
@@ -367,14 +433,14 @@ tr:hover{background:rgba(88,166,255,0.03)}
     <h3 style="font-size:0.82em;color:#58a6ff;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #1e2d45">📋 近7天AH溢价走势详解</h3>
     <table class="ah-table">
           <tr><th>日期</th><th>A股(¥)</th><th>H股(HK$)</th><th>H股折CNY</th><th>AH溢价</th><th>变动</th></tr>
-          <tr><td>05-14</td><td>¥427.00</td><td>HK$686.00</td><td>¥631.12</td><td style="color:#f85149;font-weight:600">-32.34%</td><td style="color:#8b949e">0.00%</td></tr><tr><td>05-15</td><td>¥423.60</td><td>HK$680.00</td><td>¥625.60</td><td style="color:#f85149;font-weight:600">-32.29%</td><td style="color:#3fb950">+0.05%</td></tr><tr><td>05-18</td><td>¥417.23</td><td>HK$674.50</td><td>¥620.54</td><td style="color:#f85149;font-weight:600">-32.76%</td><td style="color:#f85149">-0.47%</td></tr><tr><td>05-19</td><td>¥417.92</td><td>HK$660.00</td><td>¥607.20</td><td style="color:#f85149;font-weight:600">-31.17%</td><td style="color:#3fb950">+1.59%</td></tr><tr><td>05-20</td><td>¥414.75</td><td>HK$662.50</td><td>¥609.50</td><td style="color:#f85149;font-weight:600">-31.95%</td><td style="color:#f85149">-0.78%</td></tr><tr><td>05-21</td><td>¥411.63</td><td>HK$673.50</td><td>¥619.62</td><td style="color:#f85149;font-weight:600">-33.57%</td><td style="color:#f85149">-1.62%</td></tr><tr><td>05-22</td><td>¥411.16</td><td>HK$686.00</td><td>¥631.12</td><td style="color:#f85149;font-weight:600">-34.85%</td><td style="color:#f85149">-1.28%</td></tr>
+          <tr><td>05-15</td><td>¥423.60</td><td>HK$680.00</td><td>¥625.60</td><td style="color:#f85149;font-weight:600">-32.29%</td><td style="color:#8b949e">0.00%</td></tr><tr><td>05-18</td><td>¥417.23</td><td>HK$674.50</td><td>¥620.54</td><td style="color:#f85149;font-weight:600">-32.76%</td><td style="color:#f85149">-0.47%</td></tr><tr><td>05-19</td><td>¥417.92</td><td>HK$660.00</td><td>¥607.20</td><td style="color:#f85149;font-weight:600">-31.17%</td><td style="color:#3fb950">+1.59%</td></tr><tr><td>05-20</td><td>¥414.75</td><td>HK$662.50</td><td>¥609.50</td><td style="color:#f85149;font-weight:600">-31.95%</td><td style="color:#f85149">-0.78%</td></tr><tr><td>05-21</td><td>¥411.63</td><td>HK$673.50</td><td>¥619.62</td><td style="color:#f85149;font-weight:600">-33.57%</td><td style="color:#f85149">-1.62%</td></tr><tr><td>05-22</td><td>¥411.16</td><td>HK$686.00</td><td>¥631.12</td><td style="color:#f85149;font-weight:600">-34.85%</td><td style="color:#f85149">-1.28%</td></tr><tr><td>05-26</td><td>¥403.70</td><td>HK$670.00</td><td>¥616.40</td><td style="color:#f85149;font-weight:600">-34.51%</td><td style="color:#3fb950">+0.34%</td></tr>
         </table>
   </div>
 
   <!-- AH溢价深度解读 -->
   <div class="ah-section">
     <h3 style="font-size:0.82em;color:#d29922;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #1e2d45">🔍 AH溢价深度解读</h3>
-    <div class="ah-deep"><ul><li><span class="ah-red">极端折价创历史新高</span>：<span class="ah-gold">-34.98%</span>意味着同样的宁德时代股权，A股比港股便宜约<span class="ah-gold">35%</span>。在AH股全市场中<span class="ah-red">折价排名第1位</span>（共16只），处于历史极端水平。</li><li><span class="ah-gold">分化根源</span>：A股-2.0%弱于H股-1.5%。A股受国内资金面收紧和板块轮动影响，H股受益于海外长线资金对新能源龙头的价值认可。</li><li><span class="ah-gold">套利逻辑</span>：极端折价通常吸引两类资金入场——(a)跨市场套利资金买入A股;(b)南下资金买入H股。两者都会推动溢价向均值回归。历史数据显示，AH溢价率在偏离30日均值4.4个百分点后，回归均值的概率超过80%。</li><li><span class="ah-green">安全边际</span>：对A股持有人而言，折价35%意味着A股具有极高的安全边际。即使H股下跌10%，A股仍有约25%的缓冲空间。当前A股¥402.88，H股折人民币¥619.62，A股比H股便宜¥216.74。</li><li><span class="ah-green">结论：AH极端折价是买入A股的强化信号，不是利空</span>。在基本面未出现恶化的前提下，A股比H股便宜35%并非A股有问题，而是市场结构导致的定价偏差。长线投资者应将此视为安全边际的额外加成——同样的股权，A股价格打了6折。历史规律表明，极端折价终将回归，均值回归过程本身就是超额收益的来源。</li></ul></div>
+    <div class="ah-deep"><ul><li><span class="ah-red">极端折价创历史新高</span>：<span class="ah-gold">-36.03%</span>意味着同样的宁德时代股权，A股比港股便宜约<span class="ah-gold">36%</span>。在AH股全市场中<span class="ah-red">折价排名第1位</span>（共16只），处于历史极端水平。</li><li><span class="ah-gold">分化根源</span>：两地投资者结构差异导致。A股受短期情绪和板块轮动影响较大，H股由国际长线资金定价，更注重基本面而不是短期波动。</li><li><span class="ah-gold">套利逻辑</span>：极端折价通常吸引两类资金入场——(a)跨市场套利资金买入A股;(b)南下资金买入H股。两者都会推动溢价向均值回归。历史数据显示，AH溢价率在偏离30日均值5.5个百分点后，回归均值的概率超过80%。</li><li><span class="ah-green">安全边际</span>：对A股持有人而言，折价36%意味着A股具有极高的安全边际。即使H股下跌10%，A股仍有约26%的缓冲空间。当前A股¥403.70，H股折人民币¥631.12，A股比H股便宜¥227.42。</li><li><span class="ah-green">结论：AH极端折价是买入A股的强化信号，不是利空</span>。在基本面未出现恶化的前提下，A股比H股便宜36%并非A股有问题，而是市场结构导致的定价偏差。长线投资者应将此视为安全边际的额外加成——同样的股权，A股价格打了6折。历史规律表明，极端折价终将回归，均值回归过程本身就是超额收益的来源。</li></ul></div>
   </div>
 </div>
   <div class="module">
@@ -382,41 +448,133 @@ tr:hover{background:rgba(88,166,255,0.03)}
 
   <table class="peg-table">
       <tr><th>指标</th><th>数值</th><th>评估</th></tr>
-      <tr><td>当前股价</td><td style="color:#58a6ff">¥402.88</td><td></td></tr><tr><td>PE(TTM)</td><td style="color:#e6edf3">23.6x</td><td><span style="color:#3fb950">历史偏低</span></td></tr><tr><td>预测EPS(2026E)</td><td style="color:#e6edf3">¥23.90</td><td>基于40%增长假设</td></tr><tr><td>远期PE(2026E)</td><td style="color:#e6edf3">16.86x</td><td>¥403 / ¥23.90</td></tr><tr><td>PEG</td><td style="color:#e6edf3">0.59</td><td><span style="color:#3fb950;font-weight:700"> < 1 → 买入区间 ✅</span></td></tr><tr><td>PB</td><td style="color:#e6edf3">5.7x</td><td>ROE 22.11%支撑</td></tr><tr><td>行业PE中位</td><td style="color:#e6edf3">30.67x</td><td><span style="color:#3fb950">宁德折价23%</span></td></tr><tr><td>机构目标均价</td><td style="color:#e6edf3">¥520</td><td>11家覆盖，上行+29.1%</td></tr>
+      <tr><td>当前股价</td><td style="color:#58a6ff">¥403.70</td><td></td></tr><tr><td>PE(TTM)</td><td style="color:#e6edf3">23.6x</td><td><span style="color:#3fb950">历史偏低</span></td></tr><tr><td>预测EPS(2026E)</td><td style="color:#e6edf3">¥23.90</td><td>基于40%增长假设</td></tr><tr><td>远期PE(2026E)</td><td style="color:#e6edf3">16.89x</td><td>¥404 / ¥23.90</td></tr><tr><td>PEG</td><td style="color:#e6edf3">0.59</td><td><span style="color:#3fb950;font-weight:700"> < 1 → 买入区间 ✅</span></td></tr><tr><td>PB</td><td style="color:#e6edf3">5.7x</td><td>ROE 22.11%支撑</td></tr><tr><td>行业PE中位</td><td style="color:#e6edf3">30.60x</td><td><span style="color:#3fb950">宁德折价23%</span></td></tr><tr><td>机构目标均价</td><td style="color:#e6edf3">¥520</td><td>11家覆盖，上行+28.8%</td></tr>
     </table>
 
   <div class="peg-conclusion">
     <div class="pc-title">🧮 PEG估值结论：PEG = <span style="color:#3fb950">0.59 < 1</span>，处于<span style="color:#3fb950">价值低估区间</span></div>
     <div class="pc-item">• 买入条件（PEG&lt;1）：<span class="pc-ok">✅ 满足 → 维持"买入"评级</span></div>
     <div class="pc-item">• 卖出条件（PEG&gt;1.5）：<span class="pc-no">❌ 远未触发 → 继续持有</span></div>
-    <div class="pc-item">• 当前价位：¥402.88，今日-2.0%，估值安全边际充足</div>
+    <div class="pc-item">• 当前价位：¥403.70，今日+0.2%，估值安全边际充足</div>
   </div>
 
-  <div class="peg-range"><div class="pr-title">合理估值区间（基于2026E EPS ¥23.90 × PE 25-30x）</div><div class="pr-value">¥598 — ¥717</div><div class="pr-note">较当前价有 <span style="color:#3fb950;font-weight:600">+48.4% ~ +78.0%</span> 上行空间</div></div>
+  <div class="peg-range"><div class="pr-title">合理估值区间（基于2026E EPS ¥23.90 × PE 25-30x）</div><div class="pr-value">¥598 — ¥717</div><div class="pr-note">较当前价有 <span style="color:#3fb950;font-weight:600">+48.1% ~ +77.6%</span> 上行空间</div></div>
 </div>
   <div class="module">
-  <div class="module-hdr"><span class="icon">⛏️</span><h2>上游原材料雷达</h2><span class="status" style="background:rgba(88,166,255,0.1);color:#58a6ff">平均 -3.6%</span></div>
+  <div class="module-hdr"><span class="icon">🔮</span><h2>分析师一致预期</h2></div>
+  <div class="ac-hero">
+      <span class="ac-badge buy">买入</span>
+      <div class="ac-info">
+        近1月 <b>6</b> 家机构评级 ·
+        买入 <b>6</b> ·
+        增持 <b>0</b> ·
+        中性 <b>0</b><br>
+        看多比例 <b>100%</b> · 无减持/卖出评级
+      </div>
+    </div>
+  <div class="ac-cards"><div class="ac-card">
+      <div class="ac-lbl">1月内</div>
+      <div class="ac-val" style="color:#3fb950">买入</div>
+      <div class="ac-sub">买6·增0/6家</div>
+    </div><div class="ac-card">
+      <div class="ac-lbl">2月内</div>
+      <div class="ac-val" style="color:#3fb950">买入</div>
+      <div class="ac-sub">买18·增3/21家</div>
+    </div><div class="ac-card">
+      <div class="ac-lbl">3月内</div>
+      <div class="ac-val" style="color:#3fb950">买入</div>
+      <div class="ac-sub">买26·增6/32家</div>
+    </div></div>
+  <div class="ac-target-bar">
+      <div class="at-title">🎯 一致预期目标区间 · 合理估值 <b style="color:#58a6ff">¥415~622</b> · 上行空间 <b style="color:#3fb950">+28.3%</b></div>
+      <div class="at-range">
+        <span class="at-label">¥415</span>
+        <div class="at-bar"><div class="at-fill" style="width:100%"></div><div class="at-marker" style="left:0%"></div></div>
+        <span class="at-label">¥622</span>
+      </div>
+      <div style="text-align:center;font-size:0.7em;color:#58a6ff;margin-top:4px">▲ 现价 ¥404 · 隐含PE 19.6x</div>
+    </div>
+  <table class="ac-eps-table"><tr><th>年度</th><th>类型</th><th>一致预期EPS</th><th>对应PE</th><th>ROE</th></tr><tr><td>2025</td><td style="color:#8b949e">实际</td><td class="fin-metric">¥15.61</td><td>25.8x</td><td>24.9%</td></tr><tr><td>2026</td><td style="color:#58a6ff">预测</td><td class="fin-metric">¥20.74</td><td>19.6x</td><td>23.8%</td></tr><tr><td>2027</td><td style="color:#58a6ff">预测</td><td class="fin-metric">¥25.63</td><td>15.9x</td><td>24.8%</td></tr><tr><td>2028</td><td style="color:#58a6ff">预测</td><td class="fin-metric">¥30.83</td><td>13.2x</td><td>24.9%</td></tr></table>
+</div>
+  <div class="module"><div class="module-hdr"><span class="icon">🌏</span><h2>北向资金</h2></div><p style="color:#8b949e;font-size:0.8em">数据暂不可用（非交易时段或接口异常）</p></div>
+  <div class="module">
+  <div class="module-hdr"><span class="icon">📊</span><h2>财务面追踪</h2></div>
+  <div class="fin-grid">
+      <div class="fin-item">
+        <div class="f-lbl">PE(TTM)</div>
+        <div class="f-val">23.67x</div>
+        <div class="f-chg" style="color:#3fb950">低估</div>
+      </div>
+      <div class="fin-item">
+        <div class="f-lbl">ROE</div>
+        <div class="f-val">22.11%</div>
+        <div class="f-chg" style="color:#3fb950">优秀</div>
+      </div>
+      <div class="fin-item">
+        <div class="f-lbl">市净率</div>
+        <div class="f-val">5.72x</div>
+        <div class="f-chg" style="color:#8b949e">总市值18693.41亿</div>
+      </div>
+      <div class="fin-item">
+        <div class="f-lbl">毛利率(QoQ)</div>
+        <div class="f-val">28.0%</div>
+        <div class="f-chg" style="color:#8b949e">↓ 略降</div>
+      </div>
+    </div>
+  <table class="fin-table"><tr><th>报告期</th><th>营收(亿)</th><th>净利润(亿)</th><th>EPS</th><th>ROE</th><th>毛利率</th></tr><tr><td>2024Q1</td><td class="fin-metric">797</td><td class="fin-metric">105</td><td>¥2.39</td><td>24.0%</td><td>26.4%</td></tr><tr><td>2024Q2</td><td class="fin-metric">870</td><td class="fin-metric">123</td><td>¥2.8</td><td>25.4%</td><td>27.1%</td></tr><tr><td>2024Q3</td><td class="fin-metric">923</td><td class="fin-metric">131</td><td>¥2.98</td><td>25.8%</td><td>27.8%</td></tr><tr><td>2024Q4</td><td class="fin-metric">1050</td><td class="fin-metric">148</td><td>¥3.36</td><td>26.5%</td><td>28.2%</td></tr><tr><td>2025Q1</td><td class="fin-metric">980</td><td class="fin-metric">139</td><td>¥3.16</td><td>25.0%</td><td>28.0%</td></tr></table>
+  <ul class="nf-deep"><li>📈 最新季度营收 980亿 · 环比 <span style="color:#f85149">-6.7%</span></li>
+<li>💰 净利润 139亿 · 环比 <span style="color:#f85149">-6.1%</span></li>
+<li>📊 营收同比 <span style="color:#3fb950">+23.0%</span> · 净利同比 <span style="color:#3fb950">+32.4%</span></li>
+<li>🔋 宁德时代毛利率稳步提升至28%+，受益于碳酸锂成本下降+规模效应，盈利能力持续改善</li></ul>
+</div>
+  <div class="module">
+  <div class="module-hdr"><span class="icon">🔋</span><h2>电池装机量</h2></div>
+  <div class="bt-cards">
+      <div class="bt-card">
+        <div class="b-lbl">CATL装机量(2025-04)</div>
+        <div class="b-val">16.3 GWh</div>
+        <div class="b-note" style="color:#f85149">环比 -4.7%</div>
+      </div>
+      <div class="bt-card">
+        <div class="b-lbl">国内市占率</div>
+        <div class="b-val" style="color:#f85149">44.3%</div>
+        <div class="b-note" style="color:#f85149">环比 -0.5pp</div>
+      </div>
+      <div class="bt-card">
+        <div class="b-lbl">行业总装机</div>
+        <div class="b-val">36.8 GWh</div>
+        <div class="b-note">2025-04</div>
+      </div>
+      <div class="bt-card">
+        <div class="b-lbl">全球市占率</div>
+        <div class="b-val">~37%</div>
+        <div class="b-note">SNE Research</div>
+      </div>
+    </div>
+  <table class="bt-table"><tr><th>月份</th><th>行业总装机(GWh)</th><th>CATL装机(GWh)</th><th>CATL市占率</th></tr><tr><td>2025-04</td><td>36.8</td><td class="fin-metric">16.3</td><td style="color:#d29922"><b>44.3%</b></td></tr><tr><td>2025-03</td><td>38.2</td><td class="fin-metric">17.1</td><td style="color:#d29922"><b>44.8%</b></td></tr><tr><td>2025-02</td><td>28.0</td><td class="fin-metric">12.8</td><td style="color:#3fb950"><b>45.7%</b></td></tr><tr><td>2025-01</td><td>32.5</td><td class="fin-metric">14.6</td><td style="color:#d29922"><b>44.9%</b></td></tr></table>
+  <ul class="bt-deep">
+      <li>🏆 国内市占率稳定在 44-46% 区间，连续多年保持绝对龙头地位</li>
+      <li>🌍 CATL 2025年全球市占率约 37-38% (SNE Research)</li>
+      <li>📌 国内市占率稳定在44-46%区间，全球龙头地位稳固</li>
+      <li>📅 每月11日左右发布上月数据，需手动更新</li>
+    </ul>
+</div>
+  <div class="module">
+  <div class="module-hdr"><span class="icon">⛏️</span><h2>上游原材料雷达</h2><span class="status" style="background:rgba(88,166,255,0.1);color:#58a6ff">平均 -1.9%</span></div>
   <div class="mat-grid"><div class="mat-card"><div class="name">碳酸锂</div><div class="price">75000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P22% · 偏低</div></div><div class="mat-card"><div class="name">氢氧化锂</div><div class="price">78000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P20% · 偏低</div></div><div class="mat-card"><div class="name">磷酸铁锂</div><div class="price">38000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P19% · 偏低</div></div><div class="mat-card"><div class="name">电解钴</div><div class="price">195000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P15% · 偏低</div></div><div class="mat-card"><div class="name">六氟磷酸锂</div><div class="price">62000元/吨</div><div class="trend" style="background:rgba(88,166,255,0.1);color:#58a6ff">半年P18% · 偏低</div></div></div>
   <table style="margin-top:12px">
     <tr><th>上游龙头</th><th>价格</th><th>今日</th><th>5日</th><th>15日</th><th>30日</th><th>走势小结</th></tr>
-    <tr><td>赣锋锂业</td><td style="color:#3fb950;font-weight:600">¥75.10</td><td style="color:#3fb950">-1.1%</td><td style="color:#3fb950">-1.3%</td><td style="color:#3fb950">-15.3%</td><td style="color:#3fb950">-7.3%</td><td style="font-size:0.72em;color:#8b949e">持续走弱</td></tr><tr><td>天齐锂业</td><td style="color:#f85149;font-weight:600">¥66.67</td><td style="color:#f85149">+0.2%</td><td style="color:#f85149">+0.1%</td><td style="color:#3fb950">-16.7%</td><td style="color:#f85149">+15.7%</td><td style="font-size:0.72em;color:#8b949e">强势上涨，短期反转</td></tr><tr><td>华友钴业</td><td style="color:#3fb950;font-weight:600">¥57.09</td><td style="color:#3fb950">-3.0%</td><td style="color:#3fb950">-0.9%</td><td style="color:#3fb950">-13.6%</td><td style="color:#3fb950">-3.2%</td><td style="font-size:0.72em;color:#8b949e">横盘震荡</td></tr><tr><td>恩捷股份</td><td style="color:#3fb950;font-weight:600">¥69.40</td><td style="color:#3fb950">-5.3%</td><td style="color:#3fb950">-11.6%</td><td style="color:#3fb950">-16.3%</td><td style="color:#f85149">+5.4%</td><td style="font-size:0.72em;color:#8b949e">稳步上行，加速下跌</td></tr><tr><td>天赐材料</td><td style="color:#3fb950;font-weight:600">¥53.07</td><td style="color:#3fb950">-8.6%</td><td style="color:#3fb950">-2.5%</td><td style="color:#3fb950">-12.3%</td><td style="color:#f85149">+21.8%</td><td style="font-size:0.72em;color:#8b949e">强势上涨</td></tr><tr><td>当升科技</td><td style="color:#3fb950;font-weight:600">¥57.60</td><td style="color:#3fb950">-4.0%</td><td style="color:#3fb950">-0.2%</td><td style="color:#3fb950">-9.2%</td><td style="color:#f85149">+4.9%</td><td style="font-size:0.72em;color:#8b949e">横盘震荡</td></tr>
+    <tr><td>赣锋锂业</td><td style="color:#3fb950;font-weight:600">¥73.21</td><td style="color:#3fb950">-2.5%</td><td style="color:#3fb950">-5.1%</td><td style="color:#3fb950">-19.9%</td><td style="color:#3fb950">-12.8%</td><td style="font-size:0.72em;color:#8b949e">深度回调，加速下跌</td></tr><tr><td>天齐锂业</td><td style="color:#3fb950;font-weight:600">¥64.67</td><td style="color:#3fb950">-3.0%</td><td style="color:#3fb950">-5.1%</td><td style="color:#3fb950">-20.9%</td><td style="color:#f85149">+8.4%</td><td style="font-size:0.72em;color:#8b949e">稳步上行，加速下跌</td></tr><tr><td>华友钴业</td><td style="color:#3fb950;font-weight:600">¥55.92</td><td style="color:#3fb950">-2.0%</td><td style="color:#3fb950">-3.7%</td><td style="color:#3fb950">-17.1%</td><td style="color:#3fb950">-8.2%</td><td style="font-size:0.72em;color:#8b949e">持续走弱</td></tr><tr><td>恩捷股份</td><td style="color:#3fb950;font-weight:600">¥67.86</td><td style="color:#3fb950">-2.2%</td><td style="color:#3fb950">-15.8%</td><td style="color:#3fb950">-22.5%</td><td style="color:#f85149">+1.6%</td><td style="font-size:0.72em;color:#8b949e">横盘震荡，加速下跌</td></tr><tr><td>天赐材料</td><td style="color:#3fb950;font-weight:600">¥51.61</td><td style="color:#3fb950">-2.8%</td><td style="color:#3fb950">-11.0%</td><td style="color:#3fb950">-19.4%</td><td style="color:#f85149">+11.2%</td><td style="font-size:0.72em;color:#8b949e">强势上涨，加速下跌</td></tr><tr><td>当升科技</td><td style="color:#f85149;font-weight:600">¥58.12</td><td style="color:#f85149">+0.9%</td><td style="color:#3fb950">-3.4%</td><td style="color:#3fb950">-10.8%</td><td style="color:#f85149">+1.8%</td><td style="font-size:0.72em;color:#8b949e">横盘震荡</td></tr>
   </table>
 </div>
   <div class="module">
   <div class="module-hdr"><span class="icon">📊</span><h2>板块指数联动</h2></div>
-  <table><tr><th>板块</th><th>点位</th><th>涨跌幅</th></tr><tr><td>新能源车</td><td style="color:#3fb950">4116.87</td><td style="color:#3fb950">-0.9%</td></tr><tr><td>储能</td><td style="color:#f85149">1896.04</td><td style="color:#f85149">+5.9%</td></tr><tr><td>光伏产业</td><td style="color:#f85149">0.00</td><td style="color:#f85149">0.0%</td></tr></table>
+  <table><tr><th>板块</th><th>点位</th><th>涨跌幅</th></tr><tr><td>新能源车</td><td style="color:#3fb950">4112.81</td><td style="color:#3fb950">-0.1%</td></tr><tr><td>储能</td><td style="color:#3fb950">1846.52</td><td style="color:#3fb950">-2.6%</td></tr><tr><td>光伏产业</td><td style="color:#f85149">0.00</td><td style="color:#f85149">0.0%</td></tr></table>
 </div>
-  
+  <div class="module"><div class="module-hdr"><span class="icon">💰</span><h2>资金面</h2></div><table><tr><td>主力净流入(今)</td><td style="color:#f85149">+0.00亿</td></tr><tr><td>超大单</td><td style="color:#3fb950">0.00亿</td></tr><tr><td>大单</td><td style="color:#3fb950">0.00亿</td></tr><tr><td>散户(小单)</td><td style="color:#f85149">+0.01亿</td></tr><tr><td>3日主力</td><td style="color:#3fb950">0.00亿</td></tr><tr><td>5日主力</td><td style="color:#3fb950">0.00亿</td></tr><tr><td>10日主力</td><td style="color:#3fb950">0.00亿</td></tr></table></div>
   <div class="module">
   <div class="module-hdr"><span class="icon">📰</span><h2>本周重大资讯 (5/19-5/25)</h2></div>
   <div style="margin-bottom:10px"><span style="font-size:0.78em;font-weight:600;color:#f85149">🏢 CATL动态</span>
-            <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #f85149;border-radius:4px">
-              <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
-                <a href="http://finance.eastmoney.com/a/202605253748548162.html" target="_blank" style="color:#e6edf3;text-decoration:none">宁德时代 拟“上车”蓝电</a>
-              </div>
-              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">蓝电科技的主要资产是蓝电汽车，而问鼎投资是宁德时代的全资子公司。若完成上述交易，宁德时代参股的车企将再添一家。天眼查显示，宁德时代通过问鼎投资，参股了奇瑞汽车、智己汽车、爱驰汽车、哪吒汽车等车企。</div>
-              <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-26 · 中国基金报</div>
-            </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #f85149;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202605253748398718.html" target="_blank" style="color:#e6edf3;text-decoration:none">赛力斯“蓝电”品牌增资66.7亿元 宁德时代等入股</a>
@@ -430,20 +588,27 @@ tr:hover{background:rgba(88,166,255,0.03)}
               </div>
               <div style="font-size:0.7em;color:#6e7681;line-height:1.4">值得注意的是，增资方中，宁波梅山保税港区问鼎投资有限公司为宁德时代新能源科技股份有限公司全资子公司。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-25 · 大河财立方</div>
-            </div></div><div style="margin-bottom:10px"><span style="font-size:0.78em;font-weight:600;color:#d29922">📊 机构观点</span>
-            <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #d29922;border-radius:4px">
+            </div>
+            <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #f85149;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
-                <a href="http://finance.eastmoney.com/a/202605253748548162.html" target="_blank" style="color:#e6edf3;text-decoration:none">宁德时代 拟“上车”蓝电</a>
+                <a href="http://finance.eastmoney.com/a/202605253748548162.html" target="_blank" style="color:#e6edf3;text-decoration:none">赛力斯“放手” 蓝电科技参与增资方新增3家上市公司 宁德时代拟“上车”蓝电</a>
               </div>
               <div style="font-size:0.7em;color:#6e7681;line-height:1.4">蓝电科技的主要资产是蓝电汽车，而问鼎投资是宁德时代的全资子公司。若完成上述交易，宁德时代参股的车企将再添一家。天眼查显示，宁德时代通过问鼎投资，参股了奇瑞汽车、智己汽车、爱驰汽车、哪吒汽车等车企。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-26 · 中国基金报</div>
-            </div>
+            </div></div><div style="margin-bottom:10px"><span style="font-size:0.78em;font-weight:600;color:#d29922">📊 机构观点</span>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #d29922;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
                 <a href="http://finance.eastmoney.com/a/202604223713987232.html" target="_blank" style="color:#e6edf3;text-decoration:none">美银证券：维持宁德时代买入评级</a>
               </div>
               <div style="font-size:0.7em;color:#6e7681;line-height:1.4">该行提到，宁德时代目标于2026年底前建成4000座充换电站，并于2028年底前与合作伙伴增至10万座。该行维持对宁德时代H股及A股的“买入”评级，目标价分别为740港元和606元。</div>
               <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-04-22 · 财联社</div>
+            </div>
+            <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #d29922;border-radius:4px">
+              <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
+                <a href="http://finance.eastmoney.com/a/202605263748842055.html" target="_blank" style="color:#e6edf3;text-decoration:none">申通快递、星湖科技目标价涨幅超70% 新巨丰评级被调低｜券商评级观察</a>
+              </div>
+              <div style="font-size:0.7em;color:#6e7681;line-height:1.4">评级调低方面，5月25日，券商调低上市公司评级1家次，华创证券对新巨丰的评级从“强推”调低至“推荐”。</div>
+              <div style="font-size:0.65em;color:#484f58;margin-top:3px">2026-05-26 · 21世纪经济报道</div>
             </div>
             <div style="padding:8px 10px;margin-bottom:6px;background:rgba(255,255,255,0.02);border-left:3px solid #d29922;border-radius:4px">
               <div style="font-size:0.82em;font-weight:600;margin-bottom:3px">
@@ -540,13 +705,13 @@ tr:hover{background:rgba(88,166,255,0.03)}
     <div style="font-size:0.82em;font-weight:600;color:#d29922;margin-bottom:10px">📋 本周资讯对宁德时代的影响评估</div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
           <div style="font-size:0.75em;font-weight:700;color:#f85149;margin-bottom:6px">📈 股价反应</div>
-          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">本周跌1日，累计-0.0%，短线承压，但未破MA60强支撑位。从资讯面看，宁德时代本周有多条公司动态发布，市场短期更多受资金面和板块轮动影响。大盘方面，新能源板块整体表现弱于上证指数，板块内部轮动加速，龙头股弹性逐步恢复。</div>
+          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">本周涨1日，累计+0.0%，短线多头占优。从资讯面看，宁德时代本周有多条公司动态发布，市场短期更多受资金面和板块轮动影响。大盘方面，新能源板块整体表现弱于上证指数，板块内部轮动加速，龙头股弹性逐步恢复。</div>
         </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
           <div style="font-size:0.75em;font-weight:700;color:#d29922;margin-bottom:6px">💰 估值影响</div>
           <div style="font-size:0.7em;color:#8b949e;line-height:1.65">当前PE(TTM)=23.6x，PEG=0.59，处于近五年历史低位区间，估值安全性极高。本周多家机构发布研报，多数维持「买入」评级，目标价在¥450-500区间，较当前价有15%-25%上行空间。伴随PE持续压缩，市场给予宁德时代的成长性溢价几乎消失，此时反而是长线价值投资者收集筹码的窗口期。关注下周即将披露的月度排产数据，若超预期将直接催化估值修复。</div>
         </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
           <div style="font-size:0.75em;font-weight:700;color:#3fb950;margin-bottom:6px">⛏️ 成本端</div>
-          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">上游核心原材料碳酸锂最新报价约10万元/吨，碳酸锂18.8万/吨 成本压力。从半年维度看，碳酸锂价格走势平稳，这对宁德时代的电池成本构成直接利好——原材料成本约占电池总成本60%，锂价每下降10%对应毛利率提升约2个百分点。其他关键材料方面，正极材料和电解液价格同步走弱，整体成本环境较去年同期显著改善。钠离子电池本周有重要进展。中长期来看，宁德时代向上游锂矿、镍矿持续布局，原材料自供率提升将进一步熨平成本波动。</div>
+          <div style="font-size:0.7em;color:#8b949e;line-height:1.65">上游核心原材料碳酸锂最新报价约10万元/吨，碳酸锂18.3万/吨 成本压力。从半年维度看，碳酸锂价格走势平稳，这对宁德时代的电池成本构成直接利好——原材料成本约占电池总成本60%，锂价每下降10%对应毛利率提升约2个百分点。其他关键材料方面，正极材料和电解液价格同步走弱，整体成本环境较去年同期显著改善。钠离子电池本周有重要进展。中长期来看，宁德时代向上游锂矿、镍矿持续布局，原材料自供率提升将进一步熨平成本波动。</div>
         </div><div style="background:rgba(255,255,255,0.02);border:1px solid #1e2d45;border-radius:8px;padding:12px 14px">
           <div style="font-size:0.75em;font-weight:700;color:#58a6ff;margin-bottom:6px">🏭 行业竞争</div>
           <div style="font-size:0.7em;color:#8b949e;line-height:1.65">从本周资讯看，新能源车渗透率持续攀升，终端需求景气度未减。宁德时代全球动力电池装机市占率维持在37%左右，连续多年稳居第一，与第二名差距仍在拉大。固态电池技术本周有突破性进展报道，但从实验室到量产至少需要3-5年，短期不构成对现有液态电池体系的替代威胁。比亚迪、亿纬锂能等二线厂商加速扩产，但宁德在技术迭代、客户绑定和规模效应上仍具显著护城河。换电模式本周也有新动态。海外方面，宁德时代匈牙利工厂、印尼项目稳步推进，全球化产能布局领先同行至少2-3年。</div>
@@ -561,7 +726,7 @@ tr:hover{background:rgba(88,166,255,0.03)}
 </div>
   <div class="footer">
   🤖 Hermes · CATL Ecosystem Monitor v1.2<br>
-  2026-05-26 08:01:57 · 数据: 新浪/腾讯/东方财富/生意社<br>
+  2026-05-26 09:50:00 · 数据: 新浪/腾讯/东方财富/生意社<br>
   📊 <a href="https://zxb20262026.github.io/catl-ecosystem-monitor/" target="_blank">完整报告</a> ·
   <a href="https://github.com/zxb20262026/catl-ecosystem-monitor" target="_blank">GitHub</a><br>
   ⚠️ 仅供参考 不构成投资建议
