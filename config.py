@@ -7,7 +7,7 @@ from datetime import datetime
 # ── GitHub ──
 GITHUB_TOKEN = os.environ.get("CATL_GITHUB_TOKEN", "")
 REPO_OWNER = "zxb20262026"
-REPO_NAME = "catl-ecosystem-monitor"
+REPO_NAME = "300750"
 PAGES_URL = f"https://{REPO_OWNER}.github.io/{REPO_NAME}/"
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 
