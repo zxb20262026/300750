@@ -283,7 +283,7 @@ def build_header(data):
 
     return f'''<div class="header">
   <h1>🔋 宁德时代 · 生态链日监控</h1>
-  <div class="sub">CATL Ecosystem Radar · {data["date"]} · 持仓{HOLDING_SHARES}股</div>
+  <div class="sub">CATL Ecosystem Radar · {data["date"]}</div>
   <div class="sub" style="margin-top:2px">A股 <span style="color:{color_pct(chg)};font-weight:700">¥{price} {chg_str}</span></div>
   <span class="badge {bc}">{mode}</span>
 </div>'''
@@ -2108,3 +2108,4 @@ if __name__ == "__main__":
     with open(os.path.join(REPO_DIR, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
     print(f"✅ 报告已生成 ({len(html)} bytes)")
+
