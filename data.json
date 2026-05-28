@@ -1,26 +1,26 @@
 {
   "date": "2026-05-28",
-  "datetime": "2026-05-28 00:00:38",
+  "datetime": "2026-05-28 12:01:27",
   "mode": "早报 ☀️",
   "catl_a": {
     "name": "宁德时代",
-    "price": 414.8,
-    "prev_close": 402.5,
-    "open": 413.92,
-    "high": 428.9,
-    "low": 411.29,
-    "volume": 53372888,
-    "amount": 22373358897.11,
-    "change": 12.3,
-    "change_pct": 3.06
+    "price": 410.72,
+    "prev_close": 414.8,
+    "open": 420.0,
+    "high": 420.58,
+    "low": 406.2,
+    "volume": 19794667,
+    "amount": 8141586304.93,
+    "change": -4.08,
+    "change_pct": -0.98
   },
   "catl_h": {
-    "price": 700.5,
-    "prev_close": 658.0,
-    "change_pct": 6.46
+    "price": 700.0,
+    "prev_close": 709.0,
+    "change_pct": -1.27
   },
   "catl_pe": {
-    "pe_ttm": 24.3
+    "pe_ttm": 24.06
   },
   "catl_fund": null,
   "catl_kline": [
@@ -743,6 +743,14 @@
       "high": 428.9,
       "low": 411.29,
       "volume": 533729.0
+    },
+    {
+      "date": "2026-05-28",
+      "open": 420.0,
+      "close": 410.72,
+      "high": 420.58,
+      "low": 406.2,
+      "volume": 197947.0
     }
   ],
   "catl_kline_long": [
@@ -6745,6 +6753,14 @@
       "high": 428.9,
       "low": 411.29,
       "volume": 533729.0
+    },
+    {
+      "date": "2026-05-28",
+      "open": 420.0,
+      "close": 410.72,
+      "high": 420.58,
+      "low": 406.2,
+      "volume": 197947.0
     }
   ],
   "hk_kline": [
@@ -8763,16 +8779,24 @@
       "high": 705.5,
       "low": 674.0,
       "volume": 6266540.0
+    },
+    {
+      "date": "2026-05-28",
+      "open": 709.0,
+      "close": 693.0,
+      "high": 709.0,
+      "low": 686.0,
+      "volume": 2117162.0
     }
   ],
   "market": {
     "上证指数": {
-      "price": 4093.7266,
-      "change_pct": -1.25
+      "price": 4087.8557,
+      "change_pct": -0.14
     },
     "沪深300": {
-      "price": 4908.1714,
-      "change_pct": -0.8
+      "price": 4881.1735,
+      "change_pct": -0.55
     }
   },
   "materials": {
@@ -8823,75 +8847,75 @@
     }
   },
   "lithium_futures": {
-    "price": 178920.0,
-    "prev_settle": 172080.0,
-    "change_pct": 3.97,
+    "price": 178400.0,
+    "prev_settle": 174000.0,
+    "change_pct": 2.53,
     "name": "碳酸锂连续"
   },
   "upstream": {
     "赣锋锂业": {
       "code": "sz002460",
-      "price": 73.3,
-      "change_pct": -2.27,
+      "price": 71.79,
+      "change_pct": -2.06,
       "periods": {
-        "5日": -2.69,
-        "15日": -16.7,
-        "30日": -13.13
+        "5日": -5.42,
+        "15日": -15.31,
+        "30日": -18.68
       },
-      "trend_summary": "深度回调"
+      "trend_summary": "深度回调，加速下跌"
     },
     "天齐锂业": {
       "code": "sz002466",
-      "price": 64.48,
-      "change_pct": -2.89,
+      "price": 63.46,
+      "change_pct": -1.58,
       "periods": {
-        "5日": -1.98,
-        "15日": -18.44,
-        "30日": 3.83
+        "5日": -4.6,
+        "15日": -16.55,
+        "30日": -1.66
       },
       "trend_summary": "横盘震荡"
     },
     "华友钴业": {
       "code": "sh603799",
-      "price": 56.1,
-      "change_pct": -3.44,
+      "price": 55.92,
+      "change_pct": -0.32,
       "periods": {
-        "5日": -0.64,
-        "15日": -17.13,
-        "30日": -9.41
+        "5日": -5.03,
+        "15日": -14.63,
+        "30日": -12.38
       },
-      "trend_summary": "持续走弱"
+      "trend_summary": "深度回调，加速下跌"
     },
     "恩捷股份": {
       "code": "sz002812",
-      "price": 72.04,
-      "change_pct": 2.45,
+      "price": 73.01,
+      "change_pct": 1.35,
       "periods": {
-        "5日": -5.56,
-        "15日": -15.56,
-        "30日": 7.72
+        "5日": -0.35,
+        "15日": -10.16,
+        "30日": 3.27
       },
-      "trend_summary": "稳步上行，加速下跌"
+      "trend_summary": "横盘震荡"
     },
     "天赐材料": {
       "code": "sz002709",
-      "price": 53.46,
-      "change_pct": 2.83,
+      "price": 51.42,
+      "change_pct": -3.82,
       "periods": {
-        "5日": -7.36,
-        "15日": -14.87,
-        "30日": 15.19
+        "5日": -11.47,
+        "15日": -11.97,
+        "30日": 4.83
       },
-      "trend_summary": "强势上涨，加速下跌"
+      "trend_summary": "横盘震荡，加速下跌"
     },
     "当升科技": {
       "code": "sz300073",
-      "price": 57.57,
-      "change_pct": -0.45,
+      "price": 56.88,
+      "change_pct": -1.2,
       "periods": {
-        "5日": -1.09,
-        "15日": -9.05,
-        "30日": 0.88
+        "5日": -4.8,
+        "15日": -8.71,
+        "30日": -1.42
       },
       "trend_summary": "横盘震荡"
     }
@@ -8899,46 +8923,46 @@
   "competitors": {
     "比亚迪": {
       "code": "sz002594",
-      "price": 95.22,
-      "change_pct": -1.38,
+      "price": 94.41,
+      "change_pct": -0.85,
       "periods": {
-        "5日": 1.83,
-        "15日": -5.22,
-        "30日": -8.66
+        "5日": 0.7,
+        "15日": -5.61,
+        "30日": -9.06
       },
       "trend_summary": "持续走弱，短期反转"
     },
     "亿纬锂能": {
       "code": "sz300014",
-      "price": 64.73,
-      "change_pct": 2.16,
+      "price": 64.43,
+      "change_pct": -0.46,
       "periods": {
-        "5日": 1.22,
-        "15日": -9.56,
-        "30日": -7.25
+        "5日": 0.08,
+        "15日": -7.52,
+        "30日": -10.6
       },
-      "trend_summary": "持续走弱，短期反转"
+      "trend_summary": "深度回调，短期反转"
     },
     "国轩高科": {
       "code": "sz002074",
-      "price": 34.28,
-      "change_pct": 0.06,
+      "price": 33.89,
+      "change_pct": -1.14,
       "periods": {
-        "5日": -1.66,
-        "15日": -10.14,
-        "30日": -13.22
+        "5日": -3.99,
+        "15日": -8.97,
+        "30日": -15.11
       },
       "trend_summary": "深度回调"
     }
   },
   "sectors": {
     "新能源车": {
-      "price": 4114.969,
-      "change_pct": -0.6
+      "price": 4066.879,
+      "change_pct": -1.17
     },
     "储能": {
-      "price": 1815.4513,
-      "change_pct": -2.8
+      "price": 1838.8399,
+      "change_pct": 1.29
     },
     "光伏产业": {
       "price": 0.0,
@@ -9177,62 +9201,62 @@
     "peers": {
       "宁德时代": {
         "code": "sz300750",
-        "price": 414.8,
-        "pe": 24.3,
-        "pb": 5.87,
+        "price": 410.72,
+        "pe": 24.06,
+        "pb": 5.81,
         "roe": 22.11,
-        "peg": 0.97,
-        "mcap": 19190.76,
+        "peg": 0.96,
+        "mcap": 19002.0,
         "score": "合理"
       },
       "比亚迪": {
         "code": "sz002594",
-        "price": 95.22,
-        "pe": 31.51,
-        "pb": 3.74,
+        "price": 94.41,
+        "pe": 31.24,
+        "pb": 3.71,
         "roe": 11.02,
-        "peg": 1.26,
-        "mcap": 8681.4,
+        "peg": 1.25,
+        "mcap": 8607.55,
         "score": "偏高"
       },
       "亿纬锂能": {
         "code": "sz300014",
-        "price": 64.73,
-        "pe": 31.4,
-        "pb": 3.26,
+        "price": 64.43,
+        "pe": 31.26,
+        "pb": 3.24,
         "roe": 10.19,
-        "peg": 1.26,
-        "mcap": 1406.78,
+        "peg": 1.25,
+        "mcap": 1400.26,
         "score": "偏高"
       },
       "国轩高科": {
         "code": "sz002074",
-        "price": 34.28,
-        "pe": 27.0,
-        "pb": 2.15,
+        "price": 33.89,
+        "pe": 26.69,
+        "pb": 2.13,
         "roe": 7.96,
-        "peg": 1.08,
-        "mcap": 621.91,
+        "peg": 1.07,
+        "mcap": 614.84,
         "score": "合理"
       },
       "欣旺达": {
         "code": "sz300207",
-        "price": 24.09,
-        "pe": 56.7,
-        "pb": 1.81,
+        "price": 23.73,
+        "pe": 55.85,
+        "pb": 1.78,
         "roe": 3.19,
-        "peg": 2.27,
-        "mcap": 445.05,
+        "peg": 2.23,
+        "mcap": 438.4,
         "score": "高估"
       },
       "孚能科技": {
         "code": "sh688567",
-        "price": 13.85,
-        "pe": -23.06,
-        "pb": 1.85,
+        "price": 13.78,
+        "pe": -22.95,
+        "pb": 1.84,
         "roe": -8.04,
         "peg": null,
-        "mcap": 169.26,
+        "mcap": 168.41,
         "score": "—"
       }
     },
@@ -9407,11 +9431,11 @@
     }
   ],
   "financials": {
-    "pe_ttm": 24.3,
-    "pb": 5.87,
+    "pe_ttm": 24.06,
+    "pb": 5.81,
     "roe": 22.11,
-    "mcap": 19190.76,
-    "price": 414.8,
+    "mcap": 19002.0,
+    "price": 410.72,
     "quarters": [
       {
         "period": "2024Q1",
@@ -9494,35 +9518,7 @@
     "yoy_global": "CATL 2025年全球市占率约 37-38% (SNE Research)",
     "trend": "国内市占率稳定在44-46%区间，全球龙头地位稳固"
   },
-  "block_trades": {
-    "recent": [
-      {
-        "date": "2026-05-27",
-        "price": 390.43,
-        "volume_wan": 49.0,
-        "amount_wan": 19131.1,
-        "buyer": "中信证券股份有限公司上海静安区山西北路证券营业部",
-        "seller": "华泰证券股份有限公司上海分公司",
-        "market": "A股"
-      },
-      {
-        "date": "2026-05-12",
-        "price": 431.25,
-        "volume_wan": 11.75,
-        "amount_wan": 5069.3,
-        "buyer": "机构专用",
-        "seller": "华泰证券股份有限公司上海浦东新区滨江大道证券营业部",
-        "market": "A股"
-      }
-    ],
-    "has_data": true,
-    "count_30d": 2,
-    "total_amount_wan": 24200.4,
-    "inst_buy_count": 1,
-    "inst_sell_count": 0,
-    "inst_buy_amount": 5069.3
-  },
-  "ah_premium": -35.64,
+  "ah_premium": -36.22,
   "ah_history": [
     {
       "date": "2025-05-20",
@@ -11210,17 +11206,17 @@
       "h_close": 700.0,
       "h_cny": 644.0,
       "premium": -35.59
+    },
+    {
+      "date": "2026-05-28",
+      "a_close": 410.72,
+      "h_close": 693.0,
+      "h_cny": 637.56,
+      "premium": -35.58
     }
   ],
-  "ah_mean30": -30.55,
+  "ah_mean30": -30.58,
   "ah_7day": [
-    {
-      "date": "2026-05-18",
-      "a_close": 417.23,
-      "h_close": 674.5,
-      "h_cny": 620.54,
-      "premium": -32.76
-    },
     {
       "date": "2026-05-19",
       "a_close": 417.92,
@@ -11262,6 +11258,13 @@
       "h_close": 700.0,
       "h_cny": 644.0,
       "premium": -35.59
+    },
+    {
+      "date": "2026-05-28",
+      "a_close": 410.72,
+      "h_close": 693.0,
+      "h_cny": 637.56,
+      "premium": -35.58
     }
   ],
   "ah_min": -36.76,
@@ -11270,170 +11273,170 @@
     "peers": [
       {
         "name": "宁德时代",
-        "a_price": 414.8,
-        "h_price": 700.5,
-        "premium": -35.64,
-        "h_cny": 644.46
+        "a_price": 410.72,
+        "h_price": 700.0,
+        "premium": -36.22,
+        "h_cny": 644.0
       },
       {
         "name": "招商银行",
-        "a_price": 37.0,
-        "h_price": 45.98,
-        "premium": -12.53,
-        "h_cny": 42.3
+        "a_price": 37.22,
+        "h_price": 45.82,
+        "premium": -11.71,
+        "h_cny": 42.15
       },
       {
         "name": "潍柴动力",
-        "a_price": 34.5,
-        "h_price": 41.46,
-        "premium": -9.55,
-        "h_cny": 38.14
+        "a_price": 35.34,
+        "h_price": 42.18,
+        "premium": -8.93,
+        "h_cny": 38.81
       },
       {
         "name": "中国平安",
-        "a_price": 53.27,
-        "h_price": 60.65,
-        "premium": -4.53,
-        "h_cny": 55.8
+        "a_price": 52.33,
+        "h_price": 59.9,
+        "premium": -5.04,
+        "h_cny": 55.11
       },
       {
         "name": "紫金矿业",
-        "a_price": 31.62,
-        "h_price": 35.38,
-        "premium": -2.86,
-        "h_cny": 32.55
+        "a_price": 30.6,
+        "h_price": 34.18,
+        "premium": -2.69,
+        "h_cny": 31.45
       },
       {
         "name": "福耀玻璃",
-        "a_price": 52.75,
-        "h_price": 56.8,
-        "premium": 0.95,
-        "h_cny": 52.26
+        "a_price": 52.05,
+        "h_price": 56.1,
+        "premium": 0.85,
+        "h_cny": 51.61
       },
       {
         "name": "中国石油",
-        "a_price": 10.8,
-        "h_price": 10.91,
-        "premium": 7.6,
-        "h_cny": 10.04
-      },
-      {
-        "name": "比亚迪",
-        "a_price": 95.22,
-        "h_price": 93.65,
+        "a_price": 10.88,
+        "h_price": 10.7,
         "premium": 10.52,
-        "h_cny": 86.16
-      },
-      {
-        "name": "中国神华",
-        "a_price": 46.1,
-        "h_price": 44.5,
-        "premium": 12.6,
-        "h_cny": 40.94
-      },
-      {
-        "name": "工商银行",
-        "a_price": 7.12,
-        "h_price": 6.78,
-        "premium": 14.15,
-        "h_cny": 6.24
+        "h_cny": 9.84
       },
       {
         "name": "海螺水泥",
-        "a_price": 19.71,
-        "h_price": 18.61,
-        "premium": 15.12,
-        "h_cny": 17.12
+        "a_price": 19.56,
+        "h_price": 18.87,
+        "premium": 12.67,
+        "h_cny": 17.36
+      },
+      {
+        "name": "比亚迪",
+        "a_price": 94.41,
+        "h_price": 90.7,
+        "premium": 13.14,
+        "h_cny": 83.44
+      },
+      {
+        "name": "中国神华",
+        "a_price": 46.34,
+        "h_price": 44.12,
+        "premium": 14.16,
+        "h_cny": 40.59
+      },
+      {
+        "name": "工商银行",
+        "a_price": 7.06,
+        "h_price": 6.72,
+        "premium": 14.2,
+        "h_cny": 6.18
       },
       {
         "name": "中国中车",
-        "a_price": 5.77,
-        "h_price": 5.23,
-        "premium": 19.92,
-        "h_cny": 4.81
+        "a_price": 5.75,
+        "h_price": 5.16,
+        "premium": 21.12,
+        "h_cny": 4.75
       },
       {
         "name": "建设银行",
-        "a_price": 10.22,
-        "h_price": 8.73,
-        "premium": 27.25,
-        "h_cny": 8.03
+        "a_price": 10.1,
+        "h_price": 8.58,
+        "premium": 27.95,
+        "h_cny": 7.89
       },
       {
         "name": "青岛啤酒",
-        "a_price": 60.6,
-        "h_price": 50.55,
-        "premium": 30.31,
-        "h_cny": 46.51
+        "a_price": 60.15,
+        "h_price": 50.45,
+        "premium": 29.59,
+        "h_cny": 46.41
       },
       {
         "name": "中国中铁",
-        "a_price": 4.73,
-        "h_price": 3.57,
-        "premium": 44.01,
-        "h_cny": 3.28
+        "a_price": 4.7,
+        "h_price": 3.49,
+        "premium": 46.38,
+        "h_cny": 3.21
       },
       {
         "name": "中芯国际",
-        "a_price": 146.22,
-        "h_price": 84.4,
-        "premium": 88.31,
-        "h_cny": 77.65
+        "a_price": 156.11,
+        "h_price": 85.2,
+        "premium": 99.16,
+        "h_cny": 78.38
       }
     ],
     "rank": 1,
     "total": 16,
-    "catl_premium": -35.64,
+    "catl_premium": -36.22,
     "is_extreme": true
   },
-  "peg": 0.61,
+  "peg": 0.6,
   "peg_signal": {
     "text": "低估区间 ✅",
     "color": "#3fb950",
     "level": "buy"
   },
-  "upstream_avg_change": -0.63,
-  "competitor_avg_change": 0.28,
+  "upstream_avg_change": -1.27,
+  "competitor_avg_change": -0.82,
   "summaries": {
     "mas": {
-      "MA5": 408.59,
-      "MA20": 427.35,
-      "MA60": 405.11
+      "MA5": 408.41,
+      "MA20": 426.15,
+      "MA60": 406.37
     },
     "ma60_dist": {
-      "value": 405.11,
-      "dist_pct": 2.39,
-      "text": "距MA60 +2.39%",
+      "value": 406.37,
+      "dist_pct": 1.07,
+      "text": "距MA60 +1.07%",
       "near": true
     },
     "streak": {
       "days": 1,
       "pct": 0.0,
-      "direction": "涨",
-      "text": "连涨1日 累计+0.0%"
+      "direction": "跌",
+      "text": "连跌1日 累计-0.0%"
     },
-    "chg_5d": 0.77,
-    "chg_10d": -2.86,
-    "chg_20d": -4.62,
+    "chg_5d": -0.11,
+    "chg_10d": -3.04,
+    "chg_20d": -3.96,
     "volume_ratio": {
-      "ratio": 141.73,
-      "text": "量能141.7x均量"
+      "ratio": 56.81,
+      "text": "量能56.8x均量"
     },
     "vs_market": {
-      "text": "逆势上涨3.1% (大盘-1.25%)",
-      "type": "diverge_up",
-      "diff": 4.31
+      "text": "跑输大盘 (-1.0% vs -0.14%)",
+      "type": "underperform",
+      "diff": -0.84
     },
     "ah": {
       "level": "extreme_discount",
       "text": "A股折价港股36% 再创新低"
     },
     "peg": {
-      "value": 0.61,
-      "target_price": 682.8,
-      "distance_pct": 64.61,
+      "value": 0.6,
+      "target_price": 682.83,
+      "distance_pct": 66.25,
       "signal": "buy",
-      "text": "PEG=0.61 &lt; 1.0 买入区间"
+      "text": "PEG=0.60 < 1.0 买入区间"
     },
     "target_prices": {
       "buy": 683.0,
@@ -11476,9 +11479,9 @@
       "_eps": 17.07
     },
     "pe": {
-      "value": 24.3,
+      "value": 24.06,
       "level": "偏低",
-      "text": "PE=24.3x 偏低"
+      "text": "PE=24.1x 偏低"
     },
     "fund": {
       "text": "数据暂缺",
@@ -11486,42 +11489,35 @@
       "five_day": 0
     },
     "lithium": {
-      "price": 178920.0,
-      "price_wan": 17.89,
-      "delta_wan": 10.39,
+      "price": 178400.0,
+      "price_wan": 17.84,
+      "delta_wan": 10.34,
       "impact": "成本压力",
-      "text": "碳酸锂17.9万/吨 成本压力"
+      "text": "碳酸锂17.8万/吨 成本压力"
     },
     "upstream_alerts": [],
     "amount": {
-      "value": 223.7335889711,
-      "level": "放量明显",
-      "text": "成交额224亿 放量明显"
+      "value": 81.4158630493,
+      "level": "交投活跃",
+      "text": "成交额81亿 交投活跃"
     },
     "industry": {
       "name": "电池",
       "source": "新能源车",
-      "change_pct": -0.6,
-      "text": "电池(新能源车) -0.6%"
+      "change_pct": -1.17,
+      "text": "电池(新能源车) -1.2%"
     },
     "cost": {
       "cost_price": 350,
-      "current": 414.8,
-      "change_pct": 18.51,
-      "text": "成本¥350 浮盈18.5%"
+      "current": 410.72,
+      "change_pct": 17.35,
+      "text": "成本¥350 浮盈17.4%"
     },
-    "core_summary": "PEG 0.61 买入区间 · 碳酸锂17.89万/吨 成本压力 · AH溢价-35.6% 折价",
-    "vs_industry": "强于行业3.7%"
+    "core_summary": "PEG 0.60 买入区间 · 碳酸锂17.84万/吨 成本压力 · AH溢价-36.2% 折价",
+    "vs_industry": "与行业同步"
   },
   "week_review": {
     "days": [
-      {
-        "date": "2026-05-21",
-        "close": 411.63,
-        "change_pct": -0.75,
-        "fund_net": null,
-        "events": "—"
-      },
       {
         "date": "2026-05-22",
         "close": 411.16,
@@ -11548,17 +11544,24 @@
         "close": 414.8,
         "change_pct": 3.06,
         "fund_net": null,
-        "events": "强势上涨，盘中触及关键位"
+        "events": "强势上涨"
+      },
+      {
+        "date": "2026-05-28",
+        "close": 410.72,
+        "change_pct": -0.98,
+        "fund_net": null,
+        "events": "—"
       }
     ],
     "total": {
-      "close": 414.8,
-      "week_chg": 0.77,
+      "close": 410.72,
+      "week_chg": -0.11,
       "week_fund": 0
     },
-    "summary": "本周CATL累计上涨0.8%，4天下跌。\n\n每日涨跌: -0.8% → -0.1% → -2.0% → -0.1% → +3.1%\n\n📉 好消息是跌幅在收窄（前半周均值-0.4% → 后半周+0.3%），抛压可能接近尾声。\n\n📊 宁德跑赢大盘（周+0.8% vs 上证-1.2%），独立走强。\n\n💰 主力资金本周基本平衡（东财数据暂缺，待恢复后更新）。\n\n📏 当前PE=24.3x，PEG=0.61，处于低估区间（PEG&lt;1），越跌越便宜。\n\n📐 MA60=¥405，当前价距MA60仅2.4%，已逼近核心支撑位——这是技术面的关键防线。\n\n💱 AH溢价-35.6%（A股折价港股），意味着A股比港股便宜36%，对A股持有者是成本端利好。\n\n⛏️ 碳酸锂17.9万/吨 成本压力——原材料成本上行，短期压缩利润空间。\n\n💡 综合来看：估值已进入低估区间，技术面逼近强支撑。如果你是长期持有者，当前价位可能是分批加仓的窗口期。但短期趋势偏弱，建议等企稳信号出现后再动手。",
-    "trend_desc": "跌多涨少，但跌幅逐日收窄，抛压接近衰竭",
+    "summary": "本周CATL累计下跌0.1%，4天下跌。\n\n每日涨跌: -0.1% → -2.0% → -0.1% → +3.1% → -1.0%\n\n📉 好消息是跌幅在收窄（前半周均值-1.1% → 后半周+0.7%），抛压可能接近尾声。\n\n📊 宁德跑赢大盘（周-0.1% vs 上证-0.1%），独立走强。\n\n💰 主力资金本周基本平衡（东财数据暂缺，待恢复后更新）。\n\n📏 当前PE=24.1x，PEG=0.60，处于低估区间（PEG<1），越跌越便宜。\n\n📐 MA60=¥406，当前价距MA60仅1.1%，已逼近核心支撑位——这是技术面的关键防线。\n\n💱 AH溢价-36.2%（A股折价港股），意味着A股比港股便宜36%，对A股持有者是成本端利好。\n\n⛏️ 碳酸锂17.8万/吨 成本压力——原材料成本上行，短期压缩利润空间。\n\n💡 综合来看：估值已进入低估区间，技术面逼近强支撑。如果你是长期持有者，当前价位可能是分批加仓的窗口期。但短期趋势偏弱，建议等企稳信号出现后再动手。",
+    "trend_desc": "连续阴跌，弱势不改",
     "fund_desc": "主力资金基本平衡"
   },
-  "pushed_at": "2026-05-28 00:00:52"
+  "pushed_at": "2026-05-28 12:01:40"
 }
