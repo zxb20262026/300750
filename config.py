@@ -107,3 +107,4 @@ def get_date_str():
 
 def get_datetime_str():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
