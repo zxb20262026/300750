@@ -45,6 +45,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei","PingFang SC
 .header .sub{color:#8b949e;font-size:0.85em;margin-top:6px;position:relative;z-index:1}
 .header .badge{display:inline-block;padding:3px 12px;border-radius:12px;font-size:0.75em;font-weight:600;margin-top:8px;position:relative;z-index:1}
 .badge-morning{background:rgba(88,166,255,0.15);color:#58a6ff}
+
+/* ── 快捷导航 ── */
+.nav-bar{display:flex;justify-content:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;position:relative;z-index:2}
+.nav-btn{font-size:0.72em;padding:5px 14px;border-radius:16px;background:#131a26;border:1px solid #1e2d45;color:#8b949e;text-decoration:none;transition:all .2s;display:inline-block}
+.nav-btn:hover{border-color:#58a6ff;color:#58a6ff}
+.nav-btn.active{border-color:#58a6ff;color:#58a6ff;background:rgba(88,166,255,0.1)}
 .badge-evening{background:rgba(210,153,34,0.15);color:#d29922}
 
 /* ── KPI 网格 ── */
@@ -281,7 +287,13 @@ def build_header(data):
     mode = data.get("mode", "日监控")
     bc = "badge-morning" if "早" in mode else "badge-evening"
 
-    return f'''<div class="header">
+    return f'''<div class="nav-bar">
+  <a class="nav-btn active" href="https://zxb20262026.github.io/300750/">🔋 宁德时代</a>
+  <a class="nav-btn" href="https://zxb20262026.github.io/600900/">💧 长江电力</a>
+  <a class="nav-btn" href="https://zxb20262026.github.io/sh300-etf-dashboard/">📊 沪深300ETF</a>
+</div>
+
+<div class="header">
   <h1>🔋 宁德时代 · 生态链日监控</h1>
   <div class="sub">CATL Ecosystem Radar · {data["date"]}</div>
   <div class="sub" style="margin-top:2px">A股 <span style="color:{color_pct(chg)};font-weight:700">¥{price} {chg_str}</span></div>
