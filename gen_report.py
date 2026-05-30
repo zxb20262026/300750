@@ -290,7 +290,7 @@ def build_header(data):
     return f'''<div class="nav-bar">
   <a class="nav-btn active" href="https://zxb20262026.github.io/300750/">🔋 宁德时代</a>
   <a class="nav-btn" href="https://zxb20262026.github.io/600900/">💧 长江电力</a>
-  <a class="nav-btn" href="https://zxb20262026.github.io/sh300-etf-dashboard/">📊 沪深300ETF</a>
+  <a class="nav-btn" href="https://zxb20262026.github.io/sh300-etf-dashboard/">🎯 ETF赛道雷达</a>
 </div>
 
 <div class="header">
