@@ -1,7 +1,7 @@
 {
-  "date": "2026-06-14",
-  "datetime": "2026-06-14 22:17:39",
-  "mode": "晚报 🌙",
+  "date": "2026-06-15",
+  "datetime": "2026-06-15 08:00:19",
+  "mode": "早报 ☀️",
   "catl_a": {
     "name": "宁德时代",
     "price": 394.85,
@@ -9381,8 +9381,8 @@
         "window": "1月内",
         "rating": "买入",
         "rating_num": 5,
-        "org_num": 2,
-        "buy_num": 2,
+        "org_num": 1,
+        "buy_num": 1,
         "add_num": null,
         "neutral_num": null,
         "reduce_num": null,
@@ -9437,8 +9437,8 @@
       "window": "1月内",
       "rating": "买入",
       "rating_num": 5,
-      "org_num": 2,
-      "buy_num": 2,
+      "org_num": 1,
+      "buy_num": 1,
       "add_num": null,
       "neutral_num": null,
       "reduce_num": null,
@@ -11721,5 +11721,5 @@
     "trend_desc": "偏弱震荡，卖压占优",
     "fund_desc": "主力资金基本平衡"
   },
-  "pushed_at": "2026-06-14 22:17:57"
+  "pushed_at": "2026-06-15 08:00:30"
 }
