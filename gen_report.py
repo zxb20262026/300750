@@ -123,6 +123,12 @@ tr:hover{background:rgba(88,166,255,0.03)}
 
 .footer{text-align:center;padding:20px 0 40px;color:#484f58;font-size:0.72em;line-height:1.8}
 .footer a{color:#58a6ff;text-decoration:none}
+/* ── 友情链接 ── */
+.friend-links{border-top:1px solid #1e2d45;margin-top:14px;padding-top:16px;text-align:center}
+.friend-links .fl-title{font-size:0.72em;color:#8b949e;margin-bottom:8px;letter-spacing:1px}
+.friend-links .fl-items{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.friend-links .fl-item{font-size:0.7em;color:#58a6ff;text-decoration:none;padding:4px 12px;border:1px solid #1e3a5f;border-radius:12px;transition:all .2s;display:inline-block}
+.friend-links .fl-item:hover{background:rgba(88,166,255,0.1);border-color:#58a6ff}
 
 /* ── 估值模块 ── */
 .val-section{margin-bottom:16px}
@@ -290,7 +296,9 @@ def build_header(data):
     return f'''<div class="nav-bar">
   <a class="nav-btn active" href="https://zxb20262026.github.io/300750/">🔋 宁德时代</a>
   <a class="nav-btn" href="https://zxb20262026.github.io/600900/">💧 长江电力</a>
+  <a class="nav-btn" href="https://zxb20262026.github.io/00700/">🐧 腾讯控股</a>
   <a class="nav-btn" href="https://zxb20262026.github.io/sh300-etf-dashboard/">🎯 ETF赛道雷达</a>
+  <a class="nav-btn" href="https://zxb20262026.github.io/vibe-dashboard/stocks/300750_vibe.html">🧬 港大看板</a>
 </div>
 
 <div class="header">
@@ -2075,6 +2083,13 @@ def build_footer(data):
   📊 <a href="{PAGES_URL}" target="_blank">完整报告</a> ·
   <a href="https://github.com/{REPO_OWNER}/{REPO_NAME}" target="_blank">GitHub</a><br>
   ⚠️ 仅供参考 不构成投资建议
+</div>
+<!-- 友情链接 -->
+<div class="friend-links">
+  <div class="fl-title">🔗 友情链接 · 更多项目</div>
+  <div class="fl-items">
+    <a class="fl-item" href="https://zxb20262026.github.io/ich-diy-research/index.html" target="_blank">🎨 非遗DIY调研</a>
+  </div>
 </div>'''
 
 
