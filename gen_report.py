@@ -621,18 +621,25 @@ def build_trading_plan(data):
     else:
         plan_html = '<p>待采集均线数据后自动计算</p>'
 
-    # ── 目标价/止损 ──
+    # ── 目标价/止损（动态计算）──
+    target_pe = s.get("target_pe", {})
+    stop_loss = s.get("stop_loss", {})
+    
     if eps and tp_data.get("mid") and tp_data["mid"] > 0:
-        target_html = f'<p>买入价(PEG=1): ¥{tp_data["buy"]:.0f} · 目标区间: ¥{tp_data["low"]:.0f}-{tp_data["high"]:.0f} (基于PE {TRADING["target_pe_range"][0]}-{TRADING["target_pe_range"][1]}x)</p>'
+        pe_src = target_pe.get("source", "PEG=1推导")
+        target_html = f'<p>买入价(PEG=1): ¥{tp_data["buy"]:.0f} · 目标区间: ¥{tp_data["low"]:.0f}-{tp_data["high"]:.0f} (PE {target_pe.get("low",25)}-{target_pe.get("high",30)}x · {pe_src})</p>'
     else:
         target_html = '<p>待采集PE数据后自动计算</p>'
 
-    stop_html = f'<p>止损位: ¥{TRADING["stop_loss_price"]} (有效跌破视为逻辑破坏)</p>'
+    sl_price = stop_loss.get("price", 0)
+    sl_src = stop_loss.get("source", "MA60")
+    sl_note = stop_loss.get("note", "")
+    stop_html = f'<p>止损位: ¥{sl_price:.0f} ({sl_src} · {sl_note})</p>'
 
     # ── 风险收益比 ──
     if price and eps and tp_data.get("mid") and tp_data["mid"] > 0:
         potential_up = round((tp_data["mid"] - price) / price * 100, 1)
-        potential_down = round((price - TRADING["stop_loss_price"]) / price * 100, 1)
+        potential_down = round((price - sl_price) / price * 100, 1) if sl_price else 0
         rr = round(abs(potential_up / potential_down), 1) if potential_down else 0
         rr_html = f'<p>风险收益比: 约 {rr}:1 (潜在涨幅+{potential_up}% vs 潜在跌幅-{potential_down}%)</p>'
     else:
