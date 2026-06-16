@@ -869,10 +869,27 @@ def compute_derived(data):
             s["peg"]["signal"] = "hold"; s["peg"]["text"] = f"PEG={peg:.2f} 合理（增速{int(growth_rate)}%）"
             data["peg_signal"] = {"text": "合理区间 📊", "color": "#d29922", "level": "hold"}
         buy_price = round(target_pe_peg1 * eps, 0)
-        target_low = round(TRADING["target_pe_range"][0] * eps, 0)
-        target_high = round(TRADING["target_pe_range"][1] * eps, 0)
+        # ── 动态目标PE：基于分析师一致预期增速（PEG=1推导）──
+        dyn_target_pe = max(15, min(50, growth_rate))  # 限制在15-50倍
+        dyn_pe_low = max(15, round(dyn_target_pe * 0.8))
+        dyn_pe_high = min(50, round(dyn_target_pe * 1.2))
+        s["target_pe"] = {"value": round(dyn_target_pe, 1), "low": dyn_pe_low, "high": dyn_pe_high,
+                           "source": f"PEG=1推导（=分析师增速{int(growth_rate)}%）"}
+        target_low = round(dyn_pe_low * eps, 0)
+        target_high = round(dyn_pe_high * eps, 0)
         target_mid = round((target_low + target_high) / 2, 0)
         s["target_prices"] = {"buy": buy_price, "low": target_low, "mid": target_mid, "high": target_high}
+
+        # ── 动态止损位 = MA60（均线系统已实时计算）──
+        ma60_val = s.get("ma60_dist", {}).get("value")
+        if ma60_val and ma60_val > 0:
+            stop_loss_price = round(ma60_val * 0.97, 0)  # MA60下方3%
+            s["stop_loss"] = {"price": stop_loss_price, "ma60": round(ma60_val, 0),
+                               "source": "MA60均线×0.97", "note": "MA60为中长期趋势生命线，跌破3%视为逻辑破坏"}
+        else:
+            stop_loss_price = price * 0.85 if price else 0  # 降级：当前价-15%
+            s["stop_loss"] = {"price": round(stop_loss_price, 0), "ma60": None,
+                               "source": "当前价×0.85（降级）", "note": "MA60数据不可用"}
 
         # ── PE Bands ──
         if eps and eps > 0:
