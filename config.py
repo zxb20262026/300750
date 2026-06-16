@@ -18,7 +18,7 @@ if not GITHUB_TOKEN and os.path.exists(os.path.expanduser("~/catl-hermes-auto/ca
 
 # ── 持仓 ──
 HOLDING_SHARES = 200
-GROWTH_ASSUMPTION = 40
+GROWTH_ASSUMPTION = 40  # 降级备用增长率（优先用东财分析师一致预期API，不可用时才用此值）
 COST_PRICE = 350  # 用户持仓成本（需手动更新）
 
 # ── PEG ──
