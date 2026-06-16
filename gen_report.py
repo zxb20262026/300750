@@ -1426,8 +1426,10 @@ def build_peg_analysis(data):
     roe = catl_peer.get("roe")
     eps_ttm = round(price / pe_ttm, 2) if price and pe_ttm else None
 
-    # 预测EPS: 基于增长假设
-    eps_2026e = round(eps_ttm * (1 + GROWTH_ASSUMPTION / 100), 2) if eps_ttm else None
+    # 预测EPS: 优先用分析师一致预期增长率，降级用固定假设
+    growth_rate = data.get("peg_growth_rate", GROWTH_ASSUMPTION)
+    growth_src = data.get("peg_growth_source", "fixed")
+    eps_2026e = round(eps_ttm * (1 + growth_rate / 100), 2) if eps_ttm and growth_rate else None
     forward_pe = round(price / eps_2026e, 2) if price and eps_2026e else None
 
     # 行业PE中位（排除负PE）
@@ -1457,7 +1459,7 @@ def build_peg_analysis(data):
     rows += _row("PE(TTM)", f"{pe_ttm:.1f}x" if pe_ttm else "—",
                  f'<span style="color:#3fb950">历史偏低</span>' if pe_ttm and pe_ttm < 25 else "合理")
     rows += _row("预测EPS(2026E)", f"¥{eps_2026e:.2f}" if eps_2026e else "—",
-                 f'基于{GROWTH_ASSUMPTION}%增长假设' if eps_2026e else "—")
+                 f'基于{"分析师一致预期" if growth_src == "analyst" else "固定假设"} {int(growth_rate)}%增速' if eps_2026e else "—")
     rows += _row("远期PE(2026E)", f"{forward_pe:.2f}x" if forward_pe else "—",
                  f"¥{price:.0f} / ¥{eps_2026e:.2f}" if price and eps_2026e else "—")
     rows += _row("PEG", f"{peg_val:.2f}" if peg_val else "—",
