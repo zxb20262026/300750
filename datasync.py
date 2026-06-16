@@ -14,6 +14,52 @@ H_SINA = {"User-Agent": "Mozilla/5.0", "Referer": "https://finance.sina.com.cn/"
 H_EM = {"User-Agent": "Mozilla/5.0", "Referer": "https://www.eastmoney.com/"}
 
 
+def fetch_analyst_eps(code="300750"):
+    """一致预期EPS — 东财F10 ProfitForecast (实时更新)"""
+    try:
+        prefix = "SZ" if (code.startswith("0") or code.startswith("3")) else "SH"
+        url = f"https://emweb.securities.eastmoney.com/PC_HSF10/ProfitForecast/PageAjax?code={prefix}{code}"
+        d = get_json(url)
+        chart = d.get("yctj_chart", [])
+        result = []
+        for y in chart:
+            eps = y.get("EPS")
+            result.append({
+                "year": y.get("YEAR", ""),
+                "mark": y.get("YEAR_MARK", ""),  # A=实际 E=预测
+                "eps": float(eps) if eps else None,
+                "pe": float(y["PE"]) if y.get("PE") else None,
+                "roe": float(y["ROE"]) if y.get("ROE") else None,
+            })
+        return result if result else None
+    except Exception:
+        return None
+
+
+def calc_peg_from_analyst(analyst_eps, current_pe):
+    """从分析师一致预期计算PEG和增长率"""
+    if not analyst_eps or len(analyst_eps) < 2 or not current_pe:
+        return None
+    actual_eps = forecast_eps = None
+    for item in analyst_eps:
+        eps = item.get("eps")
+        if not eps or eps <= 0:
+            continue
+        if item.get("mark") == "A":
+            actual_eps = eps
+        elif item.get("mark") == "E" and forecast_eps is None:
+            forecast_eps = eps
+    if not actual_eps or not forecast_eps:
+        valid = [i for i in analyst_eps if i.get("eps") and i["eps"] > 0]
+        if len(valid) >= 2:
+            actual_eps, forecast_eps = valid[0]["eps"], valid[1]["eps"]
+        else:
+            return None
+    growth = (forecast_eps - actual_eps) / actual_eps * 100
+    peg = round(current_pe / growth, 2) if growth > 0 else None
+    return {"growth": round(growth, 1), "peg": peg, "actual_eps": actual_eps, "forecast_eps": forecast_eps}
+
+
 def get(url, enc="utf-8", t=10, headers=None):
     req = urllib.request.Request(url, headers=headers or H_SINA)
     return urllib.request.urlopen(req, timeout=t, context=ssl_ctx).read().decode(enc, errors="replace")
@@ -788,21 +834,39 @@ def compute_derived(data):
         data["ah_ranking"] = None
 
     if pe_ttm and pe_ttm > 0 and price:
-        peg = round(pe_ttm / GROWTH_ASSUMPTION, 2)
+        # ── PEG计算：优先用分析师一致预期，API不可用时降级为配置的固定增长率 ──
+        analyst = fetch_analyst_eps("300750")
+        peg_result = calc_peg_from_analyst(analyst, pe_ttm) if analyst else None
+        
+        if peg_result:
+            peg = peg_result["peg"]
+            growth_rate = peg_result["growth"]
+            growth_source = f"分析师一致预期 ({growth_rate}%)"
+            data["peg_growth_source"] = "analyst"
+            data["peg_growth_rate"] = growth_rate
+        else:
+            # 降级：使用config.py中的固定增长率
+            peg = round(pe_ttm / GROWTH_ASSUMPTION, 2)
+            growth_rate = GROWTH_ASSUMPTION
+            growth_source = f"固定假设 {growth_rate}%（API降级）"
+            data["peg_growth_source"] = "fallback"
+            data["peg_growth_rate"] = growth_rate
+        
         data["peg"] = peg
         eps = price / pe_ttm
-        target_pe_peg1 = GROWTH_ASSUMPTION
+        target_pe_peg1 = growth_rate  # PEG=1时合理PE=增长率
         target_price_peg1 = round(target_pe_peg1 * eps, 2)
         dist_to_buy = round((target_price_peg1 - price) / price * 100, 2)
-        s["peg"] = {"value": peg, "target_price": target_price_peg1, "distance_pct": dist_to_buy}
+        s["peg"] = {"value": peg, "target_price": target_price_peg1, "distance_pct": dist_to_buy,
+                     "growth_rate": growth_rate, "growth_source": growth_source}
         if peg < PEG_UNDERVALUE:
-            s["peg"]["signal"] = "buy"; s["peg"]["text"] = f"PEG={peg:.2f} < 1.0 买入区间"
+            s["peg"]["signal"] = "buy"; s["peg"]["text"] = f"PEG={peg:.2f} < 1.0 买入区间（增速{int(growth_rate)}%）"
             data["peg_signal"] = {"text": "低估区间 ✅", "color": "#3fb950", "level": "buy"}
         elif peg > PEG_OVERVALUE:
             s["peg"]["signal"] = "sell"; s["peg"]["text"] = f"PEG={peg:.2f} 偏高 距买点差{dist_to_buy:.1f}%"
             data["peg_signal"] = {"text": "偏高区间 ⚠️", "color": "#f85149", "level": "sell"}
         else:
-            s["peg"]["signal"] = "hold"; s["peg"]["text"] = f"PEG={peg:.2f} 合理"
+            s["peg"]["signal"] = "hold"; s["peg"]["text"] = f"PEG={peg:.2f} 合理（增速{int(growth_rate)}%）"
             data["peg_signal"] = {"text": "合理区间 📊", "color": "#d29922", "level": "hold"}
         buy_price = round(target_pe_peg1 * eps, 0)
         target_low = round(TRADING["target_pe_range"][0] * eps, 0)
