@@ -1,6 +1,6 @@
 {
   "date": "2026-06-16",
-  "datetime": "2026-06-16 18:49:15",
+  "datetime": "2026-06-16 18:50:57",
   "mode": "晚报 🌙",
   "catl_a": {
     "name": "宁德时代",
@@ -11758,5 +11758,144 @@
     "trend_desc": "偏强震荡，买盘积极",
     "fund_desc": "主力资金基本平衡"
   },
-  "pushed_at": "2026-06-16 18:49:29"
+  "summary": {
+    "mas": {
+      "MA5": 393.44,
+      "MA20": 407.44,
+      "MA60": 414.76
+    },
+    "ma60_dist": {
+      "value": 414.76,
+      "dist_pct": -2.71,
+      "text": "距MA60 -2.71%",
+      "near": true
+    },
+    "streak": {
+      "days": 1,
+      "pct": 0.0,
+      "direction": "涨",
+      "text": "连涨1日 累计+0.0%"
+    },
+    "chg_5d": 3.87,
+    "chg_10d": -5.37,
+    "chg_20d": -2.71,
+    "volume_ratio": {
+      "ratio": 107.77,
+      "text": "量能107.8x均量"
+    },
+    "vs_market": {
+      "text": "逆势上涨1.4% (大盘-0.11%)",
+      "type": "diverge_up",
+      "diff": 1.47
+    },
+    "ah": {
+      "level": "extreme_discount",
+      "text": "A股折价港股38% 再创新低"
+    },
+    "peg": {
+      "value": 0.72,
+      "target_price": 561.6,
+      "distance_pct": 39.17,
+      "growth_rate": 32.9,
+      "growth_source": "分析师一致预期 (32.9%)",
+      "signal": "buy",
+      "text": "PEG=0.72 < 1.0 买入区间（增速32%）"
+    },
+    "target_pe": {
+      "value": 32.9,
+      "low": 26,
+      "high": 39,
+      "source": "PEG=1推导（=分析师增速32%）"
+    },
+    "target_prices": {
+      "buy": 562.0,
+      "low": 444.0,
+      "mid": 555.0,
+      "high": 666.0
+    },
+    "stop_loss": {
+      "price": 402.0,
+      "ma60": 415.0,
+      "source": "MA60均线×0.97",
+      "note": "MA60为中长期趋势生命线，跌破3%视为逻辑破坏"
+    },
+    "pe_bands": {
+      "清仓区": {
+        "pe": 15,
+        "price": 256.0,
+        "color": "#3fb950"
+      },
+      "止损区": {
+        "pe": 18,
+        "price": 307.0,
+        "color": "#58a6ff"
+      },
+      "保守区": {
+        "pe": 21,
+        "price": 358.0,
+        "color": "#8b949e"
+      },
+      "合理区": {
+        "pe": 25,
+        "price": 427.0,
+        "color": "#d29922"
+      },
+      "偏高区": {
+        "pe": 30,
+        "price": 512.0,
+        "color": "#f85149"
+      },
+      "泡沫区": {
+        "pe": 35,
+        "price": 597.0,
+        "color": "#f85149"
+      },
+      "_current": "合理区",
+      "_eps": 17.07
+    },
+    "pe": {
+      "value": 23.64,
+      "level": "偏低",
+      "text": "PE=23.6x 偏低"
+    },
+    "fund": {
+      "text": "数据暂缺",
+      "main_net": 0,
+      "five_day": 0
+    },
+    "lithium": {
+      "price": 174200.0,
+      "price_wan": 17.42,
+      "delta_wan": 9.92,
+      "impact": "成本压力",
+      "text": "碳酸锂17.4万/吨 成本压力"
+    },
+    "upstream_alerts": [
+      {
+        "name": "天赐材料",
+        "change": 6.65,
+        "text": "天赐材料 +6.7%"
+      }
+    ],
+    "amount": {
+      "value": 141.07808734809998,
+      "level": "放量明显",
+      "text": "成交额141亿 放量明显"
+    },
+    "industry": {
+      "name": "电池",
+      "source": "新能源车",
+      "change_pct": 2.52,
+      "text": "电池(新能源车) +2.5%"
+    },
+    "cost": {
+      "cost_price": 350,
+      "current": 403.53,
+      "change_pct": 15.29,
+      "text": "成本¥350 浮盈15.3%"
+    },
+    "core_summary": "PEG 0.72 买入区间 · 碳酸锂17.42万/吨 成本压力 · AH溢价-37.8% 折价",
+    "vs_industry": "弱于行业1.2%"
+  },
+  "pushed_at": "2026-06-16 18:51:09"
 }
