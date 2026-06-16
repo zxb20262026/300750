@@ -90,10 +90,10 @@ MATERIAL_REFERENCE = {
 # KPI卡片展示顺序 (仅这5个，去除硫酸镍)
 MATERIAL_DISPLAY_ORDER = ["碳酸锂(电池级)", "氢氧化锂", "磷酸铁锂", "电解钴", "六氟磷酸锂"]
 
-# ── 操作建议参数 ──
+# ── 操作建议参数（降级备用，优先用实时动态计算）──
 TRADING = {
-    "target_pe_range": (25, 27),      # 目标PE区间
-    "stop_loss_price": 375,            # 止损位
+    "target_pe_range": (25, 27),      # 降级备用目标PE（优先用PEG=1推导）
+    "stop_loss_price": 375,            # 降级备用止损价（优先用MA60×0.97）
     "ma60_tolerance": 2,               # MA60附近容差(元)
     "volume_threshold": 100,           # 放量阈值(亿)
 }
