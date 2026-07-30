@@ -1,7 +1,7 @@
 {
-  "date": "2026-07-29",
-  "datetime": "2026-07-29 21:51:54",
-  "mode": "晚报 🌙",
+  "date": "2026-07-30",
+  "datetime": "2026-07-30 08:00:59",
+  "mode": "早报 ☀️",
   "catl_a": {
     "name": "宁德时代",
     "price": 396.84,
@@ -24,14 +24,6 @@
   },
   "catl_fund": null,
   "catl_kline": [
-    {
-      "date": "2026-03-18",
-      "open": 398.454,
-      "close": 395.114,
-      "high": 399.094,
-      "low": 389.864,
-      "volume": 265300.0
-    },
     {
       "date": "2026-03-19",
       "open": 395.034,
@@ -754,14 +746,6 @@
     }
   ],
   "catl_kline_long": [
-    {
-      "date": "2023-06-26",
-      "open": 201.225,
-      "close": 206.485,
-      "high": 208.265,
-      "low": 200.995,
-      "volume": 159106.0
-    },
     {
       "date": "2023-06-27",
       "open": 205.295,
@@ -9688,9 +9672,9 @@
       {
         "window": "1年内",
         "rating": "买入",
-        "rating_num": 4.818181818182,
-        "org_num": 44,
-        "buy_num": 36,
+        "rating_num": 4.813953488372,
+        "org_num": 43,
+        "buy_num": 35,
         "add_num": 8,
         "neutral_num": null,
         "reduce_num": null,
@@ -9711,15 +9695,15 @@
   },
   "analyst_targets": {
     "eps_curr": 15.605504033485,
-    "eps_next": 21.28,
-    "eps_far": 26.49,
-    "target_low": 426.0,
-    "target_mid": 532.0,
-    "target_high": 638.0,
-    "implied_pe": 18.6,
-    "avg": 397.0,
-    "high": 638.0,
-    "low": 426.0,
+    "eps_next": 20.755971428571,
+    "eps_far": 25.789171428571,
+    "target_low": 415.0,
+    "target_mid": 519.0,
+    "target_high": 623.0,
+    "implied_pe": 19.2,
+    "avg": 399.0,
+    "high": 623.0,
+    "low": 415.0,
     "count": 27
   },
   "analyst_eps": [
@@ -12328,5 +12312,5 @@
     "core_summary": "PEG 0.65 买入区间 · 碳酸锂14.94万/吨 成本压力 · AH溢价-30.4% 折价",
     "vs_industry": "与行业同步"
   },
-  "pushed_at": "2026-07-29 21:52:09"
+  "pushed_at": "2026-07-30 08:01:10"
 }
