@@ -25,8 +25,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei","PingFang SC
 .nav-dropdown-btn{font-size:0.72em;padding:5px 12px;border-radius:14px;background:#131a26;border:1px solid #1e2d45;color:#8b949e;cursor:pointer;transition:all .2s;display:inline-block;user-select:none}
 .nav-dropdown-btn:hover,.nav-dropdown-btn.active-parent{border-color:#58a6ff;color:#58a6ff}
 .nav-dropdown-btn::after{content:' ▾';font-size:0.7em;opacity:0.6}
-.nav-dropdown-menu{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:#161b22;border:1px solid #30363d;border-radius:8px;padding:6px 0;min-width:170px;box-shadow:0 8px 24px rgba(0,0,0,0.5);margin-top:4px;z-index:200}
-.nav-dropdown:hover .nav-dropdown-menu{display:block}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:#161b22;border:1px solid #30363d;border-radius:8px;padding:6px 0;min-width:170px;box-shadow:0 8px 24px rgba(0,0,0,0.5);margin-top:0;z-index:200}
+.nav-dropdown.open .nav-dropdown-menu{display:block}
 .nav-dropdown-item{display:block;padding:7px 16px;font-size:0.78em;color:#c9d1d9;text-decoration:none;white-space:nowrap;transition:background .15s}
 .nav-dropdown-item:hover{background:rgba(88,166,255,0.12);color:#58a6ff}
 .nav-dropdown-item.active{color:#58a6ff;font-weight:600;background:rgba(88,166,255,0.08)}
@@ -798,5 +798,23 @@ tr:hover{background:rgba(88,166,255,0.03)}
   </div>
 </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var dd=document.querySelectorAll('.nav-dropdown');
+  if(!dd.length)return;
+  dd.forEach(function(d){
+    var b=d.querySelector('.nav-dropdown-btn');
+    if(!b)return;
+    b.addEventListener('click',function(e){
+      e.stopPropagation();
+      var o=d.classList.contains('open');
+      dd.forEach(function(x){x.classList.remove('open');});
+      if(!o)d.classList.add('open');
+    });
+    d.addEventListener('mouseleave',function(){d.classList.remove('open');});
+  });
+  document.addEventListener('click',function(){dd.forEach(function(x){x.classList.remove('open');});});
+});
+</script>
 </body>
 </html>
